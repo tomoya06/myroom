@@ -43,7 +43,7 @@ class App {
     this.loadModels().then(() => {
       requestAnimationFrame(this.loop.bind(this));
 
-      this.playAnimation();
+      this.bindActions();
     });
   }
 
@@ -79,29 +79,61 @@ class App {
     this.scene.add(this.roomContent);
   }
 
-  private playAnimation() {
+  private playAnimation(idx: number, rev: boolean, onComplete: () => void) {
     this.mixer = new THREE.AnimationMixer(this.roomContent);
 
-    const theAnimate = this.roomAnimates[0];
+    const theAnimate = this.roomAnimates[idx];
 
     const action = this.mixer.clipAction(theAnimate);
     action.setLoop(THREE.LoopOnce, 1);
-    action.play();
+    action.clampWhenFinished = true;
+    if (rev) {
+      action.setLoop(THREE.LoopPingPong, 2);
+      action.timeScale = -1;
+    }
 
     let prevDt = 0;
 
     new TWEEN.Tween({ dt: 0 })
       .to({ dt: theAnimate.duration }, theAnimate.duration * 1000)
+      .onStart(() => {
+        action.reset();
+        action.play();
+      })
       .onUpdate(({ dt }) => {
         const delta = dt - prevDt;
         this.mixer.update(delta);
         prevDt = dt;
       })
       .onComplete(() => {
-        action.stop();
-        action.reset();
+        onComplete();
+        action.paused = true;
       })
       .start();
+  }
+
+  private bindActions() {
+    const btnIdsForAni = [
+      "ActionRollChair",
+      "ActionRollBody",
+      "ActionPickupSwitch",
+    ];
+    const btnElems = btnIdsForAni.map(
+      (btnId) => document.getElementById(btnId) as HTMLButtonElement
+    );
+    btnElems.forEach((btnElem, idx) => {
+      btnElem.addEventListener("click", () => {
+        btnElems.forEach((_elem) => (_elem.disabled = true));
+        const rev = Number(btnElem.dataset.rev);
+
+        this.playAnimation.bind(this)(idx, Boolean(rev), () => {
+          if (!isNaN(rev)) {
+            btnElem.dataset.rev = String(1 - rev);
+          }
+          btnElems.forEach((_elem) => (_elem.disabled = false));
+        });
+      });
+    });
   }
 }
 
