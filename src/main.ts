@@ -2,14 +2,20 @@ import * as THREE from "three";
 import { PMREMGenerator, sRGBEncoding } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import * as TWEEN from "@tweenjs/tween.js";
 
 class App {
   scene: THREE.Scene;
   renderer: THREE.WebGLRenderer;
   camera: THREE.Camera;
   control: OrbitControls;
-
   lights: THREE.Light[] = [];
+
+  roomContent!: THREE.Group;
+  roomAnimates!: THREE.AnimationClip[];
+  mixer!: THREE.AnimationMixer;
+
+  loopPrevTime = 0;
 
   constructor() {
     this.renderer = new THREE.WebGLRenderer({
@@ -35,7 +41,9 @@ class App {
     this.beautify();
 
     this.loadModels().then(() => {
-      this.animate();
+      requestAnimationFrame(this.loop.bind(this));
+
+      this.playAnimation();
     });
   }
 
@@ -54,17 +62,46 @@ class App {
     this.renderer.outputEncoding = sRGBEncoding;
   }
 
-  private animate() {
+  private loop(time: number) {
     this.renderer.render(this.scene, this.camera);
     this.control.update();
 
-    requestAnimationFrame(this.animate.bind(this));
+    requestAnimationFrame(this.loop.bind(this));
+    TWEEN.update();
+    this.loopPrevTime = time;
   }
 
   private async loadModels() {
     const loader = new GLTFLoader();
-    const roomGltf = await loader.loadAsync("src/assets/gameroom.glb");
-    this.scene.add(roomGltf.scene);
+    const roomGltf = await loader.loadAsync("src/assets/lowgameroom.glb");
+    this.roomContent = roomGltf.scene;
+    this.roomAnimates = roomGltf.animations;
+    this.scene.add(this.roomContent);
+  }
+
+  private playAnimation() {
+    this.mixer = new THREE.AnimationMixer(this.roomContent);
+
+    const theAnimate = this.roomAnimates[0];
+
+    const action = this.mixer.clipAction(theAnimate);
+    action.setLoop(THREE.LoopOnce, 1);
+    action.play();
+
+    let prevDt = 0;
+
+    new TWEEN.Tween({ dt: 0 })
+      .to({ dt: theAnimate.duration }, theAnimate.duration * 1000)
+      .onUpdate(({ dt }) => {
+        const delta = dt - prevDt;
+        this.mixer.update(delta);
+        prevDt = dt;
+      })
+      .onComplete(() => {
+        action.stop();
+        action.reset();
+      })
+      .start();
   }
 }
 
