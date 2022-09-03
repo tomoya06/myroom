@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { PMREMGenerator, sRGBEncoding } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+
 import * as TWEEN from "@tweenjs/tween.js";
 import { GUI } from "dat.gui";
 import {
@@ -10,6 +11,7 @@ import {
   PositionRange,
   RotationRange,
 } from "./interface.d";
+import MonitorScreen from "./components/MonitorScreen";
 
 class App {
   state: CtrlState;
@@ -51,13 +53,17 @@ class App {
     this.loadLights();
     this.beautify();
 
-    window.addEventListener('resize', this.handleWindowResize.bind(this));
+    window.addEventListener("resize", this.handleWindowResize.bind(this));
 
     this.loadModels().then(() => {
       requestAnimationFrame(this.loop.bind(this));
 
       this.loadGui();
       this.bindActions();
+
+      this.bindIframes();
+
+      console.log(this.roomContent);
     });
   }
 
@@ -131,6 +137,10 @@ class App {
     const roomGltf = await loader.loadAsync("src/assets/lowgameroom.glb");
     this.roomContent = roomGltf.scene;
     this.roomAnimates = roomGltf.animations;
+
+    // // this helps you look at your model
+    // debugger;
+
     this.scene.add(this.roomContent);
   }
 
@@ -189,6 +199,25 @@ class App {
         });
       });
     });
+  }
+
+  private bindIframes() {
+    const monitorMesh = this.roomContent.children.find(
+      (ch) => ch.name === "Monitor"
+    )!;
+    const screenMesh = monitorMesh.children.find(
+      (ch) => ch.name === "MonitorScreen"
+    )!;
+    console.log(screenMesh.position, screenMesh.scale, screenMesh.rotation);
+
+    const screenContent = new MonitorScreen("SJOz3qjfQXU", 0, 0, 240, 0);
+    this.scene.add(screenContent);
+
+    // const geometry = new THREE.BoxGeometry(1, 1, 1);
+    // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    // const cube = new THREE.Mesh(geometry, material);
+
+    // monitorMesh.add(cube);
   }
 }
 
