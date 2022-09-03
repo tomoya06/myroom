@@ -1,6 +1,7 @@
 import * as THREE from "three";
-import { PMREMGenerator, sRGBEncoding } from "three";
+import { DynamicCopyUsage, PMREMGenerator, sRGBEncoding } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { CSS3DRenderer } from "three/examples/jsm/renderers/CSS3DRenderer";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 import * as TWEEN from "@tweenjs/tween.js";
@@ -12,12 +13,14 @@ import {
   RotationRange,
 } from "./interface.d";
 import MonitorScreen from "./components/MonitorScreen";
+import { calcActualSize } from "./util";
 
 class App {
   state: CtrlState;
 
   scene: THREE.Scene;
   renderer: THREE.WebGLRenderer;
+  cssRenderer: CSS3DRenderer;
   camera: THREE.PerspectiveCamera;
   control: OrbitControls;
   lights: THREE.Light[] = [];
@@ -34,6 +37,18 @@ class App {
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
     });
+    this.renderer.toneMappingExposure = 1;
+    this.renderer.shadowMap.enabled = true;
+    this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(this.renderer.domElement);
+
+    this.cssRenderer = new CSS3DRenderer();
+    this.cssRenderer.domElement.style.position = "absolute";
+    this.cssRenderer.domElement.style.top = "0px";
+    this.cssRenderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(this.cssRenderer.domElement);
+
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(
       50,
@@ -41,15 +56,11 @@ class App {
       0.01,
       1000
     );
-    this.renderer.toneMappingExposure = 1;
-    this.renderer.shadowMap.enabled = true;
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(this.renderer.domElement);
 
     this.camera.position.set(4, 4, 4);
     this.camera.lookAt(0, 0, 0);
 
-    this.control = new OrbitControls(this.camera, this.renderer.domElement);
+    this.control = new OrbitControls(this.camera, this.cssRenderer.domElement);
     this.loadLights();
     this.beautify();
 
@@ -71,7 +82,9 @@ class App {
     const { innerWidth, innerHeight } = window;
     this.camera.aspect = innerWidth / innerHeight;
     this.camera.updateProjectionMatrix();
+
     this.renderer.setSize(innerWidth, innerHeight);
+    this.cssRenderer.setSize(innerWidth, innerHeight);
   }
 
   private loadLights() {
@@ -125,6 +138,8 @@ class App {
 
   private loop(time: number) {
     this.renderer.render(this.scene, this.camera);
+    this.cssRenderer.render(this.scene, this.camera);
+
     this.control.update();
 
     requestAnimationFrame(this.loop.bind(this));
@@ -208,16 +223,11 @@ class App {
     const screenMesh = monitorMesh.children.find(
       (ch) => ch.name === "MonitorScreen"
     )!;
-    console.log(screenMesh.position, screenMesh.scale, screenMesh.rotation);
+    let worldPosition = new THREE.Vector3();
+    screenMesh.getWorldPosition(worldPosition);
 
     const screenContent = new MonitorScreen("SJOz3qjfQXU", 0, 0, 240, 0);
-    this.scene.add(screenContent);
-
-    // const geometry = new THREE.BoxGeometry(1, 1, 1);
-    // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    // const cube = new THREE.Mesh(geometry, material);
-
-    // monitorMesh.add(cube);
+    monitorMesh.add(screenContent);
   }
 }
 
