@@ -72,9 +72,7 @@ class App {
       this.loadGui();
       this.bindActions();
 
-      this.bindIframes();
-
-      console.log(this.roomContent);
+      // this.bindIframes();
     });
   }
 
