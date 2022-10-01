@@ -1,7 +1,6 @@
 import * as THREE from "three";
-import { DynamicCopyUsage, PMREMGenerator, sRGBEncoding } from "three";
+import { PMREMGenerator, sRGBEncoding } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { CSS3DRenderer } from "three/examples/jsm/renderers/CSS3DRenderer";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 import * as TWEEN from "@tweenjs/tween.js";
@@ -12,15 +11,12 @@ import {
   PositionRange,
   RotationRange,
 } from "./interface.d";
-import MonitorScreen from "./components/MonitorScreen";
-import { calcActualSize } from "./util";
 
 class App {
   state: CtrlState;
 
   scene: THREE.Scene;
   renderer: THREE.WebGLRenderer;
-  cssRenderer: CSS3DRenderer;
   camera: THREE.PerspectiveCamera;
   control: OrbitControls;
   lights: THREE.Light[] = [];
@@ -43,12 +39,6 @@ class App {
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(this.renderer.domElement);
 
-    this.cssRenderer = new CSS3DRenderer();
-    this.cssRenderer.domElement.style.position = "absolute";
-    this.cssRenderer.domElement.style.top = "0px";
-    this.cssRenderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(this.cssRenderer.domElement);
-
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(
       50,
@@ -60,7 +50,7 @@ class App {
     this.camera.position.set(4, 4, 4);
     this.camera.lookAt(0, 0, 0);
 
-    this.control = new OrbitControls(this.camera, this.cssRenderer.domElement);
+    this.control = new OrbitControls(this.camera, this.renderer.domElement);
     this.loadLights();
     this.beautify();
 
@@ -71,8 +61,6 @@ class App {
 
       this.loadGui();
       this.bindActions();
-
-      // this.bindIframes();
     });
   }
 
@@ -82,7 +70,6 @@ class App {
     this.camera.updateProjectionMatrix();
 
     this.renderer.setSize(innerWidth, innerHeight);
-    this.cssRenderer.setSize(innerWidth, innerHeight);
   }
 
   private loadLights() {
@@ -136,7 +123,6 @@ class App {
 
   private loop(time: number) {
     this.renderer.render(this.scene, this.camera);
-    this.cssRenderer.render(this.scene, this.camera);
 
     this.control.update();
 
@@ -151,8 +137,8 @@ class App {
     this.roomContent = roomGltf.scene;
     this.roomAnimates = roomGltf.animations;
 
-    // // this helps you look at your model
-    // debugger;
+    // this helps you look at your model
+    debugger;
 
     this.scene.add(this.roomContent);
   }
@@ -212,20 +198,6 @@ class App {
         });
       });
     });
-  }
-
-  private bindIframes() {
-    const monitorMesh = this.roomContent.children.find(
-      (ch) => ch.name === "Monitor"
-    )!;
-    const screenMesh = monitorMesh.children.find(
-      (ch) => ch.name === "MonitorScreen"
-    )!;
-    let worldPosition = new THREE.Vector3();
-    screenMesh.getWorldPosition(worldPosition);
-
-    const screenContent = new MonitorScreen("SJOz3qjfQXU", 0, 0, 240, 0);
-    monitorMesh.add(screenContent);
   }
 }
 
