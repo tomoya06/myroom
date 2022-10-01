@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { PMREMGenerator, sRGBEncoding } from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 import * as TWEEN from "@tweenjs/tween.js";
@@ -11,6 +11,8 @@ import {
   PositionRange,
   RotationRange,
 } from "./interface.d";
+import Chair from "./components/Chair";
+import Switch from "./components/Switch";
 
 class App {
   state: CtrlState;
@@ -21,9 +23,13 @@ class App {
   control: OrbitControls;
   lights: THREE.Light[] = [];
 
+  roomGltf!: GLTF;
   roomContent!: THREE.Group;
   roomAnimates!: THREE.AnimationClip[];
   mixer!: THREE.AnimationMixer;
+
+  chair!: Chair;
+  switch!: Switch;
 
   loopPrevTime = 0;
 
@@ -58,6 +64,9 @@ class App {
 
     this.loadModels().then(() => {
       requestAnimationFrame(this.loop.bind(this));
+
+      this.chair = new Chair(this.roomGltf);
+      this.switch = new Switch(this.roomGltf);
 
       this.loadGui();
       this.bindActions();
@@ -133,71 +142,51 @@ class App {
 
   private async loadModels() {
     const loader = new GLTFLoader();
-    const roomGltf = await loader.loadAsync("src/assets/lowgameroom.glb");
-    this.roomContent = roomGltf.scene;
-    this.roomAnimates = roomGltf.animations;
+    this.roomGltf = await loader.loadAsync("src/assets/lowgameroom.glb");
+    this.roomContent = this.roomGltf.scene;
 
-    // this helps you look at your model
-    debugger;
+    // // this helps you look at your model
+    // debugger;
+    console.log(this.roomGltf);
 
     this.scene.add(this.roomContent);
   }
 
-  private playAnimation(idx: number, rev: boolean, onComplete: () => void) {
-    this.mixer = new THREE.AnimationMixer(this.roomContent);
-
-    const theAnimate = this.roomAnimates[idx];
-
-    const action = this.mixer.clipAction(theAnimate);
-    action.setLoop(THREE.LoopOnce, 1);
-    action.clampWhenFinished = true;
-    if (rev) {
-      action.setLoop(THREE.LoopPingPong, 2);
-      action.timeScale = -1;
-    }
-
-    let prevDt = 0;
-
-    new TWEEN.Tween({ dt: 0 })
-      .to({ dt: theAnimate.duration }, theAnimate.duration * 1000)
-      .onStart(() => {
-        action.reset();
-        action.play();
-      })
-      .onUpdate(({ dt }) => {
-        const delta = dt - prevDt;
-        this.mixer.update(delta);
-        prevDt = dt;
-      })
-      .onComplete(() => {
-        onComplete();
-        action.paused = true;
-      })
-      .start();
-  }
-
   private bindActions() {
-    const btnIdsForAni = [
-      "ActionRollChair",
-      "ActionRollBody",
-      "ActionPickupSwitch",
-    ];
-    const btnElems = btnIdsForAni.map(
-      (btnId) => document.getElementById(btnId) as HTMLButtonElement
-    );
-    btnElems.forEach((btnElem, idx) => {
-      btnElem.addEventListener("click", () => {
-        btnElems.forEach((_elem) => (_elem.disabled = true));
-        const rev = Number(btnElem.dataset.rev);
+    const btnElemsCol = document.getElementsByTagName("button");
+    const btnElems = Array.prototype.slice.call(btnElemsCol, 0);
+    const ref = this;
 
-        this.playAnimation.bind(this)(idx, Boolean(rev), () => {
-          if (!isNaN(rev)) {
-            btnElem.dataset.rev = String(1 - rev);
-          }
-          btnElems.forEach((_elem) => (_elem.disabled = false));
-        });
+    document
+      .getElementById("ActionRollChair")
+      ?.addEventListener("click", async () => {
+        btnElems.forEach((_elem) => (_elem.disabled = true));
+        await this.chair.moveChair();
+        btnElems.forEach((_elem) => (_elem.disabled = false));
       });
-    });
+    document
+      .getElementById("ActionRollBody")
+      ?.addEventListener("click", async () => {
+        btnElems.forEach((_elem) => (_elem.disabled = true));
+        await this.chair.rotateBody();
+        btnElems.forEach((_elem) => (_elem.disabled = false));
+      });
+
+    document
+      .getElementById("ActionPickupSwitch")
+      ?.addEventListener("click", async function () {
+        btnElems.forEach((_elem) => (_elem.disabled = true));
+        const rev = Number(this.dataset.rev);
+        if (Boolean(rev)) {
+          await ref.switch.putdown();
+        } else {
+          await ref.switch.pickup();
+        }
+        if (!isNaN(rev)) {
+          this.dataset.rev = String(1 - rev);
+        }
+        btnElems.forEach((_elem) => (_elem.disabled = false));
+      });
   }
 }
 
