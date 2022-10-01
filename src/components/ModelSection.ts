@@ -14,6 +14,10 @@ export default class ModelSection {
     this.animate = {};
   }
 
+  protected findMesh(key: string) {
+    return this.model.scene.children.find((child) => child.name === key);
+  }
+
   protected regAnimate(key: string) {
     const { animations } = this.model;
 
@@ -30,10 +34,17 @@ export default class ModelSection {
     return key;
   }
 
-  protected playAnimation(theAnimate: THREE.AnimationClip, params?: {
-    rev?: boolean;
-  }) {
-    this.doPlayAnimation(theAnimate, params);
+  protected playAnimation(
+    theAnimate: THREE.AnimationClip,
+    params?: {
+      rev?: boolean;
+    }
+  ) {
+    return new Promise<void>((resolve) => {
+      this.doPlayAnimation(theAnimate, params, () => {
+        resolve();
+      });
+    });
   }
 
   private doPlayAnimation(
@@ -41,7 +52,7 @@ export default class ModelSection {
     params?: {
       rev?: boolean;
     },
-    onComplete?: () => void,
+    onComplete?: () => void
   ) {
     const mixer = new THREE.AnimationMixer(this.model.scene);
     const { rev } = params || {};

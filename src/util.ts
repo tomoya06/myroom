@@ -1,19 +1,20 @@
-import * as THREE from 'three';
+import * as THREE from "three";
 
-export function traverseMaterials(object: any, callback: Function) {
-  object.traverse((node: any) => {
-    if (!node.isMesh) return;
-    const materials = Array.isArray(node.material)
-      ? node.material
-      : [node.material];
-    materials.forEach(callback);
-  });
-}
-
-export function calcActualSize(box: THREE.Box3) {
-  return {
-    x: box.max.x - box.min.x,
-    y: box.max.y - box.min.y,
-    z: box.max.z - box.min.z,
+export function findChildByName(
+  obj: THREE.Object3D,
+  name: string
+): THREE.Object3D | undefined {
+  const found = obj.children.find((child) => child.name === name);
+  if (found) {
+    return found;
   }
+
+  for (const child of obj.children) {
+    const subRes = findChildByName(child, name);
+    if (subRes) {
+      return subRes;
+    }
+  }
+
+  return undefined;
 }
