@@ -12,7 +12,7 @@ export default class Monitor extends ModelSection {
     this.regAnimate(AnimateKey.Text);
   }
 
-  public animateText() {
-    this.playAnimation(this.animate[AnimateKey.Text]);
+  public turnon() {
+    this.playInfinite(this.animate[AnimateKey.Text]);
   }
 }

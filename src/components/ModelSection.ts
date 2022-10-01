@@ -30,11 +30,18 @@ export default class ModelSection {
     return key;
   }
 
-  protected playAnimation(
+  protected playAnimation(theAnimate: THREE.AnimationClip, params?: {
+    rev?: boolean;
+  }) {
+    this.doPlayAnimation(theAnimate, params);
+  }
+
+  private doPlayAnimation(
     theAnimate: THREE.AnimationClip,
     params?: {
       rev?: boolean;
-    }
+    },
+    onComplete?: () => void,
   ) {
     const mixer = new THREE.AnimationMixer(this.model.scene);
     const { rev } = params || {};
@@ -49,23 +56,27 @@ export default class ModelSection {
 
     let prevDt = 0;
 
-    return new Promise<void>((resolve) => {
-      new TWEEN.Tween({ dt: 0 })
-        .to({ dt: theAnimate.duration }, theAnimate.duration * 1000)
-        .onStart(() => {
-          action.reset();
-          action.play();
-        })
-        .onUpdate(({ dt }) => {
-          const delta = dt - prevDt;
-          mixer.update(delta);
-          prevDt = dt;
-        })
-        .onComplete(() => {
-          action.paused = true;
-          resolve();
-        })
-        .start();
-    });
+    new TWEEN.Tween({ dt: 0 })
+      .to({ dt: theAnimate.duration }, theAnimate.duration * 1000)
+      .onStart(() => {
+        action.reset();
+        action.play();
+      })
+      .onUpdate(({ dt }) => {
+        const delta = dt - prevDt;
+        mixer.update(delta);
+        prevDt = dt;
+      })
+      .onComplete(() => {
+        action.paused = true;
+        onComplete?.();
+      })
+      .start();
+  }
+
+  protected playInfinite(theAnimate: THREE.AnimationClip) {
+    const loop = () => this.doPlayAnimation(theAnimate, undefined, loop);
+
+    loop();
   }
 }

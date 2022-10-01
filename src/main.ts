@@ -13,6 +13,7 @@ import {
 } from "./interface.d";
 import Chair from "./components/Chair";
 import Switch from "./components/Switch";
+import Monitor from "./components/Monitor";
 
 class App {
   state: CtrlState;
@@ -30,8 +31,7 @@ class App {
 
   chair!: Chair;
   switch!: Switch;
-
-  loopPrevTime = 0;
+  monitor!: Monitor;
 
   constructor() {
     this.state = genCtrlState();
@@ -67,6 +67,7 @@ class App {
 
       this.chair = new Chair(this.roomGltf);
       this.switch = new Switch(this.roomGltf);
+      this.monitor = new Monitor(this.roomGltf);
 
       this.loadGui();
       this.bindActions();
@@ -115,6 +116,7 @@ class App {
           RotationRange[1],
           RotationRange[2]
         )
+
         .onChange(() => {
           this.roomContent.rotation[axis] = this.state.rot[axis];
         });
@@ -130,14 +132,12 @@ class App {
     this.renderer.outputEncoding = sRGBEncoding;
   }
 
-  private loop(time: number) {
+  private loop() {
     this.renderer.render(this.scene, this.camera);
-
     this.control.update();
 
-    requestAnimationFrame(this.loop.bind(this));
     TWEEN.update();
-    this.loopPrevTime = time;
+    requestAnimationFrame(this.loop.bind(this));
   }
 
   private async loadModels() {
@@ -154,7 +154,7 @@ class App {
 
   private bindActions() {
     const btnElemsCol = document.getElementsByTagName("button");
-    const btnElems = Array.prototype.slice.call(btnElemsCol, 0);
+    const btnElems = Array.prototype.slice.call(btnElemsCol, 0).filter(btn => !btn.dataset.off);
     const ref = this;
 
     document
@@ -186,6 +186,13 @@ class App {
           this.dataset.rev = String(1 - rev);
         }
         btnElems.forEach((_elem) => (_elem.disabled = false));
+      });
+
+    document
+      .getElementById("TurnOnScreen")
+      ?.addEventListener("click", async function () {
+        ref.monitor.turnon();
+        (this as HTMLButtonElement).disabled = true;
       });
   }
 }
