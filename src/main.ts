@@ -2,15 +2,8 @@ import * as THREE from "three";
 import { PMREMGenerator, sRGBEncoding } from "three";
 import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-
 import * as TWEEN from "@tweenjs/tween.js";
-import { GUI } from "dat.gui";
-import {
-  CtrlState,
-  genCtrlState,
-  PositionRange,
-  RotationRange,
-} from "./interface.d";
+import { CtrlState, genCtrlState } from "./interface.d";
 import Chair from "./components/Chair";
 import Switch from "./components/Switch";
 import Monitor from "./components/Monitor";
@@ -25,8 +18,6 @@ class App {
   lights: THREE.Light[] = [];
 
   roomGltf!: GLTF;
-  roomContent!: THREE.Group;
-  roomAnimates!: THREE.AnimationClip[];
   mixer!: THREE.AnimationMixer;
 
   chair!: Chair;
@@ -69,7 +60,6 @@ class App {
       this.switch = new Switch(this.roomGltf);
       this.monitor = new Monitor(this.roomGltf);
 
-      this.loadGui();
       this.bindActions();
     });
   }
@@ -91,41 +81,6 @@ class App {
     this.lights.push(light, dlight);
   }
 
-  private loadGui() {
-    const gui = new GUI();
-    const posGui = gui.addFolder("Position");
-    posGui.open();
-    const axises: ("x" | "y" | "z")[] = ["x", "y", "z"];
-    axises.forEach((axis) => {
-      posGui
-        .add(
-          this.state.pos,
-          axis,
-          PositionRange[0],
-          PositionRange[1],
-          PositionRange[2]
-        )
-        .onChange(() => {
-          this.roomContent.position[axis] = this.state.pos[axis];
-        });
-      posGui
-        .add(
-          this.state.rot,
-          axis,
-          RotationRange[0],
-          RotationRange[1],
-          RotationRange[2]
-        )
-
-        .onChange(() => {
-          this.roomContent.rotation[axis] = this.state.rot[axis];
-        });
-    });
-    const guiWrap = document.getElementById("GuiBar")!;
-    guiWrap.appendChild(gui.domElement);
-    gui.open();
-  }
-
   private beautify() {
     const pmremGenerator = new PMREMGenerator(this.renderer);
     pmremGenerator.compileEquirectangularShader();
@@ -143,13 +98,12 @@ class App {
   private async loadModels() {
     const loader = new GLTFLoader();
     this.roomGltf = await loader.loadAsync("src/assets/lowgameroom.glb");
-    this.roomContent = this.roomGltf.scene;
 
     // // this helps you look at your model
     // debugger;
     console.log(this.roomGltf);
 
-    this.scene.add(this.roomContent);
+    this.scene.add(this.roomGltf.scene);
   }
 
   private bindActions() {
@@ -196,6 +150,46 @@ class App {
         ref.monitor.turnon();
         (this as HTMLButtonElement).disabled = true;
       });
+
+    document
+      .getElementById("GotoMonitor")
+      ?.addEventListener("click", async function () {
+        const newCamPos = new THREE.Vector3();
+        ref.monitor.camera.getWorldPosition(newCamPos);
+        const newTarget = new THREE.Vector3();
+        ref.monitor.screenMesh.getWorldPosition(newTarget);
+        ref.moveCamera(ref.control, ref.camera, newTarget, newCamPos);
+      });
+  }
+
+  private moveCamera(
+    controls: OrbitControls,
+    camera: THREE.Camera,
+    target: THREE.Vector3,
+    position: THREE.Vector3
+  ) {
+    new TWEEN.Tween(camera.position)
+      .to(
+        {
+          x: position.x,
+          y: position.y,
+          z: position.z,
+        },
+        600
+      )
+      .easing(TWEEN.Easing.Sinusoidal.InOut)
+      .start();
+    new TWEEN.Tween(controls.target)
+      .to(
+        {
+          x: target.x,
+          y: target.y,
+          z: target.z,
+        },
+        600
+      )
+      .easing(TWEEN.Easing.Sinusoidal.InOut)
+      .start();
   }
 }
 
