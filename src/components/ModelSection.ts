@@ -8,12 +8,12 @@ import * as TWEEN from "@tweenjs/tween.js";
 export default class ModelSection {
   protected model: GLTF;
   public animate: Record<string, THREE.AnimationClip>;
-  private loop: Map<THREE.AnimationClip, boolean>;
+  protected loop: Set<THREE.AnimationClip>;
 
   constructor(mod: GLTF) {
     this.model = mod;
     this.animate = {};
-    this.loop = new Map();
+    this.loop = new Set();
   }
 
   protected findMesh(key: string) {
@@ -88,13 +88,16 @@ export default class ModelSection {
   }
 
   protected playInfinite(theAnimate: THREE.AnimationClip) {
+    if (this.loop.has(theAnimate)) {
+      return;
+    }
     const loop = () => {
       if (this.loop.has(theAnimate)) {
         this.doPlayAnimation(theAnimate, undefined, loop);
       }
     };
 
-    this.loop.set(theAnimate, true);
+    this.loop.add(theAnimate);
     loop();
   }
 

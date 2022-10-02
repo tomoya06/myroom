@@ -6,7 +6,8 @@ import * as TWEEN from "@tweenjs/tween.js";
 import { CtrlState, genCtrlState } from "./interface.d";
 import Chair from "./components/Chair";
 import Switch from "./components/Switch";
-import Monitor from "./components/Monitor";
+import Computer from "./components/Computer";
+import { InteractionManager } from "three.interactive";
 
 class App {
   state: CtrlState;
@@ -22,7 +23,9 @@ class App {
 
   chair!: Chair;
   switch!: Switch;
-  monitor!: Monitor;
+  computer!: Computer;
+
+  interaction!: InteractionManager;
 
   get defCamPos() {
     return new THREE.Vector3(4, 4, 4);
@@ -58,9 +61,10 @@ class App {
 
       this.chair = new Chair(this.roomGltf);
       this.switch = new Switch(this.roomGltf);
-      this.monitor = new Monitor(this.roomGltf);
+      this.computer = new Computer(this.roomGltf);
 
       this.bindActions();
+      this.bindInteraction();
     });
   }
 
@@ -118,6 +122,31 @@ class App {
     this.scene.add(this.roomGltf.scene);
   }
 
+  private bindInteraction() {
+    this.interaction = new InteractionManager(
+      this.renderer,
+      this.camera,
+      this.renderer.domElement,
+      true
+    );
+
+    const ref = this;
+    this.interaction.add(this.computer.keyboardMesh);
+    this.computer.keyboardMesh.addEventListener("click", function () {
+      const newCamPos = new THREE.Vector3();
+      const newTarget = new THREE.Vector3();
+      ref.computer.monitorCamera.getWorldPosition(newCamPos);
+      ref.computer.screenMesh.getWorldPosition(newTarget);
+      ref.computer.turnon();
+      ref.moveCamera(ref.control, ref.camera, newTarget, newCamPos);
+    });
+
+    this.interaction.add(this.computer.screenMesh);
+    this.computer.screenMesh.addEventListener("click", function () {
+      ref.computer.startBrowser();
+    });
+  }
+
   private bindActions() {
     const btnElemsCol = document.getElementsByTagName("button");
     const btnElems = Array.prototype.slice
@@ -159,28 +188,8 @@ class App {
     document
       .getElementById("TurnOnScreen")
       ?.addEventListener("click", async function () {
-        ref.monitor.turnon();
+        ref.computer.turnon();
         (this as HTMLButtonElement).disabled = true;
-      });
-
-    document
-      .getElementById("GotoMonitor")
-      ?.addEventListener("click", async function () {
-        const newCamPos = new THREE.Vector3();
-        const newTarget = new THREE.Vector3();
-        if (this.dataset.rev === "0") {
-          ref.monitor.camera.getWorldPosition(newCamPos);
-          ref.monitor.screenMesh.getWorldPosition(newTarget);
-          this.dataset.rev = "1";
-          ref.monitor.turnon();
-        } else {
-          newCamPos.copy(ref.defCamPos);
-          newTarget.copy(ref.defCamLook);
-          this.dataset.rev = "0";
-          ref.monitor.turnoff();
-        }
-
-        ref.moveCamera(ref.control, ref.camera, newTarget, newCamPos);
       });
   }
 
