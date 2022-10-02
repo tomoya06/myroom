@@ -23,7 +23,7 @@ export default class StateMachine {
     return this._status;
   }
   public set status(value: EnumStatus) {
-    if (!NextStatus[this._status].includes(value)) {
+    if (!NextStatus[this._status].includes(value) && this._status !== value) {
       return;
     }
     if (this._updating) {
@@ -41,7 +41,6 @@ export default class StateMachine {
   }
 
   private update() {
-    console.log("=== status update ===", this._status);
     this._handler(this._status);
   }
 }
