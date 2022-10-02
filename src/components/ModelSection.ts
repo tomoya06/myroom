@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
 import * as TWEEN from "@tweenjs/tween.js";
+import { param } from "jquery";
 
 /**
  * Base Class for Registering Model Section
@@ -9,11 +10,13 @@ export default class ModelSection {
   protected model: GLTF;
   public animate: Record<string, THREE.AnimationClip>;
   protected loop: Set<THREE.AnimationClip>;
+  protected animating: Set<THREE.AnimationClip>;
 
   constructor(mod: GLTF) {
     this.model = mod;
     this.animate = {};
     this.loop = new Set();
+    this.animating = new Set();
   }
 
   protected findMesh(key: string) {
@@ -45,10 +48,19 @@ export default class ModelSection {
     theAnimate: THREE.AnimationClip,
     params?: {
       rev?: boolean;
+      solo?: boolean;
     }
   ) {
+    if (params?.solo && this.animating.has(theAnimate)) {
+      return;
+    }
+    if (params?.solo) {
+      this.animating.add(theAnimate);
+    }
+
     return new Promise<void>((resolve) => {
       this.doPlayAnimation(theAnimate, params, () => {
+        this.animating.delete(theAnimate);
         resolve();
       });
     });

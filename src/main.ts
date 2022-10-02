@@ -69,6 +69,14 @@ class App {
       this.switch = new Switch(this.roomGltf);
       this.computer = new Computer(this.roomGltf);
 
+      this.stateMachine = new StateMachine(this.handleStateChange.bind(this));
+      this.interaction = new InteractionManager(
+        this.renderer,
+        this.camera,
+        this.renderer.domElement,
+        true
+      );
+
       this.bindActions();
       this.bindInteraction();
     });
@@ -129,15 +137,6 @@ class App {
   }
 
   private bindInteraction() {
-    this.stateMachine = new StateMachine(this.handleStateChange.bind(this));
-
-    this.interaction = new InteractionManager(
-      this.renderer,
-      this.camera,
-      this.renderer.domElement,
-      true
-    );
-
     const ref = this;
     this.interaction.add(this.computer.keyboardMesh);
     this.computer.keyboardMesh.addEventListener("click", function () {
@@ -191,22 +190,10 @@ class App {
     const btnElems = Array.prototype.slice
       .call(btnElemsCol, 0)
       .filter((btn) => !btn.dataset.off);
+
     const ref = this;
 
-    document
-      .getElementById("ActionRollChair")
-      ?.addEventListener("click", async () => {
-        btnElems.forEach((_elem) => (_elem.disabled = true));
-        await this.chair.moveChair();
-        btnElems.forEach((_elem) => (_elem.disabled = false));
-      });
-    document
-      .getElementById("ActionRollBody")
-      ?.addEventListener("click", async () => {
-        btnElems.forEach((_elem) => (_elem.disabled = true));
-        await this.chair.rotateBody();
-        btnElems.forEach((_elem) => (_elem.disabled = false));
-      });
+    this.chair.regInteraction(this.interaction);
 
     document
       .getElementById("ActionPickupSwitch")
