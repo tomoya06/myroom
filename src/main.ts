@@ -154,7 +154,9 @@ class App {
 
   private bindActions() {
     const btnElemsCol = document.getElementsByTagName("button");
-    const btnElems = Array.prototype.slice.call(btnElemsCol, 0).filter(btn => !btn.dataset.off);
+    const btnElems = Array.prototype.slice
+      .call(btnElemsCol, 0)
+      .filter((btn) => !btn.dataset.off);
     const ref = this;
 
     document
