@@ -13,7 +13,7 @@ class App {
 
   scene: THREE.Scene;
   renderer: THREE.WebGLRenderer;
-  camera: THREE.PerspectiveCamera;
+  camera!: THREE.PerspectiveCamera;
   control: OrbitControls;
   lights: THREE.Light[] = [];
 
@@ -23,6 +23,14 @@ class App {
   chair!: Chair;
   switch!: Switch;
   monitor!: Monitor;
+
+  get defCamPos() {
+    return new THREE.Vector3(4, 4, 4);
+  }
+
+  get defCamLook() {
+    return new THREE.Vector3(0, 0, 0);
+  }
 
   constructor() {
     this.state = genCtrlState();
@@ -37,19 +45,11 @@ class App {
     document.body.appendChild(this.renderer.domElement);
 
     this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera(
-      50,
-      window.innerWidth / window.innerHeight,
-      0.01,
-      1000
-    );
 
-    this.camera.position.set(4, 4, 4);
-    this.camera.lookAt(0, 0, 0);
-
-    this.control = new OrbitControls(this.camera, this.renderer.domElement);
     this.loadLights();
     this.beautify();
+    this.loadCamera();
+    this.control = new OrbitControls(this.camera, this.renderer.domElement);
 
     window.addEventListener("resize", this.handleWindowResize.bind(this));
 
@@ -62,6 +62,18 @@ class App {
 
       this.bindActions();
     });
+  }
+
+  private loadCamera() {
+    this.camera = new THREE.PerspectiveCamera(
+      50,
+      window.innerWidth / window.innerHeight,
+      0.01,
+      1000
+    );
+
+    this.camera.position.copy(this.defCamPos);
+    this.camera.lookAt(this.defCamLook);
   }
 
   private handleWindowResize() {
@@ -155,9 +167,19 @@ class App {
       .getElementById("GotoMonitor")
       ?.addEventListener("click", async function () {
         const newCamPos = new THREE.Vector3();
-        ref.monitor.camera.getWorldPosition(newCamPos);
         const newTarget = new THREE.Vector3();
-        ref.monitor.screenMesh.getWorldPosition(newTarget);
+        if (this.dataset.rev === "0") {
+          ref.monitor.camera.getWorldPosition(newCamPos);
+          ref.monitor.screenMesh.getWorldPosition(newTarget);
+          this.dataset.rev = "1";
+          ref.monitor.turnon();
+        } else {
+          newCamPos.copy(ref.defCamPos);
+          newTarget.copy(ref.defCamLook);
+          this.dataset.rev = "0";
+          ref.monitor.turnoff();
+        }
+
         ref.moveCamera(ref.control, ref.camera, newTarget, newCamPos);
       });
   }

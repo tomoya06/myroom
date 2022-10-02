@@ -29,4 +29,8 @@ export default class Monitor extends ModelSection {
   public turnon() {
     this.playInfinite(this.animate[AnimateKey.Text]);
   }
+
+  public turnoff() {
+    this.stopInfinite(this.animate[AnimateKey.Text]);
+  }
 }
