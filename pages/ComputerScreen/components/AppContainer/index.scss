@@ -6,7 +6,7 @@
   top: 100vh;
   right: 50%;
   z-index: 2;
-  background-color: #fff;
+  background-color: #818181;
   border: 1.6px solid #ababab;
   border-radius: 0.6rem;
   transition: all 0.3s ease-out;
@@ -22,11 +22,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #95b0fa;
+    border-bottom: 1.6px solid #ababab;
 
     img {
-      width: 2rem;
-      height: 2rem;
-      padding: 0 1rem;
+      width: 1.6rem;
+      height: 1.6rem;
+      padding: 0 0.4rem 0 1rem;
     }
 
     .appTitle {
@@ -60,8 +62,10 @@
 
 .actionbtn.actionbarMini {
   background-image: url("https://img.icons8.com/dusk/64/000000/minus-math.png");
+  background-color: #e0ffe8;
 }
 
 .actionbtn.actionbarClose {
   background-image: url("https://img.icons8.com/dusk/64/000000/multiply.png");
+  background-color: #ffd7d7;
 }

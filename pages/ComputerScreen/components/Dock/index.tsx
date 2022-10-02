@@ -11,11 +11,11 @@ const Dock: React.FC = () => {
           openedApps = [],
           activeApp,
           toggleActive,
-          closeApp,
+          closeAllApps,
         } = context || {};
 
         const handleCloseAll = () => {
-          openedApps.forEach((oa) => closeApp(oa));
+          closeAllApps();
         };
 
         return (

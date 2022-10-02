@@ -20,6 +20,7 @@ export interface AppContextType {
   closeApp: (app: string) => void;
   openApp: (app: string) => void;
   toggleActive: (app: string) => void;
+  closeAllApps: () => void;
 }
 
 export interface AppProps {

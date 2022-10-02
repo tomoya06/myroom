@@ -15,6 +15,16 @@ export const installedApps: AppApp[] = (() => {
   };
   output.push(appGithub);
 
+  const aiTime: AppInfo = {
+    id: "北京时间",
+    icon: "https://img.icons8.com/dusk/64/000000/watches-front-view--v2.png",
+  };
+  const appTime: AppApp = {
+    ...aiTime,
+    content: <IframeApp url="https://time.is/zh/Beijing" appInfo={aiTime} />,
+  };
+  output.push(appTime);
+
   return output;
 })();
 
@@ -26,6 +36,10 @@ export const desktopApps: DesktopApp[] = [
   {
     id: "GitHub",
     pos: [1, 1],
+  },
+  {
+    id: "北京时间",
+    pos: [1, 2],
   },
 ];
 
