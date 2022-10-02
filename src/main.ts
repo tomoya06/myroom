@@ -186,30 +186,8 @@ class App {
   }
 
   private bindActions() {
-    const btnElemsCol = document.getElementsByTagName("button");
-    const btnElems = Array.prototype.slice
-      .call(btnElemsCol, 0)
-      .filter((btn) => !btn.dataset.off);
-
-    const ref = this;
-
     this.chair.regInteraction(this.interaction);
-
-    document
-      .getElementById("ActionPickupSwitch")
-      ?.addEventListener("click", async function () {
-        btnElems.forEach((_elem) => (_elem.disabled = true));
-        const rev = Number(this.dataset.rev);
-        if (Boolean(rev)) {
-          await ref.switch.putdown();
-        } else {
-          await ref.switch.pickup();
-        }
-        if (!isNaN(rev)) {
-          this.dataset.rev = String(1 - rev);
-        }
-        btnElems.forEach((_elem) => (_elem.disabled = false));
-      });
+    this.switch.regInteraction(this.interaction);
   }
 
   private moveCamera(target: THREE.Vector3, position: THREE.Vector3) {
