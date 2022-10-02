@@ -10,7 +10,7 @@ import Computer from "./components/Computer";
 import { InteractionManager } from "three.interactive";
 import StateMachine, { EnumStatus } from "./StateMachine";
 
-const defCamPos = new THREE.Vector3(4, 4, 4);
+const defCamPos = new THREE.Vector3(5, 5, 5);
 const defCamLook = new THREE.Vector3(0, 0, 0);
 
 class App {
