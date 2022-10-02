@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Room Tour</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script type="module" src="/src/main.ts"></script>
+    <link rel="stylesheet" lang="scss" href="/src/index.scss" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Room Tour</title>
-  <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-  <script type="module" src="/src/main.ts"></script>
-  <link rel="stylesheet" lang="scss" href="/src/index.scss">
-</head>
-
-<body>
-  <div id="BrowserContainer">
-    <header>
-      <div id="BrowserTitleBar">网上冲浪</div>
-      <div id="BrowserActionBar">
-        <button id="ActionBarClose" class="Close">X</button>
-      </div>
-    </header>
-    <main>
-      <iframe src="https://time.is/zh/Beijing" frameborder="0"></iframe>
-    </main>
-    <footer></footer>
-  </div>
-</body>
-
+  <body>
+    <div id="BrowserContainer">
+      <header>
+        <div id="BrowserTitleBar">网上冲浪</div>
+        <div id="BrowserActionBar">
+          <button id="ActionBarClose" class="Close">X</button>
+        </div>
+      </header>
+      <main>
+        <iframe src="/pages/ComputerScreen/index.html" frameborder="0"></iframe>
+      </main>
+      <footer></footer>
+    </div>
+  </body>
 </html>
