@@ -6,15 +6,33 @@ const Dock: React.FC = () => {
   return (
     <AppContext.Consumer>
       {(context) => {
-        const { apps = {}, openedApps = [], activeApp } = context || {};
+        const {
+          apps = {},
+          openedApps = [],
+          activeApp,
+          toggleActive,
+          closeApp,
+        } = context || {};
+
+        const handleCloseAll = () => {
+          openedApps.forEach((oa) => closeApp(oa));
+        };
 
         return (
           <div className="Dock">
             <div className="DockApp System_Off"></div>
-            <div className="DockApp System_CloseAll"></div>
+            <div
+              className="DockApp System_CloseAll"
+              onClick={handleCloseAll}
+            ></div>
             {openedApps.map((oa) => {
               const app = apps[oa];
               const isActive = activeApp === oa;
+
+              const handleClick = () => {
+                toggleActive(oa);
+              };
+
               return (
                 <div
                   className={classNames("DockApp", isActive && "active")}
@@ -22,6 +40,7 @@ const Dock: React.FC = () => {
                   style={{
                     backgroundImage: `url(${app.icon})`,
                   }}
+                  onClick={handleClick}
                 >
                   {isActive && <div className="DockAppActiveBar"></div>}
                 </div>

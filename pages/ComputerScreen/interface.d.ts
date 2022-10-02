@@ -17,9 +17,9 @@ export interface AppContextType {
   apps: Record<string, AppApp>;
   openedApps: string[];
   desktop: DesktopApp[];
-  setActiveApp: (app: string | undefined) => void;
   closeApp: (app: string) => void;
   openApp: (app: string) => void;
+  toggleActive: (app: string) => void;
 }
 
 export interface AppProps {

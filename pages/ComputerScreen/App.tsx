@@ -20,12 +20,20 @@ function App() {
     setActiveApp(app);
   };
 
+  const toggleActive = (app: string) => {
+    if (activeApp === app) {
+      setActiveApp(undefined);
+    } else {
+      setActiveApp(app);
+    }
+  };
+
   const curContext: AppContextType = {
     activeApp,
     apps: installedAppToMap,
     openedApps,
     desktop,
-    setActiveApp,
+    toggleActive,
     closeApp,
     openApp,
   };

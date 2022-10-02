@@ -12,8 +12,15 @@ const AppContainer: React.FC<AppContainerProps> = (props) => {
     <AppContext.Consumer>
       {(context) => {
         const { appInfo, children } = props;
-        const { activeApp } = context || {};
+        const { activeApp, toggleActive, closeApp } = context || {};
         const isActive = appInfo.id === activeApp;
+
+        const handleMini = () => {
+          toggleActive(appInfo.id);
+        };
+        const handleClose = () => {
+          closeApp(appInfo.id);
+        };
 
         return (
           <div className={clsn("appContainer", isActive && "active")}>
@@ -22,8 +29,14 @@ const AppContainer: React.FC<AppContainerProps> = (props) => {
               <div className="appTitle">{appInfo.id}</div>
 
               <div className="actionbar">
-                <div className="actionbtn actionbarMini"></div>
-                <div className="actionbtn actionbarClose"></div>
+                <div
+                  className="actionbtn actionbarMini"
+                  onClick={handleMini}
+                ></div>
+                <div
+                  className="actionbtn actionbarClose"
+                  onClick={handleClose}
+                ></div>
               </div>
             </div>
             {children}

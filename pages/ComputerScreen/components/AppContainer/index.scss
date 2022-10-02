@@ -1,7 +1,7 @@
 .appContainer {
   position: absolute;
   overflow: hidden;
-  bottom: 0;
+  bottom: 4rem;
   left: 50%;
   top: 100vh;
   right: 50%;
@@ -9,6 +9,7 @@
   background-color: #fff;
   border: 1.6px solid #ababab;
   border-radius: 0.6rem;
+  transition: all 0.3s ease-out;
 
   &.active {
     bottom: 4rem;
