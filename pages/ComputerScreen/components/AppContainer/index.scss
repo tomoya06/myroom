@@ -1,0 +1,66 @@
+.appContainer {
+  position: absolute;
+  overflow: hidden;
+  bottom: 0;
+  left: 50%;
+  top: 100vh;
+  right: 50%;
+  z-index: 2;
+  background-color: #fff;
+  border: 1.6px solid #ababab;
+  border-radius: 0.6rem;
+
+  &.active {
+    bottom: 4rem;
+    left: 0;
+    top: 0;
+    right: 0;
+  }
+
+  .navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 2rem;
+      height: 2rem;
+      padding: 0 1rem;
+    }
+
+    .appTitle {
+      flex-grow: 1;
+      padding: 0 0.6rem;
+    }
+  }
+
+  .actionbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
+
+    .actionbtn {
+      cursor: pointer;
+      background-size: 1.6rem;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-radius: 0.6rem;
+      width: 2rem;
+      height: 2rem;
+      border: 1px solid #e0e0e0;
+
+      &:hover {
+        background-color: #e0e0e0;
+      }
+    }
+  }
+}
+
+.actionbtn.actionbarMini {
+  background-image: url("https://img.icons8.com/dusk/64/000000/minus-math.png");
+}
+
+.actionbtn.actionbarClose {
+  background-image: url("https://img.icons8.com/dusk/64/000000/multiply.png");
+}

@@ -7,7 +7,7 @@ export const installedApps: AppApp[] = (() => {
 
   const aiGithub: AppInfo = {
     id: "GitHub",
-    icon: "",
+    icon: "https://img.icons8.com/plasticine/100/000000/github-squared.png",
   };
   const appGithub: AppApp = {
     ...aiGithub,
@@ -18,14 +18,14 @@ export const installedApps: AppApp[] = (() => {
   return output;
 })();
 
-export const appToMap: Record<string, AppApp> = (() => {
+export const installedAppToMap: Record<string, AppApp> = (() => {
   return Object.fromEntries(installedApps.map((app) => [app.id, app]));
 })();
 
 export const desktopApps: DesktopApp[] = [
   {
     id: "GitHub",
-    pos: [0, 0],
+    pos: [1, 1],
   },
 ];
 

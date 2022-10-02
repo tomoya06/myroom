@@ -22,10 +22,6 @@ export interface AppContextType {
   openApp: (app: string) => void;
 }
 
-export interface AppContextComp {
-  context?: AppContextType;
-}
-
-export interface AppProps extends AppContextComp {
+export interface AppProps {
   appInfo: AppInfo;
 }

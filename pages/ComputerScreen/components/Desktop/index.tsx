@@ -1,34 +1,38 @@
-import { AppContextComp } from "../../interface";
+import { AppContext } from "../../context";
+import "./index.scss";
 
-interface Props extends AppContextComp {}
-
-const Desktop: React.FC<Props> = (props) => {
-  const { apps = {}, desktop = [], openApp } = props.context || {};
-
-  const handleClickApp = (appId: string) => {
-    openApp?.(appId);
-  };
-
+const Desktop: React.FC = () => {
   return (
-    <div className="Desktop">
-      {desktop.map((desktopApp) => {
-        const app = apps[desktopApp.id];
+    <AppContext.Consumer>
+      {(context) => {
+        const { apps = {}, desktop = [], openApp } = context || {};
+        const handleClickApp = (appId: string) => {
+          openApp?.(appId);
+        };
 
         return (
-          <div
-            className="DesktopApp"
-            style={{
-              gridColumn: desktopApp.pos[0],
-              gridRow: desktopApp.pos[1],
-            }}
-            onDoubleClick={() => handleClickApp(desktopApp.id)}
-          >
-            <div>{app.icon}</div>
-            <div>{app.id}</div>
+          <div className="Desktop">
+            {desktop.map((desktopApp) => {
+              const app = apps[desktopApp.id];
+
+              return (
+                <div
+                  className="DesktopApp"
+                  style={{
+                    gridColumn: desktopApp.pos[0],
+                    gridRow: desktopApp.pos[1],
+                  }}
+                  onDoubleClick={() => handleClickApp(desktopApp.id)}
+                >
+                  <img src={app.icon}></img>
+                  <div>{app.id}</div>
+                </div>
+              );
+            })}
           </div>
         );
-      })}
-    </div>
+      }}
+    </AppContext.Consumer>
   );
 };
 

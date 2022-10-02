@@ -1,28 +1,36 @@
 import classNames from "classnames";
-import { AppContextComp } from "../../interface";
+import { AppContext } from "../../context";
+import "./index.scss";
 
-interface Props extends AppContextComp {}
-
-const Dock: React.FC<Props> = (props) => {
-  const { apps = {}, openedApps = [], activeApp } = props.context || {};
-
+const Dock: React.FC = () => {
   return (
-    <div className="Dock">
-      <div className="DockApp">OFF</div>
-      <div className="DockApp">CLOSEALL</div>
-      {openedApps.map((oa) => {
-        const app = apps[oa];
-        const isActive = activeApp === oa;
+    <AppContext.Consumer>
+      {(context) => {
+        const { apps = {}, openedApps = [], activeApp } = context || {};
+
         return (
-          <div
-            className={classNames("DockApp", isActive && "active")}
-            key={app.id}
-          >
-            {app.id}
+          <div className="Dock">
+            <div className="DockApp System_Off"></div>
+            <div className="DockApp System_CloseAll"></div>
+            {openedApps.map((oa) => {
+              const app = apps[oa];
+              const isActive = activeApp === oa;
+              return (
+                <div
+                  className={classNames("DockApp", isActive && "active")}
+                  key={app.id}
+                  style={{
+                    backgroundImage: `url(${app.icon})`,
+                  }}
+                >
+                  {isActive && <div className="DockAppActiveBar"></div>}
+                </div>
+              );
+            })}
           </div>
         );
-      })}
-    </div>
+      }}
+    </AppContext.Consumer>
   );
 };
 

@@ -1,11 +1,7 @@
 import { useState } from "react";
 import Desktop from "./components/Desktop";
 import Dock from "./components/Dock";
-import {
-  AppContext,
-  appToMap as installedAppToMap,
-  desktopApps,
-} from "./context";
+import { AppContext, installedAppToMap, desktopApps } from "./context";
 import { AppContextType, DesktopApp } from "./interface";
 
 function App() {
@@ -37,6 +33,7 @@ function App() {
   return (
     <AppContext.Provider value={curContext}>
       <div className="App">
+        {openedApps.map((openedApp) => installedAppToMap[openedApp].content)}
         <Desktop />
         <Dock />
       </div>

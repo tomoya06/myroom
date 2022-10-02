@@ -1,0 +1,42 @@
+.Dock {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 4rem;
+  cursor: pointer;
+
+  .DockApp {
+    width: 4rem;
+    height: 4rem;
+    background-size: 2rem 2rem;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #ededed;
+    border-radius: 50%;
+    margin: 0 0.8rem;
+    position: relative;
+  }
+
+  .DockAppActiveBar {
+    position: absolute;
+    bottom: 0.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1rem;
+    height: 0.4rem;
+    border-radius: 0.2rem;
+    background-color: #ff9090;
+  }
+}
+
+.DockApp.System_Off {
+  background-image: url("https://img.icons8.com/dusk/64/000000/windows8.png");
+}
+
+.DockApp.System_CloseAll {
+  background-image: url("https://img.icons8.com/dusk/64/000000/delete-sign.png");
+}

@@ -1,0 +1,28 @@
+.Desktop {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 4rem);
+
+  .DesktopApp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    img {
+      height: 60%;
+    }
+
+    &:hover {
+      background-color: #d1d1d1;
+    }
+  }
+}
