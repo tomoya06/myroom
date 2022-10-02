@@ -7,6 +7,7 @@ import { CtrlState, genCtrlState } from "./interface.d";
 import Chair from "./components/Chair";
 import Switch from "./components/Switch";
 import Monitor from "./components/Monitor";
+import ThreeInteract from "./utils/interact";
 
 class App {
   state: CtrlState;
@@ -23,6 +24,8 @@ class App {
   chair!: Chair;
   switch!: Switch;
   monitor!: Monitor;
+
+  interaction!: ThreeInteract;
 
   get defCamPos() {
     return new THREE.Vector3(4, 4, 4);
@@ -49,8 +52,8 @@ class App {
     this.loadLights();
     this.beautify();
     this.loadCamera();
-    this.control = new OrbitControls(this.camera, this.renderer.domElement);
 
+    this.control = new OrbitControls(this.camera, this.renderer.domElement);
     window.addEventListener("resize", this.handleWindowResize.bind(this));
 
     this.loadModels().then(() => {
@@ -61,6 +64,7 @@ class App {
       this.monitor = new Monitor(this.roomGltf);
 
       this.bindActions();
+      this.bindInteraction();
     });
   }
 
@@ -116,6 +120,17 @@ class App {
     console.log(this.roomGltf);
 
     this.scene.add(this.roomGltf.scene);
+  }
+
+  private bindInteraction() {
+    this.interaction = new ThreeInteract(
+      this.scene,
+      this.renderer,
+      this.camera
+    );
+    this.interaction.register("click", this.monitor.screenMesh, (obj) => {
+      console.log("clicked", obj);
+    });
   }
 
   private bindActions() {

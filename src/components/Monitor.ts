@@ -1,5 +1,5 @@
 import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
-import { findChildByName } from "../util";
+import { findChildByName } from "../utils/object";
 import ModelSection from "./ModelSection";
 
 const AnimateKey = {

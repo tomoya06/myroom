@@ -1,5 +1,5 @@
 import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
-import { findChildByName } from "../util";
+import { findChildByName } from "../utils/object";
 import ModelSection from "./ModelSection";
 
 const AnimateKey = {
@@ -13,8 +13,8 @@ export default class Switch extends ModelSection {
     super(mod);
 
     this.regAnimate(AnimateKey.Pickup);
-    const switchKit = this.findMesh('SwitchKit')!;
-    this.switchScreenContent = findChildByName(switchKit, 'ScreenContent')!;
+    const switchKit = this.findMesh("SwitchKit")!;
+    this.switchScreenContent = findChildByName(switchKit, "ScreenContent")!;
 
     this.turnOnOffScreen(false);
   }
