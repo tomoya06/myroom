@@ -1,3 +1,5 @@
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+
 export interface Axis {
   x: number;
   y: number;
@@ -9,8 +11,15 @@ export interface CtrlState {
   rot: Axis;
 }
 
+export interface ThreeBundle {
+  camera: THREE.Camera;
+  renderer: THREE.Renderer;
+  scene: THREE.Scene;
+  control: OrbitControls;
+}
+
 export const PositionRange = [-10, 10, 0.1];
-export const RotationRange = [-Math.PI, Math.PI, Math.PI/180];
+export const RotationRange = [-Math.PI, Math.PI, Math.PI / 180];
 
 export const genCtrlState = (): CtrlState => {
   return {
@@ -23,6 +32,6 @@ export const genCtrlState = (): CtrlState => {
       x: 0,
       y: 0,
       z: 0,
-    }
-  }
-}
+    },
+  };
+};

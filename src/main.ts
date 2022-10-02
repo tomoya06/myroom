@@ -3,11 +3,15 @@ import { PMREMGenerator, sRGBEncoding } from "three";
 import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import * as TWEEN from "@tweenjs/tween.js";
-import { CtrlState, genCtrlState } from "./interface.d";
+import { CtrlState, genCtrlState, ThreeBundle } from "./interface.d";
 import Chair from "./components/Chair";
 import Switch from "./components/Switch";
 import Computer from "./components/Computer";
 import { InteractionManager } from "three.interactive";
+import StateMachine, { EnumStatus } from "./StateMachine";
+
+const defCamPos = new THREE.Vector3(4, 4, 4);
+const defCamLook = new THREE.Vector3(0, 0, 0);
 
 class App {
   state: CtrlState;
@@ -26,13 +30,15 @@ class App {
   computer!: Computer;
 
   interaction!: InteractionManager;
+  stateMachine!: StateMachine;
 
-  get defCamPos() {
-    return new THREE.Vector3(4, 4, 4);
-  }
-
-  get defCamLook() {
-    return new THREE.Vector3(0, 0, 0);
+  get bundle(): ThreeBundle {
+    return {
+      camera: this.camera,
+      scene: this.scene,
+      renderer: this.renderer,
+      control: this.control,
+    };
   }
 
   constructor() {
@@ -76,8 +82,8 @@ class App {
       1000
     );
 
-    this.camera.position.copy(this.defCamPos);
-    this.camera.lookAt(this.defCamLook);
+    this.camera.position.copy(defCamPos);
+    this.camera.lookAt(defCamLook);
   }
 
   private handleWindowResize() {
@@ -123,6 +129,8 @@ class App {
   }
 
   private bindInteraction() {
+    this.stateMachine = new StateMachine(this.handleStateChange.bind(this));
+
     this.interaction = new InteractionManager(
       this.renderer,
       this.camera,
@@ -133,18 +141,49 @@ class App {
     const ref = this;
     this.interaction.add(this.computer.keyboardMesh);
     this.computer.keyboardMesh.addEventListener("click", function () {
-      const newCamPos = new THREE.Vector3();
-      const newTarget = new THREE.Vector3();
-      ref.computer.monitorCamera.getWorldPosition(newCamPos);
-      ref.computer.screenMesh.getWorldPosition(newTarget);
-      ref.computer.turnon();
-      ref.moveCamera(ref.control, ref.camera, newTarget, newCamPos);
+      ref.stateMachine.status = EnumStatus.AtComputer;
     });
 
     this.interaction.add(this.computer.screenMesh);
     this.computer.screenMesh.addEventListener("click", function () {
-      ref.computer.startBrowser();
+      ref.stateMachine.status = EnumStatus.ComputerBrowser;
     });
+
+    this.interaction.add(this.computer.mouseMesh);
+    this.computer.mouseMesh.addEventListener("click", function () {
+      ref.stateMachine.status = EnumStatus.Lobby;
+    });
+
+    document
+      .getElementById("ActionBarClose")
+      ?.addEventListener("click", function () {
+        ref.stateMachine.status = EnumStatus.AtComputer;
+      });
+  }
+
+  private handleStateChange(s: EnumStatus) {
+    if (s === EnumStatus.Lobby) {
+      this.moveCamera(defCamLook, defCamPos);
+    }
+    if (s !== EnumStatus.Lobby) {
+    }
+    if (s === EnumStatus.AtComputer) {
+      const newCamPos = new THREE.Vector3();
+      const newTarget = new THREE.Vector3();
+      this.computer.monitorCamera.getWorldPosition(newCamPos);
+      this.computer.screenMesh.getWorldPosition(newTarget);
+      this.computer.turnon();
+      this.moveCamera(newTarget, newCamPos);
+    }
+    if (s !== EnumStatus.AtComputer) {
+      this.computer.turnoff();
+    }
+    if (s === EnumStatus.ComputerBrowser) {
+      this.computer.startBrowser();
+    }
+    if (s !== EnumStatus.ComputerBrowser) {
+      this.computer.stopBrowser();
+    }
   }
 
   private bindActions() {
@@ -184,21 +223,12 @@ class App {
         }
         btnElems.forEach((_elem) => (_elem.disabled = false));
       });
-
-    document
-      .getElementById("TurnOnScreen")
-      ?.addEventListener("click", async function () {
-        ref.computer.turnon();
-        (this as HTMLButtonElement).disabled = true;
-      });
   }
 
-  private moveCamera(
-    controls: OrbitControls,
-    camera: THREE.Camera,
-    target: THREE.Vector3,
-    position: THREE.Vector3
-  ) {
+  private moveCamera(target: THREE.Vector3, position: THREE.Vector3) {
+    const controls = this.control;
+    const camera = this.camera;
+
     new TWEEN.Tween(camera.position)
       .to(
         {

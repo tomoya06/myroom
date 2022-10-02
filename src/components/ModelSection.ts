@@ -17,7 +17,12 @@ export default class ModelSection {
   }
 
   protected findMesh(key: string) {
-    return this.model.scene.children.find((child) => child.name === key);
+    const found = this.model.scene.children.find((child) => child.name === key);
+    if (!found) {
+      alert("cant find {key} in your model");
+      throw new Error(key);
+    }
+    return found;
   }
 
   protected regAnimate(key: string) {
