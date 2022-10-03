@@ -5,11 +5,15 @@ import { AppApp } from "../../interface";
 import "./index.scss";
 import { TileLiveContent } from "./interface";
 
+const $tileSize = `10.5rem`;
+
 interface Props {
   appid: string;
   size: "middle" | "wide" | "large";
+  pos: [number, number];
   color?: string;
   lives?: TileLiveContent[];
+  liveInt?: number;
   children?: JSX.Element;
 }
 
@@ -33,18 +37,30 @@ const MiddleTileTitle = (myapp: AppApp) => {
   );
 };
 
-const LiveTile = (myapp: AppApp, live: TileLiveContent, props: Props) => {
+const LiveTile = (
+  myapp: AppApp,
+  live: TileLiveContent,
+  props: Props,
+  css: {
+    out?: boolean;
+    in?: boolean;
+  }
+) => {
   const { color = "w3-win8-cyan", size } = props;
-  let style: React.CSSProperties = {};
+  const style: React.CSSProperties = {};
   if (live.bg) {
-    style = {
-      backgroundImage: `linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url("${live.bg}")`,
-      backgroundSize: "cover",
-    };
+    style.backgroundImage = `linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url("${live.bg}")`;
+    style.backgroundSize = "cover";
   }
   return (
     <div
-      className={classNames("LiveTile", color, size)}
+      className={classNames(
+        "LiveTile",
+        color,
+        size,
+        css.out && "out",
+        css.in && "in"
+      )}
       style={style}
       key={live.id}
     >
@@ -61,36 +77,54 @@ const LiveTile = (myapp: AppApp, live: TileLiveContent, props: Props) => {
 };
 
 const DesktopTile: React.FC<Props> = (props: Props) => {
-  const { appid, color = "w3-win8-cyan", size, lives = [] } = props;
+  const {
+    appid,
+    color = "w3-win8-cyan",
+    size,
+    lives = [],
+    pos,
+    liveInt = 5000,
+  } = props;
 
   const [lastLive, setLastLive] = useState<TileLiveContent>();
   const [curLive, setCurLive] = useState<TileLiveContent>();
+  const [curLiveOut, setCurLiveOut] = useState<boolean>();
   const interval = useRef<number>();
+  const prevLive = useRef<TileLiveContent>();
   const curLiveIdx = useRef<number>();
 
-  const updateLive = (live: TileLiveContent) => {
-    setLastLive(lastLive);
+  const updateLive = (live: TileLiveContent | undefined, out?: boolean) => {
+    if (out) {
+      prevLive.current = undefined;
+      setLastLive(undefined);
+      setCurLiveOut(out);
+      return;
+    }
+    setCurLiveOut(false);
+    setLastLive(prevLive.current);
     setCurLive(live);
+    prevLive.current = live;
   };
 
   useEffect(() => {
     clearInterval(interval.current);
-
-    if (lives.length === 0) {
-      return;
-    }
-
-    if (lives.length === 1) {
-      updateLive(lives[0]);
-      return;
-    }
-
     curLiveIdx.current = -1;
+
     interval.current = setInterval(() => {
-      curLiveIdx.current = (curLiveIdx.current! + 1) % lives.length;
+      if (curLiveIdx.current! >= lives.length - 1) {
+        updateLive(undefined, true);
+        curLiveIdx.current = -1;
+        return;
+      }
+      curLiveIdx.current = curLiveIdx.current! + 1;
       updateLive(lives[curLiveIdx.current]);
-    }, 5000);
+    }, liveInt);
   }, [lives]);
+
+  const style: React.CSSProperties = {
+    left: `calc(${pos[0]} * ${$tileSize})`,
+    top: `calc(${pos[1]} * ${$tileSize})`,
+  };
 
   return (
     <AppContext.Consumer>
@@ -110,11 +144,16 @@ const DesktopTile: React.FC<Props> = (props: Props) => {
           <div
             className={classNames("DesktopTile", size, color)}
             onClick={handleClick}
+            style={style}
           >
             {size !== "middle" && WideTileTitle(myapp)}
             {size === "middle" && MiddleTileTitle(myapp)}
-            {lastLive && LiveTile(myapp, lastLive, props)}
-            {curLive && LiveTile(myapp, curLive, props)}
+            {lastLive && LiveTile(myapp, lastLive, props, {})}
+            {curLive &&
+              LiveTile(myapp, curLive, props, {
+                out: curLiveOut,
+                in: !curLiveOut,
+              })}
           </div>
         );
       }}

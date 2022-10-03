@@ -8,19 +8,19 @@ $iconSize: 5rem;
   }
 
   &.wide {
-    width: 2 * $tileSize;
+    width: 2 * $tileSize + $tileMargin;
   }
 
   &.large {
-    width: 2 * $tileSize;
-    height: 2 * $tileSize;
+    width: 2 * $tileSize + $tileMargin;
+    height: 2 * $tileSize + $tileMargin;
   }
 }
 
 .DesktopTile {
   height: $tileSize;
   width: $tileSize;
-  position: relative;
+  position: absolute;
   align-items: center;
   margin: 0 $tileMargin $tileMargin 0;
   overflow: hidden;
@@ -66,17 +66,23 @@ $iconSize: 5rem;
 .LiveTile {
   height: $tileSize;
   width: $tileSize;
-  display: flex;
-  flex-direction: column;
-  animation: live-tile-slide-in-from-bottom 1.8s
-    cubic-bezier(0.05, 0.89, 0.12, 0.94) both;
-
+  position: absolute;
+  top: 0;
+  left: 0;
   @include multisize();
+
+  &.in {
+    animation: live-tile-slide-in-from-bottom 1.8s
+      cubic-bezier(0.11, 0.9, 0.06, 0.99) both;
+  }
+
+  &.out {
+    animation: live-tile-slide-out-from-bottom 1s
+      cubic-bezier(0.64, 0.06, 0.83, 0.06) both;
+  }
 }
 
 .LiveTileMain {
-  position: relative;
-  flex-grow: 1;
   padding: 0.4rem 1rem;
 }
 
@@ -87,6 +93,8 @@ $iconSize: 5rem;
 }
 
 .LiveTileFooter {
+  position: absolute;
+  bottom: 0;
   height: 1.6rem;
   display: flex;
   padding: 0 1rem;
@@ -98,9 +106,18 @@ $iconSize: 5rem;
 
 @keyframes live-tile-slide-in-from-bottom {
   0% {
-    transform: translateY(2rem);
+    transform: translateY(3 * $tileSize);
   }
   100% {
     transform: translateY(0);
+  }
+}
+
+@keyframes live-tile-slide-out-from-bottom {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(3 * $tileSize);
   }
 }
