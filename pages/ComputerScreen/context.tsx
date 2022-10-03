@@ -58,7 +58,7 @@ export const desktopApps: DesktopApp[][] = [
       content: (
         <DesktopTile
           appid="LiveTile"
-          size="wide"
+          size="large"
           lives={[
             {
               id: "livetile_1",

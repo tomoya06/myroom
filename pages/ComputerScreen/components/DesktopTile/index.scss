@@ -1,6 +1,21 @@
 $tileSize: 10rem;
 $iconSize: 5rem;
 
+@mixin multisize {
+  &.middle {
+    width: $tileSize;
+  }
+
+  &.wide {
+    width: 2 * $tileSize;
+  }
+
+  &.large {
+    width: 2 * $tileSize;
+    height: 2 * $tileSize;
+  }
+}
+
 .DesktopTile {
   height: $tileSize;
   width: $tileSize;
@@ -9,13 +24,7 @@ $iconSize: 5rem;
   margin: 0 0.5rem 0.5rem 0;
   overflow: hidden;
 
-  &.middle {
-    width: $tileSize;
-  }
-
-  &.wide {
-    width: 2 * $tileSize;
-  }
+  @include multisize();
 }
 
 .DesktopTileIconBox {
@@ -53,9 +62,7 @@ $iconSize: 5rem;
   animation: live-tile-slide-in-from-bottom 1s cubic-bezier(0.06, 1, 0.1, 0.95)
     both;
 
-  &.wide {
-    width: 2 * $tileSize;
-  }
+  @include multisize();
 }
 
 .LiveTileMain {

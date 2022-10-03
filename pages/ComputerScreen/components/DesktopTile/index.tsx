@@ -7,7 +7,7 @@ import { TileLiveContent } from "./interface";
 
 interface Props {
   appid: string;
-  size: "middle" | "wide";
+  size: "middle" | "wide" | "large";
   color?: string;
   lives?: TileLiveContent[];
   children?: JSX.Element;
@@ -110,7 +110,7 @@ const DesktopTile: React.FC<Props> = (props: Props) => {
             className={classNames("DesktopTile", size, color)}
             onClick={handleClick}
           >
-            {size === "wide" && WideTileTitle(myapp)}
+            {size !== "middle" && WideTileTitle(myapp)}
             {size === "middle" && MiddleTileTitle(myapp)}
             {lastLive && LiveTile(myapp, lastLive, props)}
             {curLive && LiveTile(myapp, curLive, props)}
