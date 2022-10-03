@@ -1,6 +1,6 @@
 import React from "react";
 import DesktopTile from "./components/DesktopTile";
-import IframeApp from "./components/IframeApp";
+import IframeApp from "./components/AppIframe";
 import { AppApp, AppContextType, AppInfo, DesktopApp } from "./interface";
 
 export const installedApps: AppApp[] = (() => {
@@ -26,6 +26,16 @@ export const installedApps: AppApp[] = (() => {
   };
   output.push(appTime);
 
+  const aiLiveTest: AppInfo = {
+    id: "LiveTile",
+    icon: "https://img.icons8.com/ios-filled/100/FFFFFF/movie-theater.png",
+  };
+  const appLiveTest: AppApp = {
+    ...aiLiveTest,
+    content: <></>,
+  };
+  output.push(appLiveTest);
+
   return output;
 })();
 
@@ -42,6 +52,33 @@ export const desktopApps: DesktopApp[][] = [
     {
       id: "北京时间",
       content: <DesktopTile appid="北京时间" size="middle" />,
+    },
+    {
+      id: "LiveTile",
+      content: (
+        <DesktopTile
+          appid="LiveTile"
+          size="wide"
+          lives={[
+            {
+              id: "livetile_1",
+              title: "LiveTile Test",
+            },
+            {
+              id: "livetile_2",
+              title: "LiveTile Test 2",
+              content: "This is the content for LiveTile Test 2",
+            },
+            {
+              id: "livetile_3",
+              title: "LiveTile Test 3",
+              content:
+                "This is the content for LiveTile Test 3 and this is a veeeeerrry long text. ",
+              bg: "https://avatars.githubusercontent.com/u/35499042?v=4",
+            },
+          ]}
+        />
+      ),
     },
   ],
 ];
