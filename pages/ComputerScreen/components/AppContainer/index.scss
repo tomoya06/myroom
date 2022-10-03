@@ -18,6 +18,7 @@
   align-items: center;
   background-color: #000000;
   border-bottom: 1.6px solid #ababab;
+  color: #ffffff;
 
   img {
     width: 1.6rem;
@@ -39,13 +40,11 @@
 
   .AppContainerActionBtn {
     cursor: pointer;
-    background-size: 1.6rem;
+    background-size: 1.2rem;
     background-position: center;
     background-repeat: no-repeat;
-    border-radius: 0.6rem;
     width: 2rem;
     height: 2rem;
-    border: 1px solid #e0e0e0;
 
     &:hover {
       background-color: #e0e0e0;
@@ -54,11 +53,16 @@
 }
 
 .AppContainerActionBtn.actionbarMini {
-  background-image: url("https://img.icons8.com/dusk/64/000000/minus-math.png");
-  background-color: #e0ffe8;
+  background-image: url("https://img.icons8.com/material-outlined/48/FFFFFF/minus-math.png");
+  background-color: #ffffff;
 }
 
 .AppContainerActionBtn.actionbarClose {
-  background-image: url("https://img.icons8.com/dusk/64/000000/multiply.png");
-  background-color: #ffd7d7;
+  background-image: url("https://img.icons8.com/material-outlined/48/FFFFFF/delete-sign.png");
+  background-color: #ff4040;
+  width: 3rem;
+
+  &:hover {
+    background-color: #ff5858;
+  }
 }

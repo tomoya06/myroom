@@ -15,12 +15,16 @@ const DesktopTile: React.FC<Props> = (props: Props) => {
   return (
     <AppContext.Consumer>
       {(context) => {
-        const { apps, openApp } = context || {};
+        const { apps = {}, openApp } = context || {};
         const myapp = apps[appid];
 
         const handleClick = () => {
           openApp?.(appid);
         };
+
+        if (!myapp) {
+          return <></>;
+        }
 
         return (
           <div

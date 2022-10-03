@@ -35,12 +35,8 @@ const AppContainer: React.FC<AppContainerProps> = (props) => {
 
               <div className="AppContainerActionbar">
                 <div
-                  className="AppContainerActionBtn actionbarMini"
-                  onClick={handleMini}
-                ></div>
-                <div
                   className="AppContainerActionBtn actionbarClose"
-                  onClick={handleClose}
+                  onClick={handleMini}
                 ></div>
               </div>
             </div>
