@@ -23,7 +23,12 @@ const AppContainer: React.FC<AppContainerProps> = (props) => {
         };
 
         return (
-          <div className={clsn("appContainer", isActive && "active")}>
+          <div
+            className={clsn(
+              "appContainer ",
+              isActive ? "scale-in-bottom" : "scale-out-bottom"
+            )}
+          >
             <div className="navbar">
               <img src={appInfo.icon} alt={appInfo.id} />
               <div className="appTitle">{appInfo.id}</div>

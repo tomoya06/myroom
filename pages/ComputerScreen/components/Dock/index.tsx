@@ -42,7 +42,12 @@ const Dock: React.FC = () => {
                   }}
                   onClick={handleClick}
                 >
-                  {isActive && <div className="DockAppActiveBar"></div>}
+                  <div
+                    className={classNames(
+                      "DockAppActiveBar",
+                      isActive && "active"
+                    )}
+                  ></div>
                 </div>
               );
             })}
