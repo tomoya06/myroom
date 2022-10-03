@@ -1,14 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import Desktop from "./components/Desktop";
-import Dock from "./components/Dock";
 import { AppContext, installedAppToMap, desktopApps } from "./context";
 import { AppContextType, DesktopApp } from "./interface";
 
 function App() {
   const [activeApp, setActiveApp] = useState<string | undefined>(undefined);
   const [openedApps, setOpenedApps] = useState<string[]>([]);
-  const [desktop, setDesktop] = useState<DesktopApp[]>(desktopApps);
+  const [desktop, setDesktop] = useState<DesktopApp[][]>(desktopApps);
 
   const closeApp = (app: string) => {
     const newOpenedApps = [...openedApps].filter((oa) => oa !== app);
@@ -53,7 +52,6 @@ function App() {
           return React.cloneElement(Elem, { key: openedApp });
         })}
         <Desktop />
-        <Dock />
       </div>
     </AppContext.Provider>
   );

@@ -9,14 +9,14 @@ export interface AppApp extends AppInfo {
 
 export interface DesktopApp {
   id: string;
-  pos: [number, number];
+  content: JSX.Element;
 }
 
 export interface AppContextType {
   activeApp: string | undefined;
   apps: Record<string, AppApp>;
   openedApps: string[];
-  desktop: DesktopApp[];
+  desktop: DesktopApp[][];
   closeApp: (app: string) => void;
   openApp: (app: string) => void;
   toggleActive: (app: string) => void;

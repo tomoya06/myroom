@@ -1,3 +1,4 @@
+import React from "react";
 import { AppContext } from "../../context";
 import "./index.scss";
 
@@ -5,30 +6,38 @@ const Desktop: React.FC = () => {
   return (
     <AppContext.Consumer>
       {(context) => {
-        const { apps = {}, desktop = [], openApp } = context || {};
-        const handleClickApp = (appId: string) => {
-          openApp?.(appId);
-        };
+        const { desktop = [] } = context || {};
 
         return (
           <div className="Desktop">
-            {desktop.map((desktopApp) => {
-              const app = apps[desktopApp.id];
-
-              return (
-                <div
-                  className="DesktopApp"
-                  style={{
-                    gridColumn: desktopApp.pos[0],
-                    gridRow: desktopApp.pos[1],
-                  }}
-                  onDoubleClick={() => handleClickApp(desktopApp.id)}
-                >
-                  <img src={app.icon}></img>
-                  <div>{app.id}</div>
+            <div className="DesktopHeader">
+              <div className="DesktopStart">Start</div>
+              <div className="DesktopAvatar">
+                <div className="DesktopAvatarNames">
+                  <div className="FirstName">Administrator</div>
+                  <div className="LastName">tomoya06</div>
                 </div>
-              );
-            })}
+                <img
+                  className="DesktopAvatarImg"
+                  src="https://avatars.githubusercontent.com/u/35499042?v=4"
+                  alt=""
+                />
+              </div>
+            </div>
+
+            <div className="DesktopTiles">
+              {desktop.map((desktopGroup, idx) => {
+                return (
+                  <div className="DesktopTilesGroup" key={`tilegroup_${idx}`}>
+                    {desktopGroup.map((desktopApp) => {
+                      const { id, content } = desktopApp;
+
+                      return React.cloneElement(content, { key: id });
+                    })}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         );
       }}

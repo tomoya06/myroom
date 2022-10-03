@@ -1,29 +1,50 @@
 .Desktop {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: calc(100vh - 4rem);
+}
 
-  .DesktopApp {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+.DesktopHeader {
+  margin: 4rem 4rem 0 8rem;
+  height: 6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    img {
-      height: 6rem;
-      width: 6rem;
-    }
+.DesktopStart {
+  font-size: 6rem;
+  line-height: 6rem;
+  height: 6rem;
+}
 
-    &:hover {
-      background-color: #d1d1d1;
-    }
+.DesktopAvatar {
+  height: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.DesktopAvatarNames {
+  text-align: right;
+  margin: 0 1rem 0 0;
+
+  .FirstName {
+    font-size: 2rem;
   }
+
+  .LastName {
+    font-size: 1.2rem;
+  }
+}
+
+.DesktopAvatarImg {
+  width: 4rem;
+  height: 4rem;
+}
+
+.DesktopTiles {
+  padding: 4rem 0 0 8rem;
+}
+
+.DesktopTilesGroup {
+  margin: 0 1rem 0 0;
+  display: flex;
 }

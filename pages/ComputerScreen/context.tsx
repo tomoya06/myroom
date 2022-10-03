@@ -1,4 +1,5 @@
 import React from "react";
+import DesktopTile from "./components/DesktopTile";
 import IframeApp from "./components/IframeApp";
 import { AppApp, AppContextType, AppInfo, DesktopApp } from "./interface";
 
@@ -7,7 +8,7 @@ export const installedApps: AppApp[] = (() => {
 
   const aiGithub: AppInfo = {
     id: "GitHub",
-    icon: "https://img.icons8.com/plasticine/100/000000/github-squared.png",
+    icon: "https://img.icons8.com/material/100/FFFFFF/github-2.png",
   };
   const appGithub: AppApp = {
     ...aiGithub,
@@ -17,7 +18,7 @@ export const installedApps: AppApp[] = (() => {
 
   const aiTime: AppInfo = {
     id: "北京时间",
-    icon: "https://img.icons8.com/dusk/64/000000/watches-front-view--v2.png",
+    icon: "https://img.icons8.com/material/100/FFFFFF/around-the-globe.png",
   };
   const appTime: AppApp = {
     ...aiTime,
@@ -32,15 +33,17 @@ export const installedAppToMap: Record<string, AppApp> = (() => {
   return Object.fromEntries(installedApps.map((app) => [app.id, app]));
 })();
 
-export const desktopApps: DesktopApp[] = [
-  {
-    id: "GitHub",
-    pos: [1, 1],
-  },
-  {
-    id: "北京时间",
-    pos: [1, 2],
-  },
+export const desktopApps: DesktopApp[][] = [
+  [
+    {
+      id: "GitHub",
+      content: <DesktopTile appid="GitHub" size="wide" />,
+    },
+    {
+      id: "北京时间",
+      content: <DesktopTile appid="北京时间" size="middle" />,
+    },
+  ],
 ];
 
 export const AppContext = React.createContext<AppContextType>(

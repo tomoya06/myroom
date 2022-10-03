@@ -1,3 +1,22 @@
+@font-face {
+  font-family: "Segoe UI";
+  src: url("https://static2.sharepointonline.com/files/fabric/assets/fonts/segoeui-westeuropean/segoeui-light.woff2")
+      format("woff2"),
+    url("https://static2.sharepointonline.com/files/fabric/assets/fonts/segoeui-westeuropean/segoeui-light.woff")
+      format("woff");
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Segoe UI Web (West European)";
+  src: url("https://static2.sharepointonline.com/files/fabric/assets/fonts/segoeui-westeuropean/segoeui-semilight.woff2")
+      format("woff2"),
+    url("https://static2.sharepointonline.com/files/fabric/assets/fonts/segoeui-westeuropean/segoeui-semilight.woff")
+      format("woff");
+  font-weight: 300;
+  font-style: normal;
+}
+
 body,
 html {
   background-color: #fff;
@@ -8,6 +27,7 @@ html {
 
 * {
   font-family: "Segoe UI", sans-serif;
+  font-weight: 300;
 }
 
 .App {
@@ -15,6 +35,8 @@ html {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  background-image: url("assets/win8.jpg");
+  background-size: cover;
 
   user-select: none;
   -webkit-user-select: none;
