@@ -1,4 +1,5 @@
-import { Fragment, useState } from "react";
+import React from "react";
+import { useState } from "react";
 import Desktop from "./components/Desktop";
 import Dock from "./components/Dock";
 import { AppContext, installedAppToMap, desktopApps } from "./context";
@@ -49,7 +50,7 @@ function App() {
         {openedApps.map((openedApp) => {
           const Elem = installedAppToMap[openedApp].content;
 
-          return <Fragment key={openedApp}>{Elem}</Fragment>;
+          return React.cloneElement(Elem, { key: openedApp });
         })}
         <Desktop />
         <Dock />
