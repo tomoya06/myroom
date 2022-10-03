@@ -76,6 +76,16 @@ export const desktopApps: DesktopApp[][] = [
                 "This is the content for LiveTile Test 3 and this is a veeeeerrry long text. ",
               bg: "https://avatars.githubusercontent.com/u/35499042?v=4",
             },
+            {
+              id: "livetile_4",
+              elem: (
+                <div>
+                  <h1>HELLO WORLD</h1>
+                  <h2>THIS IS A CUSTOM ELEM</h2>
+                </div>
+              ),
+              bg: "https://avatars.githubusercontent.com/u/35499042?v=4",
+            },
           ]}
         />
       ),

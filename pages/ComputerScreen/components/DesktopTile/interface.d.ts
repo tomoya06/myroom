@@ -3,4 +3,5 @@ export interface TileLiveContent {
   title?: string;
   content?: string;
   bg?: string;
+  elem?: JSX.Element;
 }

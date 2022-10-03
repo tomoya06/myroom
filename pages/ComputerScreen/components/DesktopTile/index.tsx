@@ -51,6 +51,7 @@ const LiveTile = (myapp: AppApp, live: TileLiveContent, props: Props) => {
       <div className="LiveTileMain">
         {live.title && <div className="LiveTileTitle">{live.title}</div>}
         {live.content && <div className="LiveTileContent">{live.content}</div>}
+        {live.elem}
       </div>
       <div className="LiveTileFooter">
         <img className="LiveTileFooterIcon" src={myapp.icon} alt={myapp.id} />
@@ -88,7 +89,7 @@ const DesktopTile: React.FC<Props> = (props: Props) => {
     interval.current = setInterval(() => {
       curLiveIdx.current = (curLiveIdx.current! + 1) % lives.length;
       updateLive(lives[curLiveIdx.current]);
-    }, 3000);
+    }, 5000);
   }, [lives]);
 
   return (

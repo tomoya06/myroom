@@ -1,4 +1,5 @@
 $tileSize: 10rem;
+$tileMargin: 0.5rem;
 $iconSize: 5rem;
 
 @mixin multisize {
@@ -21,10 +22,18 @@ $iconSize: 5rem;
   width: $tileSize;
   position: relative;
   align-items: center;
-  margin: 0 0.5rem 0.5rem 0;
+  margin: 0 $tileMargin $tileMargin 0;
   overflow: hidden;
-
+  transition: all 0.2s ease;
   @include multisize();
+
+  &:hover {
+    transform: scale(0.98);
+  }
+
+  &:active {
+    transform: scale(0.94);
+  }
 }
 
 .DesktopTileIconBox {
@@ -59,8 +68,8 @@ $iconSize: 5rem;
   width: $tileSize;
   display: flex;
   flex-direction: column;
-  animation: live-tile-slide-in-from-bottom 1s cubic-bezier(0.06, 1, 0.1, 0.95)
-    both;
+  animation: live-tile-slide-in-from-bottom 1.8s
+    cubic-bezier(0.05, 0.89, 0.12, 0.94) both;
 
   @include multisize();
 }
