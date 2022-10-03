@@ -90,30 +90,31 @@ const DesktopTile: React.FC<Props> = (props: Props) => {
   const [curLive, setCurLive] = useState<TileLiveContent>();
   const [curLiveOut, setCurLiveOut] = useState<boolean>();
   const interval = useRef<number>();
-  const prevLive = useRef<TileLiveContent>();
+  const curLiveStore = useRef<TileLiveContent>();
   const curLiveIdx = useRef<number>();
 
-  const updateLive = (live: TileLiveContent | undefined, out?: boolean) => {
-    if (out) {
-      prevLive.current = undefined;
-      setLastLive(undefined);
-      setCurLiveOut(out);
-      return;
-    }
+  const updateLive = (live: TileLiveContent) => {
     setCurLiveOut(false);
-    setLastLive(prevLive.current);
+    setLastLive(curLiveStore.current);
     setCurLive(live);
-    prevLive.current = live;
+    curLiveStore.current = live;
+  };
+
+  const resetLive = () => {
+    curLiveIdx.current = -1;
+    curLiveStore.current = undefined;
+    setLastLive(undefined);
+    setCurLiveOut(true);
   };
 
   useEffect(() => {
     clearInterval(interval.current);
-    curLiveIdx.current = -1;
+    resetLive();
 
     interval.current = setInterval(() => {
       if (curLiveIdx.current! >= lives.length - 1) {
-        updateLive(undefined, true);
-        curLiveIdx.current = -1;
+        resetLive();
+
         return;
       }
       curLiveIdx.current = curLiveIdx.current! + 1;
