@@ -1,65 +1,64 @@
-.appContainer {
+.AppContainer {
   position: absolute;
   overflow: hidden;
   width: 100vw;
-  height: calc(100vh - 4rem);
+  height: 100vh;
   z-index: 2;
   background-color: #818181;
   border: 1.6px solid #ababab;
-  border-radius: 0.6rem;
-  transition: all 0.3s ease-out;
 
   &.active {
+    z-index: 9;
+  }
+}
+
+.AppContainerNavBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000;
+  border-bottom: 1.6px solid #ababab;
+
+  img {
+    width: 1.6rem;
+    height: 1.6rem;
+    padding: 0 0.4rem 0 1rem;
   }
 
-  .navbar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #95b0fa;
-    border-bottom: 1.6px solid #ababab;
-
-    img {
-      width: 1.6rem;
-      height: 1.6rem;
-      padding: 0 0.4rem 0 1rem;
-    }
-
-    .appTitle {
-      flex-grow: 1;
-      padding: 0 0.6rem;
-    }
+  .appTitle {
+    flex-grow: 1;
+    padding: 0 0.6rem;
   }
+}
 
-  .actionbar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.2rem;
+.AppContainerActionbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
 
-    .actionbtn {
-      cursor: pointer;
-      background-size: 1.6rem;
-      background-position: center;
-      background-repeat: no-repeat;
-      border-radius: 0.6rem;
-      width: 2rem;
-      height: 2rem;
-      border: 1px solid #e0e0e0;
+  .AppContainerActionBtn {
+    cursor: pointer;
+    background-size: 1.6rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 0.6rem;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid #e0e0e0;
 
-      &:hover {
-        background-color: #e0e0e0;
-      }
+    &:hover {
+      background-color: #e0e0e0;
     }
   }
 }
 
-.actionbtn.actionbarMini {
+.AppContainerActionBtn.actionbarMini {
   background-image: url("https://img.icons8.com/dusk/64/000000/minus-math.png");
   background-color: #e0ffe8;
 }
 
-.actionbtn.actionbarClose {
+.AppContainerActionBtn.actionbarClose {
   background-image: url("https://img.icons8.com/dusk/64/000000/multiply.png");
   background-color: #ffd7d7;
 }

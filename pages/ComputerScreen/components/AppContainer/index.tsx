@@ -25,21 +25,21 @@ const AppContainer: React.FC<AppContainerProps> = (props) => {
         return (
           <div
             className={clsn(
-              "appContainer ",
-              isActive ? "scale-in-bottom" : "scale-out-bottom"
+              "AppContainer",
+              isActive ? "slide-in-right" : "slide-out-right"
             )}
           >
-            <div className="navbar">
+            <div className="AppContainerNavBar">
               <img src={appInfo.icon} alt={appInfo.id} />
               <div className="appTitle">{appInfo.id}</div>
 
-              <div className="actionbar">
+              <div className="AppContainerActionbar">
                 <div
-                  className="actionbtn actionbarMini"
+                  className="AppContainerActionBtn actionbarMini"
                   onClick={handleMini}
                 ></div>
                 <div
-                  className="actionbtn actionbarClose"
+                  className="AppContainerActionBtn actionbarClose"
                   onClick={handleClose}
                 ></div>
               </div>
