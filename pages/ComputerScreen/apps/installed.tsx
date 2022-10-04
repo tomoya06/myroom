@@ -29,6 +29,11 @@ export const aiNotWeder: AppInfo = {
   icon: "https://img.icons8.com/ios-filled/100/FFFFFF/partly-cloudy-day--v1.png",
 };
 
+export const aiXiaoXiaoLe: AppInfo = {
+  id: "Game - GoGoal",
+  icon: "https://img.icons8.com/external-glyph-andi-nur-abdillah/100/FFFFFF/external-Goal-football-(glyph)-glyph-andi-nur-abdillah.png",
+};
+
 export const installedApps: AppApp[] = (() => {
   const output: AppApp[] = [];
 
@@ -68,6 +73,17 @@ export const installedApps: AppApp[] = (() => {
     content: <IframeApp url="https://www.qweather.com" appInfo={aiNotWeder} />,
   };
   output.push(appNotWeather);
+
+  const appXiaoxiaole: AppApp = {
+    ...aiXiaoXiaoLe,
+    content: (
+      <IframeApp
+        url="https://tomoya06.github.io/superhappy-xiaoxiaole/"
+        appInfo={aiXiaoXiaoLe}
+      />
+    ),
+  };
+  output.push(appXiaoxiaole);
 
   return output;
 })();

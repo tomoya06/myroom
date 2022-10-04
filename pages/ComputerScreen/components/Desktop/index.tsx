@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { desktopApps } from "../../contextRegister";
+import { desktopApps } from "../../apps/desktops";
 import "./index.scss";
 
 interface Props {}
