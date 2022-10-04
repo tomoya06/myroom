@@ -1,148 +1,36 @@
-import React from "react";
-import DesktopTile from "./components/DesktopTile";
-import IframeApp from "./components/AppIframe";
-import { AppApp, AppContextType, AppInfo, DesktopApp } from "./interface";
-import { TileLiveContent } from "./components/DesktopTile/interface";
-import NotWeatherTile from "./components/DesktopTileVaries/NotWeather";
-import Gallery from "./components/DesktopTileVaries/Gallery";
+import { AppApp, AppContextType, DesktopApp } from "./interface";
+import { makeAutoObservable } from "mobx";
 
-const testLiveTiles: TileLiveContent[] = [
-  {
-    id: "livetile_1",
-    title: "LiveTile Test",
-  },
-  {
-    id: "livetile_2",
-    title: "LiveTile Test 2",
-    content: "This is the content for LiveTile Test 2",
-  },
-  {
-    id: "livetile_3",
-    title: "LiveTile Test 3",
-    content:
-      "This is the content for LiveTile Test 3 and this is a veeeeerrry long text. ",
-    bg: "https://avatars.githubusercontent.com/u/35499042?v=4",
-  },
-  {
-    id: "livetile_4",
-    elem: (
-      <div>
-        <h1>HELLO WORLD</h1>
-        <h2>THIS IS A CUSTOM ELEM</h2>
-      </div>
-    ),
-    bg: "https://avatars.githubusercontent.com/u/35499042?v=4",
-  },
-];
+export class GlobalContext implements AppContextType {
+  apps: Record<string, AppApp> = {};
+  activeApp: string | undefined;
+  openedApps: string[] = [];
+  desktop: DesktopApp[][] = [];
 
-export const installedApps: AppApp[] = (() => {
-  const output: AppApp[] = [];
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-  const aiGithub: AppInfo = {
-    id: "GitHub",
-    icon: "https://img.icons8.com/material/100/FFFFFF/github-2.png",
+  closeApp = (app: string) => {
+    this.openedApps = this.openedApps.filter((oa) => oa !== app);
   };
-  const appGithub: AppApp = {
-    ...aiGithub,
-    content: <IframeApp url="https://github.com/tomoya06" appInfo={aiGithub} />,
+  openApp = (app: string) => {
+    if (!this.openedApps.includes(app)) {
+      this.openedApps.push(app);
+    }
+    this.activeApp = app;
   };
-  output.push(appGithub);
+  toggleActive = (app: string) => {
+    if (this.activeApp === app) {
+      this.activeApp = undefined;
+    } else {
+      this.activeApp = app;
+    }
+  };
+  closeAllApps = () => {
+    this.openedApps = [];
+    this.activeApp = undefined;
+  };
+}
 
-  const aiTime: AppInfo = {
-    id: "北京时间",
-    icon: "https://img.icons8.com/material/100/FFFFFF/around-the-globe.png",
-  };
-  const appTime: AppApp = {
-    ...aiTime,
-    content: <IframeApp url="https://time.is/zh/Beijing" appInfo={aiTime} />,
-  };
-  output.push(appTime);
-
-  const aiTime2: AppInfo = {
-    id: "纽约时间",
-    icon: "https://img.icons8.com/material/100/FFFFFF/around-the-globe.png",
-  };
-  const appTime2: AppApp = {
-    ...aiTime2,
-    content: <IframeApp url="https://time.is/zh/NewYork" appInfo={aiTime2} />,
-  };
-  output.push(appTime2);
-
-  const aiLiveTest: AppInfo = {
-    id: "LiveTile",
-    icon: "https://img.icons8.com/ios-filled/100/FFFFFF/movie-theater.png",
-  };
-  const appLiveTest: AppApp = {
-    ...aiLiveTest,
-    content: <></>,
-  };
-  output.push(appLiveTest);
-
-  const aiLiveTest2: AppInfo = {
-    id: "Gallery",
-    icon: "https://img.icons8.com/ios-filled/100/FFFFFF/movie-theater.png",
-  };
-  const appLiveTest2: AppApp = {
-    ...aiLiveTest2,
-    content: <></>,
-  };
-  output.push(appLiveTest2);
-
-  const aiNotWeather: AppInfo = {
-    id: "NotWeather",
-    icon: "https://img.icons8.com/ios-filled/100/FFFFFF/partly-cloudy-day--v1.png",
-  };
-  const appNotWeather: AppApp = {
-    ...aiNotWeather,
-    content: (
-      <IframeApp url="https://www.qweather.com" appInfo={aiNotWeather} />
-    ),
-  };
-  output.push(appNotWeather);
-
-  return output;
-})();
-
-export const installedAppToMap: Record<string, AppApp> = (() => {
-  return Object.fromEntries(installedApps.map((app) => [app.id, app]));
-})();
-
-export const desktopApps: DesktopApp[][] = [
-  [
-    {
-      id: "GitHub",
-      content: <DesktopTile appid="GitHub" size="wide" pos={[0, 0]} />,
-    },
-    {
-      id: "北京时间",
-      content: <DesktopTile appid="北京时间" size="middle" pos={[0, 1]} />,
-    },
-    {
-      id: "纽约时间",
-      content: <DesktopTile appid="纽约时间" size="middle" pos={[1, 1]} />,
-    },
-    {
-      id: "LiveTile",
-      content: (
-        <DesktopTile
-          appid="LiveTile"
-          size="wide"
-          pos={[2, 0]}
-          lives={testLiveTiles}
-        />
-      ),
-    },
-    {
-      id: "Gallery",
-      content: <Gallery appid="Gallery" size="large" pos={[0, 2]} />,
-    },
-    {
-      id: "NotWeather",
-      content: <NotWeatherTile appid="NotWeather" size="large" pos={[2, 1]} />,
-    },
-  ],
-];
-
-export const AppContext = React.createContext<AppContextType>(
-  undefined as never
-);
+export const globalContext = new GlobalContext();

@@ -8,7 +8,6 @@ export interface AppApp extends AppInfo {
 }
 
 export interface DesktopApp {
-  id: string;
   content: JSX.Element;
 }
 
@@ -25,4 +24,5 @@ export interface AppContextType {
 
 export interface AppProps {
   appInfo: AppInfo;
+  isActive?: boolean;
 }

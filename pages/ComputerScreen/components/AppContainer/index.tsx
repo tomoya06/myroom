@@ -1,50 +1,44 @@
 import { AppProps } from "../../interface";
 import clsn from "classnames";
 import "./index.scss";
-import { AppContext } from "../../context";
+import { globalContext } from "../../context";
 
 export interface AppContainerProps extends AppProps {
   children?: JSX.Element;
 }
 
 const AppContainer: React.FC<AppContainerProps> = (props) => {
+  const { appInfo, children, isActive } = props;
+
+  const { toggleActive, closeApp } = globalContext;
+
+  const handleMini = () => {
+    toggleActive(appInfo.id);
+  };
+  const handleClose = () => {
+    closeApp(appInfo.id);
+  };
+
   return (
-    <AppContext.Consumer>
-      {(context) => {
-        const { appInfo, children } = props;
-        const { activeApp, toggleActive, closeApp } = context || {};
-        const isActive = appInfo.id === activeApp;
+    <div
+      className={clsn(
+        "AppContainer",
+        isActive ? "slide-in-right" : "slide-out-right"
+      )}
+    >
+      <div className="AppContainerNavBar">
+        <img src={appInfo.icon} alt={appInfo.id} />
+        <div className="appTitle">{appInfo.id}</div>
 
-        const handleMini = () => {
-          toggleActive(appInfo.id);
-        };
-        const handleClose = () => {
-          closeApp(appInfo.id);
-        };
-
-        return (
+        <div className="AppContainerActionbar">
           <div
-            className={clsn(
-              "AppContainer",
-              isActive ? "slide-in-right" : "slide-out-right"
-            )}
-          >
-            <div className="AppContainerNavBar">
-              <img src={appInfo.icon} alt={appInfo.id} />
-              <div className="appTitle">{appInfo.id}</div>
-
-              <div className="AppContainerActionbar">
-                <div
-                  className="AppContainerActionBtn actionbarClose"
-                  onClick={handleMini}
-                ></div>
-              </div>
-            </div>
-            {children}
-          </div>
-        );
-      }}
-    </AppContext.Consumer>
+            className="AppContainerActionBtn actionbarClose"
+            onClick={handleMini}
+          ></div>
+        </div>
+      </div>
+      {children}
+    </div>
   );
 };
 

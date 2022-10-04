@@ -27,6 +27,8 @@
     "dat.gui": "^0.7.9",
     "delay": "^5.0.0",
     "lodash": "^4.17.21",
+    "mobx": "^6.6.2",
+    "mobx-react-lite": "^3.4.0",
     "qweather-icons": "^1.1.1",
     "random-int": "^3.0.0",
     "random-item": "^4.0.1",

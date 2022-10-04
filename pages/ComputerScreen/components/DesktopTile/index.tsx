@@ -1,14 +1,14 @@
 import classNames from "classnames";
 import React, { useEffect, useRef, useState } from "react";
-import { AppContext } from "../../context";
-import { AppApp } from "../../interface";
+import { globalContext } from "../../context";
+import { AppInfo } from "../../interface";
 import "./index.scss";
 import { TileLiveContent } from "./interface";
 
 const $tileSize = `10.5rem`;
 
 export interface TileBasicProps {
-  appid: string;
+  appInfo: AppInfo;
   size: "middle" | "wide" | "large";
   pos: [number, number];
   color?: string;
@@ -21,7 +21,7 @@ export interface DesktopTileProps extends TileBasicProps {
   onLoopEnd?: () => void;
 }
 
-const WideTileTitle = (myapp: AppApp) => {
+const WideTileTitle = (myapp: AppInfo) => {
   return (
     <div className={classNames("DesktopTileIconBox", "wide")}>
       <img className="DesktopTileIcon" src={myapp.icon} alt={myapp.id} />
@@ -30,7 +30,7 @@ const WideTileTitle = (myapp: AppApp) => {
   );
 };
 
-const MiddleTileTitle = (myapp: AppApp) => {
+const MiddleTileTitle = (myapp: AppInfo) => {
   return (
     <>
       <div className={classNames("DesktopTileIconBox", "middle")}>
@@ -42,7 +42,7 @@ const MiddleTileTitle = (myapp: AppApp) => {
 };
 
 const LiveTile = (
-  myapp: AppApp,
+  myapp: AppInfo,
   live: TileLiveContent,
   props: DesktopTileProps,
   css: {
@@ -83,13 +83,14 @@ const LiveTile = (
 
 const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
   const {
-    appid,
     color = "w3-win8-cyan",
     size,
     lives = [],
     pos,
     liveInt = 5000,
+    appInfo,
   } = props;
+  const { openApp } = globalContext;
 
   const [lastLive, setLastLive] = useState<TileLiveContent>();
   const [curLive, setCurLive] = useState<TileLiveContent>();
@@ -133,38 +134,29 @@ const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
     top: `calc(${pos[1]} * ${$tileSize})`,
   };
 
+  const handleClick = () => {
+    openApp?.(appInfo.id);
+  };
+
+  if (!appInfo) {
+    return <></>;
+  }
+
   return (
-    <AppContext.Consumer>
-      {(context) => {
-        const { apps = {}, openApp } = context || {};
-        const myapp = apps[appid];
-
-        const handleClick = () => {
-          openApp?.(appid);
-        };
-
-        if (!myapp) {
-          return <></>;
-        }
-
-        return (
-          <div
-            className={classNames("DesktopTile", size, color)}
-            onClick={handleClick}
-            style={style}
-          >
-            {size !== "middle" && WideTileTitle(myapp)}
-            {size === "middle" && MiddleTileTitle(myapp)}
-            {lastLive && LiveTile(myapp, lastLive, props, {})}
-            {curLive &&
-              LiveTile(myapp, curLive, props, {
-                out: curLiveOut,
-                in: !curLiveOut,
-              })}
-          </div>
-        );
-      }}
-    </AppContext.Consumer>
+    <div
+      className={classNames("DesktopTile", size, color)}
+      onClick={handleClick}
+      style={style}
+    >
+      {size !== "middle" && WideTileTitle(appInfo)}
+      {size === "middle" && MiddleTileTitle(appInfo)}
+      {lastLive && LiveTile(appInfo, lastLive, props, {})}
+      {curLive &&
+        LiveTile(appInfo, curLive, props, {
+          out: curLiveOut,
+          in: !curLiveOut,
+        })}
+    </div>
   );
 };
 

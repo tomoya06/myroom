@@ -1,60 +1,25 @@
 import React from "react";
-import { useState } from "react";
+import { installedAppToMap } from "./apps/installed";
 import Desktop from "./components/Desktop";
-import { AppContext, installedAppToMap, desktopApps } from "./context";
-import { AppContextType, DesktopApp } from "./interface";
+import { desktopApps } from "./contextRegister";
+import { observer } from "mobx-react-lite";
+import { GlobalContext } from "./context";
 
-function App() {
-  const [activeApp, setActiveApp] = useState<string | undefined>(undefined);
-  const [openedApps, setOpenedApps] = useState<string[]>([]);
-  const [desktop, setDesktop] = useState<DesktopApp[][]>(desktopApps);
-
-  const closeApp = (app: string) => {
-    const newOpenedApps = [...openedApps].filter((oa) => oa !== app);
-    setOpenedApps(newOpenedApps);
-  };
-
-  const closeAllApps = () => {
-    setOpenedApps([]);
-  };
-
-  const openApp = (app: string) => {
-    const newOpenedApps = [...new Set([...openedApps, app])];
-    setOpenedApps(newOpenedApps);
-    setActiveApp(app);
-  };
-
-  const toggleActive = (app: string) => {
-    if (activeApp === app) {
-      setActiveApp(undefined);
-    } else {
-      setActiveApp(app);
-    }
-  };
-
-  const curContext: AppContextType = {
-    activeApp,
-    apps: installedAppToMap,
-    openedApps,
-    desktop,
-    toggleActive,
-    closeApp,
-    openApp,
-    closeAllApps,
-  };
-
+const App = observer<{ context: GlobalContext }>(({ context }) => {
+  const { openedApps, activeApp } = context;
   return (
-    <AppContext.Provider value={curContext}>
-      <div className="App">
-        {openedApps.map((openedApp) => {
-          const Elem = installedAppToMap[openedApp].content;
+    <div className="App">
+      {openedApps.map((openedApp) => {
+        const Elem = installedAppToMap[openedApp].content;
 
-          return React.cloneElement(Elem, { key: openedApp });
-        })}
-        <Desktop />
-      </div>
-    </AppContext.Provider>
+        return React.cloneElement(Elem, {
+          key: openedApp,
+          isActive: openedApp === activeApp,
+        });
+      })}
+      <Desktop desktop={desktopApps} />
+    </div>
   );
-}
+});
 
 export default App;
