@@ -7,14 +7,18 @@ import { TileLiveContent } from "./interface";
 
 const $tileSize = `10.5rem`;
 
-interface Props {
+export interface TileBasicProps {
   appid: string;
   size: "middle" | "wide" | "large";
   pos: [number, number];
   color?: string;
+}
+
+export interface DesktopTileProps extends TileBasicProps {
   lives?: TileLiveContent[];
   liveInt?: number;
   children?: JSX.Element;
+  onLoopEnd?: () => void;
 }
 
 const WideTileTitle = (myapp: AppApp) => {
@@ -40,7 +44,7 @@ const MiddleTileTitle = (myapp: AppApp) => {
 const LiveTile = (
   myapp: AppApp,
   live: TileLiveContent,
-  props: Props,
+  props: DesktopTileProps,
   css: {
     out?: boolean;
     in?: boolean;
@@ -76,7 +80,7 @@ const LiveTile = (
   );
 };
 
-const DesktopTile: React.FC<Props> = (props: Props) => {
+const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
   const {
     appid,
     color = "w3-win8-cyan",
@@ -114,6 +118,7 @@ const DesktopTile: React.FC<Props> = (props: Props) => {
     interval.current = setInterval(() => {
       if (curLiveIdx.current! >= lives.length - 1) {
         resetLive();
+        props.onLoopEnd?.();
 
         return;
       }

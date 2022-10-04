@@ -3,6 +3,7 @@ import DesktopTile from "./components/DesktopTile";
 import IframeApp from "./components/AppIframe";
 import { AppApp, AppContextType, AppInfo, DesktopApp } from "./interface";
 import { TileLiveContent } from "./components/DesktopTile/interface";
+import NotWeatherTile from "./components/DesktopTileVaries/NotWeather";
 
 const testLiveTiles: TileLiveContent[] = [
   {
@@ -86,6 +87,16 @@ export const installedApps: AppApp[] = (() => {
   };
   output.push(appLiveTest2);
 
+  const aiNotWeather: AppInfo = {
+    id: "NotWeather",
+    icon: "https://img.icons8.com/ios-filled/100/FFFFFF/partly-cloudy-day--v1.png",
+  };
+  const appNotWeather: AppApp = {
+    ...aiNotWeather,
+    content: <IframeApp url="https://www.qweather.com" appInfo={aiTime2} />,
+  };
+  output.push(appNotWeather);
+
   return output;
 })();
 
@@ -129,6 +140,10 @@ export const desktopApps: DesktopApp[][] = [
           lives={testLiveTiles.slice(2)}
         />
       ),
+    },
+    {
+      id: "NotWeather",
+      content: <NotWeatherTile appid="NotWeather" size="large" pos={[2, 1]} />,
     },
   ],
 ];

@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.186",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "@types/three": "^0.143.1",
@@ -21,8 +22,14 @@
     "@tweenjs/tween.js": "^18",
     "@types/dat.gui": "^0.7.7",
     "@types/jquery": "^3.5.14",
+    "axios": "^0.27.2",
     "classnames": "^2.3.2",
     "dat.gui": "^0.7.9",
+    "delay": "^5.0.0",
+    "lodash": "^4.17.21",
+    "qweather-icons": "^1.1.1",
+    "random-int": "^3.0.0",
+    "random-item": "^4.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "three": "^0.143.0",
