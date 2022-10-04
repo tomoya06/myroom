@@ -2,10 +2,9 @@ import classNames from "classnames";
 import React, { useEffect, useRef, useState } from "react";
 import { globalContext } from "../../context";
 import { AppInfo } from "../../interface";
+import { $tileSize } from "../../variables";
 import "./index.scss";
 import { TileLiveContent } from "./interface";
-
-const $tileSize = `10.5rem`;
 
 export interface TileBasicProps {
   appInfo: AppInfo;
