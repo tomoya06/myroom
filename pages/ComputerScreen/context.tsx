@@ -4,6 +4,7 @@ import IframeApp from "./components/AppIframe";
 import { AppApp, AppContextType, AppInfo, DesktopApp } from "./interface";
 import { TileLiveContent } from "./components/DesktopTile/interface";
 import NotWeatherTile from "./components/DesktopTileVaries/NotWeather";
+import Gallery from "./components/DesktopTileVaries/Gallery";
 
 const testLiveTiles: TileLiveContent[] = [
   {
@@ -78,7 +79,7 @@ export const installedApps: AppApp[] = (() => {
   output.push(appLiveTest);
 
   const aiLiveTest2: AppInfo = {
-    id: "LiveTile2",
+    id: "Gallery",
     icon: "https://img.icons8.com/ios-filled/100/FFFFFF/movie-theater.png",
   };
   const appLiveTest2: AppApp = {
@@ -132,16 +133,8 @@ export const desktopApps: DesktopApp[][] = [
       ),
     },
     {
-      id: "LiveTile2",
-      content: (
-        <DesktopTile
-          appid="LiveTile2"
-          size="large"
-          pos={[0, 2]}
-          liveInt={3000}
-          lives={testLiveTiles.slice(2)}
-        />
-      ),
+      id: "Gallery",
+      content: <Gallery appid="Gallery" size="large" pos={[0, 2]} />,
     },
     {
       id: "NotWeather",

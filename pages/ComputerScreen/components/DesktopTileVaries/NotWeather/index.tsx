@@ -96,7 +96,8 @@ const NotWeatherTile: React.FC<TileBasicProps> = (props) => {
   lives.unshift({
     id: "NotWeather_hint",
     title: "This is Not A Weather App",
-    content: "All weather data here are fake",
+    content:
+      "All weather data here are fake. But you can always trust QWeather.com/ .",
   });
 
   const tileProps: DesktopTileProps = {
