@@ -1,13 +1,14 @@
-import React from "react";
-import { DesktopApp } from "../../interface";
+import React, { useMemo } from "react";
+import { desktopApps } from "../../contextRegister";
 import "./index.scss";
 
-interface Props {
-  desktop: DesktopApp[][];
-}
+interface Props {}
 
-const Desktop: React.FC<Props> = (props) => {
-  const { desktop = [] } = props;
+const Desktop: React.FC<Props> = () => {
+  const desktop = useMemo(() => {
+    return desktopApps;
+  }, []);
+
   return (
     <div className="Desktop">
       <div className="DesktopHeader">

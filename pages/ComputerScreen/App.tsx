@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { installedAppToMap } from "./apps/installed";
 import Desktop from "./components/Desktop";
-import { desktopApps } from "./contextRegister";
 import { observer } from "mobx-react-lite";
 import { GlobalContext } from "./context";
 
 const App = observer<{ context: GlobalContext }>(({ context }) => {
   const { openedApps, activeApp } = context;
+
+  const desktopIntance = useMemo(() => {
+    return <Desktop />;
+  }, []);
+
   return (
     <div className="App">
       {openedApps.map((openedApp) => {
@@ -17,7 +21,7 @@ const App = observer<{ context: GlobalContext }>(({ context }) => {
           isActive: openedApp === activeApp,
         });
       })}
-      <Desktop desktop={desktopApps} />
+      {desktopIntance}
     </div>
   );
 });
