@@ -90,6 +90,7 @@ $iconSize: 5rem;
   font-size: 2rem;
 }
 .LiveTileContent {
+  margin: 0.4rem 0 0 0;
 }
 
 .LiveTileFooter {
@@ -97,11 +98,16 @@ $iconSize: 5rem;
   bottom: 0;
   height: 1.6rem;
   display: flex;
+  align-items: flex-start;
   padding: 0 1rem;
 }
 .LiveTileFooterIcon {
   width: 1rem;
   height: 1rem;
+}
+.LiveTileFooterId {
+  margin: 0 0 0 0.4rem;
+  font-size: 0.8rem;
 }
 
 @keyframes live-tile-slide-in-from-bottom {

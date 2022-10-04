@@ -8,6 +8,7 @@ import randomItem from "random-item";
 import { WeatherTextName } from "./util";
 import delay from "delay";
 import { TileLiveContent } from "../../DesktopTile/interface";
+import "./index.scss";
 
 const CityList = [
   "Zhanjiang|Guangdong, China|101281001",
@@ -30,7 +31,7 @@ interface DisplayWeather {
 const renderWeatherTile = (weather: DisplayWeather) => {
   const { cityName, cityDistrict, weatherData } = weather;
 
-  const iconname = weatherData.text.toLowerCase().replace(" ", "-");
+  const iconname = weatherData.text.toLowerCase().replaceAll(" ", "-");
 
   return (
     <div className="WeatherTile">
@@ -42,9 +43,9 @@ const renderWeatherTile = (weather: DisplayWeather) => {
         <div className="WeatherTileDistrict">{cityDistrict}</div>
         <div className="WeatherTileWeather">
           <div className="text">{weatherData.text}</div>
-          <div className="temp">{weatherData.tempCur}</div>
+          <div className="temp">{weatherData.tempCur}°C</div>
           <div className="tempRange">
-            {weatherData.tempLo} ~ {weatherData.tempHi}
+            {weatherData.tempLo}°C ~ {weatherData.tempHi}°C
           </div>
         </div>
       </div>
@@ -91,6 +92,11 @@ const NotWeatherTile: React.FC<TileBasicProps> = (props) => {
       id: weather.cityName,
       elem: renderWeatherTile(weather),
     };
+  });
+  lives.unshift({
+    id: "NotWeather_hint",
+    title: "This is Not A Weather App",
+    content: "All weather data here are fake",
   });
 
   const tileProps: DesktopTileProps = {

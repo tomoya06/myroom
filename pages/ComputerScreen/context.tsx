@@ -93,7 +93,9 @@ export const installedApps: AppApp[] = (() => {
   };
   const appNotWeather: AppApp = {
     ...aiNotWeather,
-    content: <IframeApp url="https://www.qweather.com" appInfo={aiTime2} />,
+    content: (
+      <IframeApp url="https://www.qweather.com" appInfo={aiNotWeather} />
+    ),
   };
   output.push(appNotWeather);
 

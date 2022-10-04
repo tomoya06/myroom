@@ -75,6 +75,7 @@ const LiveTile = (
       </div>
       <div className="LiveTileFooter">
         <img className="LiveTileFooterIcon" src={myapp.icon} alt={myapp.id} />
+        <div className="LiveTileFooterId">{myapp.id}</div>
       </div>
     </div>
   );
