@@ -26,7 +26,7 @@ const testLiveTiles: TileLiveContent[] = [
     elem: (
       <div>
         <h1>HELLO WORLD</h1>
-        <h2>THIS IS A CUSTOM ELEM</h2>
+        <h2>Welcome to Metro UI</h2>
       </div>
     ),
     bg: "https://avatars.githubusercontent.com/u/35499042?v=4",

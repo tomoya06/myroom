@@ -2,12 +2,11 @@ import {
   aiGallery,
   aiGithub,
   aiLiveTest,
-  aiNotWeather,
+  aiNotWeder,
   aiTime,
   aiTime2,
 } from "./apps/installed";
 import DesktopTile from "./components/DesktopTile";
-import { TileLiveContent } from "./components/DesktopTile/interface";
 import Gallery from "./components/DesktopTileVaries/Gallery";
 import LiveTile from "./components/DesktopTileVaries/LiveTile";
 import NotWeatherTile from "./components/DesktopTileVaries/NotWeather";
@@ -32,7 +31,7 @@ export const desktopApps: DesktopApp[][] = [
     },
     {
       content: (
-        <NotWeatherTile appInfo={aiNotWeather} size="large" pos={[2, 1]} />
+        <NotWeatherTile appInfo={aiNotWeder} size="large" pos={[2, 1]} />
       ),
     },
   ],

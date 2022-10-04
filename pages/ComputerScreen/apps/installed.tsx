@@ -22,10 +22,10 @@ export const aiLiveTest: AppInfo = {
 
 export const aiGallery: AppInfo = {
   id: "Gallery",
-  icon: "https://img.icons8.com/ios-filled/100/FFFFFF/movie-theater.png",
+  icon: "https://img.icons8.com/material/100/FFFFFF/stack-of-photos--v1.png",
 };
-export const aiNotWeather: AppInfo = {
-  id: "NotWeather",
+export const aiNotWeder: AppInfo = {
+  id: "NotWeder",
   icon: "https://img.icons8.com/ios-filled/100/FFFFFF/partly-cloudy-day--v1.png",
 };
 
@@ -64,10 +64,8 @@ export const installedApps: AppApp[] = (() => {
   output.push(appLiveTest2);
 
   const appNotWeather: AppApp = {
-    ...aiNotWeather,
-    content: (
-      <IframeApp url="https://www.qweather.com" appInfo={aiNotWeather} />
-    ),
+    ...aiNotWeder,
+    content: <IframeApp url="https://www.qweather.com" appInfo={aiNotWeder} />,
   };
   output.push(appNotWeather);
 
