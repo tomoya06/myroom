@@ -12,6 +12,7 @@ specifiers:
   axios: ^0.27.2
   classnames: ^2.3.2
   dat.gui: ^0.7.9
+  dayjs: ^1.11.5
   delay: ^5.0.0
   lodash: ^4.17.21
   mobx: ^6.6.2
@@ -35,6 +36,7 @@ dependencies:
   axios: registry.npmmirror.com/axios/0.27.2
   classnames: registry.npmmirror.com/classnames/2.3.2
   dat.gui: registry.npmmirror.com/dat.gui/0.7.9
+  dayjs: registry.npmmirror.com/dayjs/1.11.5
   delay: registry.npmmirror.com/delay/5.0.0
   lodash: registry.npmmirror.com/lodash/4.17.21
   mobx: registry.npmmirror.com/mobx/6.6.2
@@ -764,6 +766,12 @@ packages:
     resolution: {integrity: sha512-sCNc1OHobc+Erc1HqiswYgHdVNpSJUlk/Hz8vzOCsER7rl+oF/4+v8GXFUyCgtXpoCX6+bnmg07DedLvBLwYKQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/dat.gui/-/dat.gui-0.7.9.tgz}
     name: dat.gui
     version: 0.7.9
+    dev: false
+
+  registry.npmmirror.com/dayjs/1.11.5:
+    resolution: {integrity: sha512-CAdX5Q3YW3Gclyo5Vpqkgpj8fSdLQcRuzfX6mC6Phy0nfJ0eGYOeS7m4mt2plDWLAtA4TqTakvbboHvUxfe4iA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/dayjs/-/dayjs-1.11.5.tgz}
+    name: dayjs
+    version: 1.11.5
     dev: false
 
   registry.npmmirror.com/debug/4.3.4:

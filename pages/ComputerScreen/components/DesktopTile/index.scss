@@ -94,10 +94,11 @@
 .LiveTileFooter {
   position: absolute;
   bottom: 0;
-  height: 1.6rem;
+  height: 1.2rem;
   display: flex;
-  align-items: flex-start;
-  padding: 0 1rem;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 1rem 0.4rem 1rem;
 }
 .LiveTileFooterIcon {
   width: 1rem;

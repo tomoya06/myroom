@@ -16,6 +16,7 @@ export interface TileBasicProps {
 export interface DesktopTileProps extends TileBasicProps {
   lives?: TileLiveContent[];
   liveInt?: number;
+  delay?: number;
   children?: JSX.Element;
   onLoopEnd?: () => void;
 }
@@ -81,7 +82,7 @@ const LiveTile = (
 };
 
 const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
-  const { size, lives = [], pos, liveInt = 5000, appInfo } = props;
+  const { size, lives = [], pos, liveInt = 5000, delay, appInfo } = props;
   const { openApp } = globalContext;
 
   const [lastLive, setLastLive] = useState<TileLiveContent>();
@@ -105,20 +106,38 @@ const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
     setCurLiveOut(true);
   };
 
+  const iterateLive = () => {
+    clearTimeout(interval.current);
+
+    if (curLiveIdx.current! >= lives.length - 1) {
+      resetLive();
+      props.onLoopEnd?.();
+
+      setTimeout(() => {
+        iterateLive();
+      }, props.delay || liveInt);
+
+      return;
+    }
+    curLiveIdx.current = curLiveIdx.current! + 1;
+    updateLive(lives[curLiveIdx.current]);
+
+    setTimeout(() => {
+      iterateLive();
+    }, liveInt);
+  };
+
   useEffect(() => {
-    clearInterval(interval.current);
+    clearTimeout(interval.current);
     resetLive();
 
-    interval.current = setInterval(() => {
-      if (curLiveIdx.current! >= lives.length - 1) {
-        resetLive();
-        props.onLoopEnd?.();
+    interval.current = setTimeout(() => {
+      iterateLive();
+    }, delay || liveInt);
 
-        return;
-      }
-      curLiveIdx.current = curLiveIdx.current! + 1;
-      updateLive(lives[curLiveIdx.current]);
-    }, liveInt);
+    return () => {
+      clearTimeout(interval.current);
+    };
   }, [lives]);
 
   const style: React.CSSProperties = {

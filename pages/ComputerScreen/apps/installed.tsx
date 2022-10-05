@@ -13,9 +13,9 @@ export const aiTime: AppInfo = {
   icon: "https://img.icons8.com/material/100/FFFFFF/around-the-globe.png",
 };
 
-export const aiTime2: AppInfo = {
-  id: "纽约时间",
-  icon: "https://img.icons8.com/material/100/FFFFFF/around-the-globe.png",
+export const aiCalendar: AppInfo = {
+  id: "日历",
+  icon: "https://img.icons8.com/metro/100/FFFFFF/calendar-1.png",
 };
 export const aiLiveTest: AppInfo = {
   id: "LiveTile",
@@ -75,11 +75,11 @@ export const installedApps: AppApp[] = (() => {
 
   output.push(appTime);
 
-  const appTime2: AppApp = {
-    ...aiTime2,
-    content: <IframeApp url="https://time.is/zh/NewYork" appInfo={aiTime2} />,
+  const appCalendar: AppApp = {
+    ...aiCalendar,
+    content: <></>,
   };
-  output.push(appTime2);
+  output.push(appCalendar);
 
   const appLiveTest: AppApp = {
     ...aiLiveTest,

@@ -6,7 +6,7 @@ import {
   aiLiveTest,
   aiNotWeder,
   aiTime,
-  aiTime2,
+  aiCalendar,
   aiTrashbin,
   aiXiaoXiaoLe,
 } from "./installed";
@@ -15,6 +15,8 @@ import Gallery from "../components/DesktopTileVaries/Gallery";
 import LiveTile from "../components/DesktopTileVaries/LiveTile";
 import NotWeatherTile from "../components/DesktopTileVaries/NotWeather";
 import { DesktopApp } from "../interface";
+import Clock from "../components/DesktopTileVaries/Clock";
+import Calendar from "../components/DesktopTileVaries/Calendar";
 
 export const desktopApps: {
   width: number;
@@ -27,10 +29,24 @@ export const desktopApps: {
         content: <DesktopTile appInfo={aiGithub} size="wide" pos={[0, 0]} />,
       },
       {
-        content: <DesktopTile appInfo={aiTime} size="middle" pos={[0, 1]} />,
+        content: (
+          <Clock
+            appInfo={aiTime}
+            size="middle"
+            pos={[0, 1]}
+            tz="Asia/Shanghai"
+          />
+        ),
       },
       {
-        content: <DesktopTile appInfo={aiTime2} size="middle" pos={[1, 1]} />,
+        content: (
+          <Calendar
+            appInfo={aiCalendar}
+            size="middle"
+            pos={[1, 1]}
+            tz="Asia/Shanghai"
+          />
+        ),
       },
       {
         content: <LiveTile appInfo={aiLiveTest} size="wide" pos={[2, 0]} />,
