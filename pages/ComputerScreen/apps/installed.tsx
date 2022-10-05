@@ -21,6 +21,11 @@ export const TaskCenterActions: TaskCenterActionInfo[] = [
   // },
 ];
 
+export const TaskCenterDockerIcons = [
+  "https://img.icons8.com/metro/26/FFFFFF/wifi.png",
+  "https://img.icons8.com/metro/26/FFFFFF/high-battery.png",
+];
+
 // FIXME: system preload procedure
 
 export const aiGithub: AppInfo = {

@@ -1,10 +1,36 @@
 import classNames from "classnames";
-import { useState } from "react";
-import { AdminAvatar, TaskCenterActions } from "../../apps/installed";
+import { useEffect, useRef, useState } from "react";
+import {
+  AdminAvatar,
+  TaskCenterActions,
+  TaskCenterDockerIcons,
+} from "../../apps/installed";
 import "./index.scss";
+import dayjs from "dayjs";
 
 const TaskCenter: React.FC = () => {
   const [showTc, setShowTc] = useState<boolean>();
+  const [hhmm, setHHmm] = useState("");
+  const [mmdd, setMMdd] = useState("");
+  const [ddd, setDdd] = useState("");
+  const timeout = useRef<number>();
+
+  const parseTime = () => {
+    setHHmm(dayjs().format("HH:mm"));
+    setMMdd(dayjs().format("MMM D"));
+    setDdd(dayjs().format("dddd"));
+  };
+
+  useEffect(() => {
+    timeout.current = setInterval(() => {
+      parseTime();
+    }, 1000);
+    parseTime();
+
+    return () => {
+      clearInterval(timeout.current);
+    };
+  }, []);
 
   const handleAction = (action: string) => {
     if (action === "Home") {
@@ -31,6 +57,10 @@ const TaskCenter: React.FC = () => {
       </div>
       {typeof showTc === "boolean" && (
         <div className={classNames("TaskCenterPanel", showTc ? "in" : "out")}>
+          <div
+            className="TaskCenterPanelMask"
+            onClick={() => handleAction("Home")}
+          ></div>
           <div className="SystemControlPanel">
             {TaskCenterActions.map((action) => {
               return (
@@ -44,7 +74,18 @@ const TaskCenter: React.FC = () => {
               );
             })}
           </div>
-          <div className="SystemInfoDocker"></div>
+          <div className="SystemInfoDocker">
+            <div className="DockerIcons">
+              {TaskCenterDockerIcons.map((icon) => (
+                <img src={icon} key={icon} />
+              ))}
+            </div>
+            <div className="DockerTime">{hhmm}</div>
+            <div className="DockerDate">
+              <div className="ddd">{ddd}</div>
+              <div className="mmdd">{mmdd}</div>
+            </div>
+          </div>
         </div>
       )}
     </div>

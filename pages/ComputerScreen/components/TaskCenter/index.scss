@@ -32,24 +32,19 @@ $SystemPanelWidth: 8rem;
 }
 
 .TaskCenterPanel {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: #0000007b;
-  z-index: 999;
-
-  &.in {
-  }
-
-  &.out {
-    transform: scale(0);
+  .TaskCenterPanelMask {
+    content: "";
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #00000037;
   }
 }
 
 .SystemControlPanel {
-  position: absolute;
+  position: fixed;
   right: 0;
   top: 0;
   bottom: 0;
@@ -78,5 +73,150 @@ $SystemPanelWidth: 8rem;
 }
 
 .SystemInfoDocker {
+  position: fixed;
+  left: 6rem;
+  bottom: 6rem;
+  height: 10rem;
+  background-color: #000000;
+  display: flex;
+}
 
+.DockerIcons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 1rem 1.6rem 1.8rem;
+
+  img {
+    width: 1.4rem;
+    height: 1.4rem;
+    margin: 0.4rem 0;
+  }
+}
+.DockerTime {
+  font-size: 7rem;
+  width: 16rem;
+  text-align: center;
+  margin: 0 1.6rem 0 0;
+}
+
+.DockerDate {
+  margin: 0 1.6rem 1.8rem 0;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.TaskCenterPanel.in {
+  .SystemControlPanel {
+    animation: system-panel-in 0.6s cubic-bezier(0.1, 0.78, 0.14, 0.97) both;
+  }
+  .SystemControlAction {
+    animation: system-panel-in 0.8s cubic-bezier(0.1, 0.78, 0.14, 0.97) both;
+  }
+
+  .SystemInfoDocker {
+    animation: docker-in 0.6s cubic-bezier(0.1, 0.78, 0.14, 0.97) both;
+  }
+  .TaskCenterPanelMask {
+    animation: taskcenter-in 0.6s cubic-bezier(0.1, 0.78, 0.14, 0.97) both;
+  }
+}
+
+.TaskCenterPanel.out {
+  .SystemControlPanel {
+    animation: system-panel-out 0.6s cubic-bezier(0.03, 0.45, 0, 0.82) both;
+  }
+
+  .SystemControlAction {
+    animation: system-panel-out 0.4s cubic-bezier(0.03, 0.45, 0, 0.82) both;
+  }
+
+  .SystemInfoDocker {
+    animation: docker-out 0.4s cubic-bezier(0.03, 0.45, 0, 0.82) both;
+  }
+  .TaskCenterPanelMask {
+    animation: taskcenter-out 0.6s cubic-bezier(0.03, 0.45, 0, 0.82) both;
+  }
+}
+
+@keyframes system-panel-in {
+  0% {
+    transform: translateX($SystemPanelWidth);
+    z-index: 0;
+  }
+  100% {
+    transform: translateX(0);
+    z-index: 9999;
+  }
+}
+
+@keyframes system-panel-out {
+  0% {
+    transform: translateX(0);
+    z-index: 9999;
+  }
+  100% {
+    transform: translateX($SystemPanelWidth);
+    z-index: 0;
+  }
+}
+
+@keyframes docker-in {
+  0% {
+    z-index: -1;
+    transform: translateX(-6rem);
+    opacity: 0;
+  }
+  100% {
+    z-index: 9999;
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes docker-out {
+  0% {
+    z-index: 9999;
+    transform: translateX(0);
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  100% {
+    z-index: -1;
+    transform: translateX(-6rem);
+    opacity: 0;
+  }
+}
+
+@keyframes taskcenter-in {
+  from {
+    z-index: -1;
+  }
+  0% {
+    z-index: 998;
+    opacity: 0;
+  }
+  100% {
+    z-index: 998;
+    opacity: 1;
+    display: block;
+  }
+}
+@keyframes taskcenter-out {
+  from {
+    z-index: 998;
+  }
+  0% {
+    z-index: 998;
+    opacity: 1;
+  }
+  100% {
+    z-index: -1;
+    display: none;
+    opacity: 0;
+  }
 }
