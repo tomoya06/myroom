@@ -1,10 +1,9 @@
 import classNames from "classnames";
-import { $defaultThemeColor } from "../../variables";
 import AppContainer, { AppContainerProps } from "../AppContainer";
 import "./index.scss";
 
 interface Props extends AppContainerProps {
-  url: string;
+  url?: string;
   hint?: string;
 }
 
@@ -28,13 +27,15 @@ const AppOutside: React.FC<Props> = (props) => {
           {displayHint}
           <br />
           <br />
-          You will be led to {url} .
+          {url && `You will be led to ${url} .`}
         </div>
-        <div className="AppOutsideAction">
-          <div className="button" onClick={openUrl}>
-            GO
+        {url && (
+          <div className="AppOutsideAction">
+            <div className="button" onClick={openUrl}>
+              GO
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </AppContainer>
   );
