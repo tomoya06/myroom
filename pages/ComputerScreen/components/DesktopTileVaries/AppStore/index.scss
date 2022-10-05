@@ -1,0 +1,25 @@
+.AppStoreShowcaseTitle {
+  display: flex;
+  align-items: center;
+  height: 2rem;
+  margin: 0.6rem 0;
+
+  img {
+    margin: 0 0.6rem 0 0;
+    display: inline-block;
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+}
+
+.AppStoreShowcaseCover {
+  margin: 2rem 0;
+  display: flex;
+  justify-content: center;
+
+  img {
+    width: 8rem;
+    height: 8rem;
+    box-shadow: 0.5rem 0.5rem 5px 0px rgba(255, 255, 255, 0.2);
+  }
+}

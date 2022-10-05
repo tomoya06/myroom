@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import { desktopApps } from "../../apps/desktops";
 import { $tileSize } from "../../variables";
+import TaskCenter from "../TaskCenter";
 import "./index.scss";
 
 interface Props {}
@@ -14,17 +15,7 @@ const Desktop: React.FC<Props> = () => {
     <div className="Desktop">
       <div className="DesktopHeader">
         <div className="DesktopStart">Start</div>
-        <div className="DesktopAvatar">
-          <div className="DesktopAvatarNames">
-            <div className="FirstName">Administrator</div>
-            <div className="LastName">tomoya06</div>
-          </div>
-          <img
-            className="DesktopAvatarImg"
-            src="https://avatars.githubusercontent.com/u/35499042?v=4"
-            alt=""
-          />
-        </div>
+        <TaskCenter />
       </div>
 
       <div className="DesktopTiles">

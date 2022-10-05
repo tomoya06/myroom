@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import AppContainer, { AppContainerProps } from "../AppContainer";
+import AppContainer, { AppContainerProps } from "../../AppContainer";
 import "./index.scss";
 
 interface Props extends AppContainerProps {

@@ -1,7 +1,7 @@
 import {
   ai3jsGame,
   aiEasonBot,
-  aiGallery,
+  aiAppStore,
   aiGithub,
   aiLiveTest,
   aiNotWeder,
@@ -11,7 +11,7 @@ import {
   aiXiaoXiaoLe,
 } from "./installed";
 import DesktopTile from "../components/DesktopTile";
-import Gallery from "../components/DesktopTileVaries/Gallery";
+import AppStore from "../components/DesktopTileVaries/AppStore";
 import LiveTile from "../components/DesktopTileVaries/LiveTile";
 import NotWeatherTile from "../components/DesktopTileVaries/NotWeather";
 import { DesktopApp } from "../interface";
@@ -79,7 +79,7 @@ export const desktopApps: {
         ),
       },
       {
-        content: <Gallery appInfo={aiGallery} size="large" pos={[0, 1]} />,
+        content: <AppStore appInfo={aiAppStore} size="large" pos={[0, 1]} />,
       },
       {
         content: <DesktopTile appInfo={ai3jsGame} size="middle" pos={[2, 1]} />,

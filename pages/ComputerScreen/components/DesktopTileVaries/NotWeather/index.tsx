@@ -103,7 +103,7 @@ const NotWeatherTile: React.FC<TileBasicProps> = (props) => {
   const tileProps: DesktopTileProps = {
     ...props,
     lives,
-    liveInt: 5000,
+    liveInt: 11500,
     onLoopEnd: loadWeatherData,
   };
 

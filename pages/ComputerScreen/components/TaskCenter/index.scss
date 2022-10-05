@@ -1,0 +1,30 @@
+.DesktopAvatar {
+  height: 6rem;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(130, 130, 130, 0.4);
+  }
+}
+
+.DesktopAvatarNames {
+  text-align: right;
+  margin: 0 1rem 0 0;
+
+  .FirstName {
+    font-size: 2rem;
+  }
+
+  .LastName {
+    font-size: 1.2rem;
+  }
+}
+
+.DesktopAvatarImg {
+  width: 4rem;
+  height: 4rem;
+}

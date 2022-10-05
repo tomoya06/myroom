@@ -1,5 +1,5 @@
 import "./index.scss";
-import AppContainer, { AppContainerProps } from "../AppContainer";
+import AppContainer, { AppContainerProps } from "../../AppContainer";
 
 interface Props extends AppContainerProps {
   url: string;

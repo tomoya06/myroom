@@ -53,7 +53,7 @@ const LiveTile = (
   const { size } = props;
   const style: React.CSSProperties = {};
   if (live.bg) {
-    style.backgroundImage = `linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url("${live.bg}")`;
+    style.backgroundImage = `linear-gradient(rgba(0,0,0,.2), rgba(0,0,0,.2)), url("${live.bg}")`;
     style.backgroundSize = "cover";
   }
   return (

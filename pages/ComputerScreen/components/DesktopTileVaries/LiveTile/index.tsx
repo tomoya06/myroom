@@ -7,19 +7,14 @@ import { TileLiveContent } from "../../DesktopTile/interface";
 const testLiveTiles: TileLiveContent[] = [
   {
     id: "livetile_1",
-    title: "LiveTile Test",
+    title: "LiveTile",
+    content: "This app helps you nothing",
   },
   {
     id: "livetile_2",
-    title: "LiveTile Test 2",
-    content: "This is the content for LiveTile Test 2",
-  },
-  {
-    id: "livetile_3",
-    title: "LiveTile Test 3",
+    title: "User Guide",
     content:
-      "This is the content for LiveTile Test 3 and this is a veeeeerrry long text. ",
-    bg: "https://avatars.githubusercontent.com/u/35499042?v=4",
+      "Just move your mouse and click your keyboard. Nothing will explode. ",
   },
   {
     id: "livetile_4",
@@ -37,7 +32,7 @@ const LiveTile: React.FC<TileBasicProps> = (props) => {
   const tileProps: DesktopTileProps = {
     ...props,
     lives: testLiveTiles,
-    liveInt: 5000,
+    liveInt: 8000,
   };
 
   return <DesktopTile {...tileProps} />;

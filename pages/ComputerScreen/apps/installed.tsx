@@ -1,5 +1,5 @@
-import IframeApp from "../components/AppIframe";
-import AppOutside from "../components/AppOutside";
+import IframeApp from "../components/AppVaries/AppIframe";
+import AppOutside from "../components/AppVaries/AppOutside";
 import { AppApp, AppInfo } from "../interface";
 
 export const aiGithub: AppInfo = {
@@ -22,9 +22,9 @@ export const aiLiveTest: AppInfo = {
   icon: "https://img.icons8.com/ios-filled/100/FFFFFF/movie-theater.png",
 };
 
-export const aiGallery: AppInfo = {
-  id: "Gallery",
-  icon: "https://img.icons8.com/material/100/FFFFFF/stack-of-photos--v1.png",
+export const aiAppStore: AppInfo = {
+  id: "ApStore",
+  icon: "https://img.icons8.com/sf-ultralight-filled/100/FFFFFF/app-store-ios.png",
   color: "w3-win8-magenta",
 };
 export const aiNotWeder: AppInfo = {
@@ -87,11 +87,11 @@ export const installedApps: AppApp[] = (() => {
   };
   output.push(appLiveTest);
 
-  const appLiveTest2: AppApp = {
-    ...aiGallery,
+  const appAppStore: AppApp = {
+    ...aiAppStore,
     content: <></>,
   };
-  output.push(appLiveTest2);
+  output.push(appAppStore);
 
   const appNotWeather: AppApp = {
     ...aiNotWeder,
