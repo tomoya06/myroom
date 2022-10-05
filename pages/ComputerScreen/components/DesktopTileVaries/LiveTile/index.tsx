@@ -1,3 +1,4 @@
+import { AdminAvatar } from "../../../apps/installed";
 import DesktopTile, {
   DesktopTileProps,
   TileBasicProps,
@@ -23,7 +24,7 @@ const testLiveTiles: TileLiveContent[] = [
         <h2>Welcome to Metro UI</h2>
       </div>
     ),
-    bg: "https://avatars.githubusercontent.com/u/35499042?v=4",
+    bg: AdminAvatar,
   },
 ];
 

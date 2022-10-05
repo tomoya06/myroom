@@ -1,6 +1,27 @@
 import IframeApp from "../components/AppVaries/AppIframe";
 import AppOutside from "../components/AppVaries/AppOutside";
-import { AppApp, AppInfo } from "../interface";
+import { AppApp, AppInfo, TaskCenterActionInfo } from "../interface";
+
+export const AdminAvatar =
+  "https://avatars.githubusercontent.com/u/35499042?v=4";
+
+export const TaskCenterActions: TaskCenterActionInfo[] = [
+  {
+    id: "Exit",
+    icon: "https://img.icons8.com/metro/100/FFFFFF/shutdown.png",
+  },
+  {
+    id: "Home",
+    icon: "https://img.icons8.com/ios-filled/100/FFFFFF/windows-10.png",
+  },
+  // {
+  //   id: "Recent",
+  //   icon: "",
+  //   action: EnumTaskCenterAction.Recent,
+  // },
+];
+
+// FIXME: system preload procedure
 
 export const aiGithub: AppInfo = {
   id: "GitHub",

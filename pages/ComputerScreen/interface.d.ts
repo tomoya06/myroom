@@ -27,3 +27,8 @@ export interface AppProps {
   appInfo: AppInfo;
   isActive?: boolean;
 }
+
+export interface TaskCenterActionInfo {
+  id: string;
+  icon: string;
+}
