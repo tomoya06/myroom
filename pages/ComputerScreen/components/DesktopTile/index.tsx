@@ -49,7 +49,7 @@ const LiveTile = (
     in?: boolean;
   }
 ) => {
-  const { color = "w3-win8-cyan", size } = props;
+  const { size } = props;
   const style: React.CSSProperties = {};
   if (live.bg) {
     style.backgroundImage = `linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url("${live.bg}")`;
@@ -59,7 +59,7 @@ const LiveTile = (
     <div
       className={classNames(
         "LiveTile",
-        color,
+        live.color || myapp.color || $defaultThemeColor,
         size,
         css.out && "out",
         css.in && "in"
@@ -81,14 +81,7 @@ const LiveTile = (
 };
 
 const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
-  const {
-    color = $defaultThemeColor,
-    size,
-    lives = [],
-    pos,
-    liveInt = 5000,
-    appInfo,
-  } = props;
+  const { size, lives = [], pos, liveInt = 5000, appInfo } = props;
   const { openApp } = globalContext;
 
   const [lastLive, setLastLive] = useState<TileLiveContent>();
@@ -143,7 +136,11 @@ const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
 
   return (
     <div
-      className={classNames("DesktopTile", size, color)}
+      className={classNames(
+        "DesktopTile",
+        size,
+        appInfo.color || $defaultThemeColor
+      )}
       onClick={handleClick}
       style={style}
     >

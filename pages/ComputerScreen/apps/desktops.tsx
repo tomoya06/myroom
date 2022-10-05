@@ -24,14 +24,7 @@ export const desktopApps: {
     width: 4,
     tiles: [
       {
-        content: (
-          <DesktopTile
-            appInfo={aiGithub}
-            size="wide"
-            pos={[0, 0]}
-            color="w3-win8-steel"
-          />
-        ),
+        content: <DesktopTile appInfo={aiGithub} size="wide" pos={[0, 0]} />,
       },
       {
         content: <DesktopTile appInfo={aiTime} size="middle" pos={[0, 1]} />,
@@ -43,23 +36,11 @@ export const desktopApps: {
         content: <LiveTile appInfo={aiLiveTest} size="wide" pos={[2, 0]} />,
       },
       {
-        content: (
-          <DesktopTile
-            appInfo={aiTrashbin}
-            size="large"
-            pos={[0, 2]}
-            color="w3-win8-olive"
-          />
-        ),
+        content: <DesktopTile appInfo={aiTrashbin} size="large" pos={[0, 2]} />,
       },
       {
         content: (
-          <NotWeatherTile
-            appInfo={aiNotWeder}
-            size="large"
-            pos={[2, 1]}
-            color="w3-win8-cobalt"
-          />
+          <NotWeatherTile appInfo={aiNotWeder} size="large" pos={[2, 1]} />
         ),
       },
     ],
@@ -69,12 +50,7 @@ export const desktopApps: {
     tiles: [
       {
         content: (
-          <DesktopTile
-            appInfo={aiXiaoXiaoLe}
-            size="middle"
-            pos={[0, 0]}
-            color="w3-win8-emerald"
-          />
+          <DesktopTile appInfo={aiXiaoXiaoLe} size="middle" pos={[0, 0]} />
         ),
       },
       {
@@ -83,29 +59,14 @@ export const desktopApps: {
             appInfo={aiEasonBot}
             size="wide"
             pos={[1, 0]}
-            color="w3-win8-orange"
           ></DesktopTile>
         ),
       },
       {
-        content: (
-          <Gallery
-            appInfo={aiGallery}
-            size="large"
-            pos={[0, 1]}
-            color="w3-win8-magenta"
-          />
-        ),
+        content: <Gallery appInfo={aiGallery} size="large" pos={[0, 1]} />,
       },
       {
-        content: (
-          <DesktopTile
-            appInfo={ai3jsGame}
-            size="middle"
-            pos={[2, 1]}
-            color="w3-win8-emerald"
-          />
-        ),
+        content: <DesktopTile appInfo={ai3jsGame} size="middle" pos={[2, 1]} />,
       },
     ],
   },

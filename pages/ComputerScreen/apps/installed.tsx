@@ -5,6 +5,7 @@ import { AppApp, AppInfo } from "../interface";
 export const aiGithub: AppInfo = {
   id: "GitHub",
   icon: "https://img.icons8.com/material/100/FFFFFF/github-2.png",
+  color: "w3-win8-steel",
 };
 
 export const aiTime: AppInfo = {
@@ -24,30 +25,36 @@ export const aiLiveTest: AppInfo = {
 export const aiGallery: AppInfo = {
   id: "Gallery",
   icon: "https://img.icons8.com/material/100/FFFFFF/stack-of-photos--v1.png",
+  color: "w3-win8-magenta",
 };
 export const aiNotWeder: AppInfo = {
   id: "NotWeder",
   icon: "https://img.icons8.com/ios-filled/100/FFFFFF/partly-cloudy-day--v1.png",
+  color: "w3-win8-cobalt",
 };
 
 export const aiXiaoXiaoLe: AppInfo = {
   id: "Game - GoGoal",
   icon: "https://img.icons8.com/external-glyph-andi-nur-abdillah/100/FFFFFF/external-Goal-football-(glyph)-glyph-andi-nur-abdillah.png",
+  color: "w3-win8-emerald",
 };
 
 export const aiEasonBot: AppInfo = {
   id: "EasonBot",
   icon: "https://img.icons8.com/external-tulpahn-basic-outline-tulpahn/100/FFFFFF/external-sing-birthday-party-tulpahn-basic-outline-tulpahn.png",
+  color: "w3-win8-orange",
 };
 
 export const aiTrashbin: AppInfo = {
   id: "TrashBlog",
   icon: "https://img.icons8.com/external-smashingstocks-detailed-outline-smashing-stocks/100/FFFFFF/external-creative-writing-ui-ux-user-interface-smashingstocks-detailed-outline-smashing-stocks.png",
+  color: "w3-win8-olive",
 };
 
 export const ai3jsGame: AppInfo = {
   id: "Game - FlyCruise",
   icon: "https://img.icons8.com/external-smashingstocks-detailed-outline-smashing-stocks/100/FFFFFF/external-flight-ui-ux-user-interface-smashingstocks-detailed-outline-smashing-stocks.png",
+  color: "w3-win8-emerald",
 };
 
 export const installedApps: AppApp[] = (() => {
