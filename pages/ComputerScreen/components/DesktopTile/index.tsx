@@ -2,7 +2,7 @@ import classNames from "classnames";
 import React, { useEffect, useRef, useState } from "react";
 import { globalContext } from "../../context";
 import { AppInfo } from "../../interface";
-import { $tileSize } from "../../variables";
+import { $defaultThemeColor, $tileSize } from "../../variables";
 import "./index.scss";
 import { TileLiveContent } from "./interface";
 
@@ -82,7 +82,7 @@ const LiveTile = (
 
 const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
   const {
-    color = "w3-win8-cyan",
+    color = $defaultThemeColor,
     size,
     lives = [],
     pos,

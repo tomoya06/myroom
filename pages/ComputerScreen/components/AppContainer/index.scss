@@ -7,6 +7,14 @@
   background-color: #ffffff;
   border: 1.6px solid #ababab;
 
+  &.in {
+    animation: app-show-in 0.4s cubic-bezier(0.1, 0.78, 0.14, 0.97) both;
+  }
+
+  &.out {
+    animation: app-show-out 0.2s cubic-bezier(0.03, 0.45, 0, 0.82) both;
+  }
+
   &.active {
     z-index: 9;
   }
@@ -53,8 +61,13 @@
 }
 
 .AppContainerActionBtn.actionbarMini {
-  background-image: url("https://img.icons8.com/material-outlined/48/FFFFFF/minus-math.png");
-  background-color: #ffffff;
+  background-image: url("https://img.icons8.com/material-outlined/48/FFFFFF/minus.png");
+  background-color: #939393;
+  width: 2rem;
+
+  &:hover {
+    background-color: #555555;
+  }
 }
 
 .AppContainerActionBtn.actionbarClose {
@@ -67,7 +80,54 @@
   }
 }
 
+.AppContaienerCover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  animation: 0.2s app-cover-out 0.8s ease both;
+}
+
+.AppContaienerCoverIcon {
+  width: 8rem;
+  height: 8rem;
+}
+
 .AppContainerContent {
   height: calc(100vh - 2rem);
   border-top: 1.6px solid #ababab;
+}
+
+@keyframes app-show-in {
+  0% {
+    transform: translateY(100vh);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes app-show-out {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes app-cover-out {
+  0% {
+    opacity: 1;
+    z-index: 99;
+  }
+  100% {
+    opacity: 0;
+    z-index: -1;
+  }
 }

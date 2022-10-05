@@ -1,6 +1,7 @@
 export interface AppInfo {
   id: string;
   icon: string;
+  color?: string;
 }
 
 export interface AppApp extends AppInfo {
