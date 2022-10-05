@@ -110,14 +110,12 @@ const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
   };
 
   const iterateLive = () => {
-    console.log("iterateLive", appInfo.id);
     clearTimeout(interval.current);
 
     if (curLiveIdx.current! >= lives.length - 1) {
       resetLive();
       props.onLoopEnd?.();
 
-      console.log("setTimeout 1", appInfo.id);
       setTimeout(() => {
         iterateLive();
       }, (props.delay || liveInt) + $AnimateOutDuration);
@@ -127,14 +125,12 @@ const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
     curLiveIdx.current = curLiveIdx.current! + 1;
     updateLive(lives[curLiveIdx.current]);
 
-    console.log("setTimeout 2", appInfo.id);
     setTimeout(() => {
       iterateLive();
     }, liveInt + $AnimateInDuration);
   };
 
   useEffect(() => {
-    console.log("useEffect", appInfo.id, lives);
     clearTimeout(interval.current);
     resetLive();
 

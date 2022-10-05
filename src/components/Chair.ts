@@ -1,6 +1,6 @@
 import { InteractionManager } from "three.interactive";
 import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
-import { findChildByName } from "../util";
+import { findChildByName } from "../utils/three";
 import ModelSection from "./ModelSection";
 
 const AnimateKey = {

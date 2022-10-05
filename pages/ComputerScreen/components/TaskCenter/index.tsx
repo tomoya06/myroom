@@ -9,6 +9,7 @@ import {
 import "./index.scss";
 import dayjs from "dayjs";
 import { globalContext } from "../../context";
+import { MessageName } from "../../../../src/utils/window";
 
 const TaskCenter: React.FC = () => {
   const [showTc, setShowTc] = useState<boolean>();
@@ -40,7 +41,7 @@ const TaskCenter: React.FC = () => {
     if (action === "Home") {
     }
     if (action === "Exit") {
-      postMessage("ComputerScreen_Exit");
+      window.parent.postMessage(MessageName.PowerOFF);
     }
     if (action === "Settings") {
       openApp(aiSettings.id);

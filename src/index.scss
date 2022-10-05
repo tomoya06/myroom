@@ -29,27 +29,6 @@ body {
     top: 0;
   }
 
-  header {
-    height: 2rem;
-    border: 1px solid #8f8f8f;
-    background-color: #fff;
-    display: flex;
-    align-items: center;
-    padding: 0 0 0 1rem;
-  }
-
-  #BrowserTitleBar {
-    flex-grow: 1;
-  }
-
-  #BrowserActionBar {
-    button {
-      width: 2rem;
-      height: 2rem;
-    }
-  }
-  // header end ====
-
   main {
     flex-grow: 1;
     background-color: #000;
@@ -64,12 +43,4 @@ body {
       }
     }
   }
-  // main end ===
-
-  footer {
-    height: 2rem;
-    border: 1px solid #8f8f8f;
-  }
-
-  // footer end ===
 }

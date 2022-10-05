@@ -1,5 +1,6 @@
 import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
-import { findChildByName } from "../util";
+import { findChildByName } from "../utils/three";
+import { MessageName } from "../utils/window";
 import ModelSection from "./ModelSection";
 
 const AnimateKey = {
@@ -13,7 +14,8 @@ export default class Computer extends ModelSection {
   public deckMesh: THREE.Object3D;
   public mouseMesh: THREE.Object3D;
 
-  private browserContainer: JQuery<HTMLElement>;
+  private browserContainer: HTMLElement;
+  private browserIframe: HTMLIFrameElement;
 
   constructor(mod: GLTF) {
     super(mod);
@@ -29,7 +31,18 @@ export default class Computer extends ModelSection {
     this.deckMesh = this.findMesh("PCDesk")!;
     this.mouseMesh = this.findMesh("Mouse")!;
 
-    this.browserContainer = $("#BrowserContainer");
+    this.browserContainer = document.getElementById("BrowserContainer")!;
+    this.browserIframe = document.getElementById(
+      "BrowserIframe"
+    ) as HTMLIFrameElement;
+
+    window.addEventListener("message", (evt) => {
+      if (evt.data === MessageName.PowerOFF) {
+        this.browserIframe.contentWindow?.postMessage(MessageName.PowerOFF);
+        this.stopBrowser();
+        this.turnon();
+      }
+    });
   }
 
   public turnon() {
@@ -41,14 +54,15 @@ export default class Computer extends ModelSection {
   }
 
   public stopBrowser() {
-    this.browserContainer.find("iframe").removeClass("on");
-    this.browserContainer.removeClass("on");
+    this.browserIframe.className = "off";
+    this.browserContainer.className = "off";
   }
 
   public startBrowser() {
-    this.browserContainer.addClass("on");
+    this.browserContainer.className = "on";
     setTimeout(() => {
-      this.browserContainer.find("iframe").addClass("on");
+      this.browserIframe.className = "on";
+      this.browserIframe.contentWindow?.postMessage(MessageName.PowerON);
     }, 500);
   }
 }
