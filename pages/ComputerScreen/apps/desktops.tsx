@@ -1,4 +1,5 @@
 import {
+  aiEasonBot,
   aiGallery,
   aiGithub,
   aiLiveTest,
@@ -62,7 +63,7 @@ export const desktopApps: {
     ],
   },
   {
-    width: 2,
+    width: 3,
     tiles: [
       {
         content: (
@@ -72,6 +73,16 @@ export const desktopApps: {
             pos={[0, 0]}
             color="w3-win8-emerald"
           />
+        ),
+      },
+      {
+        content: (
+          <DesktopTile
+            appInfo={aiEasonBot}
+            size="wide"
+            pos={[1, 0]}
+            color="w3-win8-orange"
+          ></DesktopTile>
         ),
       },
     ],

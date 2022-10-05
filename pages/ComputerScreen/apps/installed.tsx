@@ -35,6 +35,11 @@ export const aiXiaoXiaoLe: AppInfo = {
   icon: "https://img.icons8.com/external-glyph-andi-nur-abdillah/100/FFFFFF/external-Goal-football-(glyph)-glyph-andi-nur-abdillah.png",
 };
 
+export const aiEasonBot: AppInfo = {
+  id: "EasonBot",
+  icon: "https://img.icons8.com/external-tulpahn-basic-outline-tulpahn/100/FFFFFF/external-sing-birthday-party-tulpahn-basic-outline-tulpahn.png",
+};
+
 export const installedApps: AppApp[] = (() => {
   const output: AppApp[] = [];
 
@@ -87,6 +92,17 @@ export const installedApps: AppApp[] = (() => {
     ),
   };
   output.push(appXiaoxiaole);
+
+  const appEasonBot: AppApp = {
+    ...aiEasonBot,
+    content: (
+      <IframeApp
+        url="https://tomoya06.github.io/easonbot/"
+        appInfo={aiEasonBot}
+      ></IframeApp>
+    ),
+  };
+  output.push(appEasonBot);
 
   return output;
 })();
