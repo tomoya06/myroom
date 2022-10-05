@@ -5,6 +5,8 @@ import { AppApp, AppInfo, TaskCenterActionInfo } from "../interface";
 
 export const AdminAvatar =
   "https://avatars.githubusercontent.com/u/35499042?v=4";
+export const DesktopWallpaper =
+  "https://s2.loli.net/2022/10/06/q9bTulcUsD2eKoz.jpg";
 
 export const TaskCenterActions: TaskCenterActionInfo[] = [
   {
@@ -54,7 +56,7 @@ export const aiLiveTest: AppInfo = {
 };
 
 export const aiAppStore: AppInfo = {
-  id: "ApStore",
+  id: "Ap'Store",
   icon: "https://img.icons8.com/sf-ultralight-filled/100/FFFFFF/app-store-ios.png",
   color: "w3-win8-magenta",
 };

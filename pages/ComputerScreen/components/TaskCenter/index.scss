@@ -11,6 +11,10 @@ $SystemPanelWidth: 8rem;
   &:hover {
     background-color: rgba(130, 130, 130, 0.4);
   }
+
+  &:active {
+    transform: scale(0.98);
+  }
 }
 
 .DesktopAvatarNames {
@@ -64,6 +68,9 @@ $SystemPanelWidth: 8rem;
 
   &:hover {
     background-color: #373737;
+  }
+  &:active {
+    transform: scale(0.98);
   }
 
   img {
