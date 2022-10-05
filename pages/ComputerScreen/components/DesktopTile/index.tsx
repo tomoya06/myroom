@@ -134,6 +134,10 @@ const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
     clearTimeout(interval.current);
     resetLive();
 
+    if (lives.length === 0) {
+      return;
+    }
+
     interval.current = setTimeout(() => {
       iterateLive();
     }, delay || liveInt);
