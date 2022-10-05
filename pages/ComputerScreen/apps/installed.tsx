@@ -1,4 +1,5 @@
 import IframeApp from "../components/AppIframe";
+import AppOutside from "../components/AppOutside";
 import { AppApp, AppInfo } from "../interface";
 
 export const aiGithub: AppInfo = {
@@ -39,7 +40,9 @@ export const installedApps: AppApp[] = (() => {
 
   const appGithub: AppApp = {
     ...aiGithub,
-    content: <IframeApp url="https://github.com/tomoya06" appInfo={aiGithub} />,
+    content: (
+      <AppOutside url="https://github.com/tomoya06" appInfo={aiGithub} />
+    ),
   };
 
   const appTime: AppApp = {

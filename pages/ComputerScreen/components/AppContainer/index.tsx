@@ -37,7 +37,7 @@ const AppContainer: React.FC<AppContainerProps> = (props) => {
           ></div>
         </div>
       </div>
-      {children}
+      <div className="AppContainerContent">{children}</div>
     </div>
   );
 };

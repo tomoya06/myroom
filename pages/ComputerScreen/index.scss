@@ -41,3 +41,22 @@ html {
   user-select: none;
   -webkit-user-select: none;
 }
+
+.button {
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 0;
+  background-color: #e2e2e2;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #c7c7c7;
+  }
+
+  &:active {
+    background-color: #a9a9a9;
+  }
+}
