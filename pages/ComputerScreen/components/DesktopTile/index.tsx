@@ -6,6 +6,9 @@ import { $defaultThemeColor, $tileSize } from "../../variables";
 import "./index.scss";
 import { TileLiveContent } from "./interface";
 
+const $AnimateInDuration = 1800;
+const $AnimateOutDuration = 1000;
+
 export interface TileBasicProps {
   appInfo: AppInfo;
   size: "middle" | "wide" | "large";
@@ -115,7 +118,7 @@ const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
 
       setTimeout(() => {
         iterateLive();
-      }, props.delay || liveInt);
+      }, props.delay || liveInt + $AnimateOutDuration);
 
       return;
     }
@@ -124,7 +127,7 @@ const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
 
     setTimeout(() => {
       iterateLive();
-    }, liveInt);
+    }, liveInt + $AnimateInDuration);
   };
 
   useEffect(() => {
