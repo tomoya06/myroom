@@ -40,6 +40,16 @@ export const aiEasonBot: AppInfo = {
   icon: "https://img.icons8.com/external-tulpahn-basic-outline-tulpahn/100/FFFFFF/external-sing-birthday-party-tulpahn-basic-outline-tulpahn.png",
 };
 
+export const aiTrashbin: AppInfo = {
+  id: "TrashBlog",
+  icon: "https://img.icons8.com/external-smashingstocks-detailed-outline-smashing-stocks/100/FFFFFF/external-creative-writing-ui-ux-user-interface-smashingstocks-detailed-outline-smashing-stocks.png",
+};
+
+export const ai3jsGame: AppInfo = {
+  id: "Game - FlyCruise",
+  icon: "https://img.icons8.com/external-smashingstocks-detailed-outline-smashing-stocks/100/FFFFFF/external-flight-ui-ux-user-interface-smashingstocks-detailed-outline-smashing-stocks.png",
+};
+
 export const installedApps: AppApp[] = (() => {
   const output: AppApp[] = [];
 
@@ -99,10 +109,32 @@ export const installedApps: AppApp[] = (() => {
       <IframeApp
         url="https://tomoya06.github.io/easonbot/"
         appInfo={aiEasonBot}
-      ></IframeApp>
+      />
     ),
   };
   output.push(appEasonBot);
+
+  const appTrashbin: AppApp = {
+    ...aiTrashbin,
+    content: (
+      <IframeApp
+        url="https://tomoya06.github.io/trashbin/"
+        appInfo={aiTrashbin}
+      />
+    ),
+  };
+  output.push(appTrashbin);
+
+  const app3jsGame: AppApp = {
+    ...ai3jsGame,
+    content: (
+      <IframeApp
+        url="https://tomoya06.github.io/3jsgame/"
+        appInfo={ai3jsGame}
+      />
+    ),
+  };
+  output.push(app3jsGame);
 
   return output;
 })();

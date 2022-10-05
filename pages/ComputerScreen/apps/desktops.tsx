@@ -1,4 +1,5 @@
 import {
+  ai3jsGame,
   aiEasonBot,
   aiGallery,
   aiGithub,
@@ -6,6 +7,7 @@ import {
   aiNotWeder,
   aiTime,
   aiTime2,
+  aiTrashbin,
   aiXiaoXiaoLe,
 } from "./installed";
 import DesktopTile from "../components/DesktopTile";
@@ -42,11 +44,11 @@ export const desktopApps: {
       },
       {
         content: (
-          <Gallery
-            appInfo={aiGallery}
+          <DesktopTile
+            appInfo={aiTrashbin}
             size="large"
             pos={[0, 2]}
-            color="w3-win8-magenta"
+            color="w3-win8-olive"
           />
         ),
       },
@@ -83,6 +85,26 @@ export const desktopApps: {
             pos={[1, 0]}
             color="w3-win8-orange"
           ></DesktopTile>
+        ),
+      },
+      {
+        content: (
+          <Gallery
+            appInfo={aiGallery}
+            size="large"
+            pos={[0, 1]}
+            color="w3-win8-magenta"
+          />
+        ),
+      },
+      {
+        content: (
+          <DesktopTile
+            appInfo={ai3jsGame}
+            size="middle"
+            pos={[2, 1]}
+            color="w3-win8-emerald"
+          />
         ),
       },
     ],
