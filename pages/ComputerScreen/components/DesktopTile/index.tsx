@@ -118,7 +118,7 @@ const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
 
       setTimeout(() => {
         iterateLive();
-      }, props.delay || liveInt + $AnimateOutDuration);
+      }, (props.delay || liveInt) + $AnimateOutDuration);
 
       return;
     }
