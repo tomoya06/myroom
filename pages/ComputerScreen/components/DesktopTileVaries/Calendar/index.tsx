@@ -20,7 +20,7 @@ const Calendar: React.FC<Props> = (props) => {
 
   const parseMmdd = () => {
     const dj = dayjs().tz(props.tz);
-    setDd(`${dj.day()}`);
+    setDd(`${dj.date()}`);
   };
 
   const tileProps: DesktopTileProps = useMemo(() => {
