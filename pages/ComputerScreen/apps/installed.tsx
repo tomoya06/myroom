@@ -1,5 +1,6 @@
 import IframeApp from "../components/AppVaries/AppIframe";
 import AppOutside from "../components/AppVaries/AppOutside";
+import AppSettings from "../components/AppVaries/AppSettings";
 import { AppApp, AppInfo, TaskCenterActionInfo } from "../interface";
 
 export const AdminAvatar =
@@ -13,6 +14,10 @@ export const TaskCenterActions: TaskCenterActionInfo[] = [
   {
     id: "Home",
     icon: "https://img.icons8.com/ios-filled/100/FFFFFF/windows-10.png",
+  },
+  {
+    id: "Settings",
+    icon: "https://img.icons8.com/metro/100/FFFFFF/settings.png",
   },
   // {
   //   id: "Recent",
@@ -81,6 +86,12 @@ export const ai3jsGame: AppInfo = {
   id: "Game - FlyCruise",
   icon: "https://img.icons8.com/external-smashingstocks-detailed-outline-smashing-stocks/100/FFFFFF/external-flight-ui-ux-user-interface-smashingstocks-detailed-outline-smashing-stocks.png",
   color: "w3-win8-emerald",
+};
+
+export const aiSettings: AppInfo = {
+  id: "Settings",
+  icon: "https://img.icons8.com/metro/100/FFFFFF/settings.png",
+  color: "w3-win8-steel",
 };
 
 export const installedApps: AppApp[] = (() => {
@@ -168,6 +179,12 @@ export const installedApps: AppApp[] = (() => {
     ),
   };
   output.push(app3jsGame);
+
+  const appSettings: AppApp = {
+    ...aiSettings,
+    content: <AppSettings appInfo={aiSettings} />,
+  };
+  output.push(appSettings);
 
   return output;
 })();

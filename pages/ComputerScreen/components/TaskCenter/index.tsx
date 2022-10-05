@@ -2,11 +2,13 @@ import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
 import {
   AdminAvatar,
+  aiSettings,
   TaskCenterActions,
   TaskCenterDockerIcons,
 } from "../../apps/installed";
 import "./index.scss";
 import dayjs from "dayjs";
+import { globalContext } from "../../context";
 
 const TaskCenter: React.FC = () => {
   const [showTc, setShowTc] = useState<boolean>();
@@ -14,6 +16,8 @@ const TaskCenter: React.FC = () => {
   const [mmdd, setMMdd] = useState("");
   const [ddd, setDdd] = useState("");
   const timeout = useRef<number>();
+
+  const { openApp } = globalContext;
 
   const parseTime = () => {
     setHHmm(dayjs().format("HH:mm"));
@@ -34,16 +38,15 @@ const TaskCenter: React.FC = () => {
 
   const handleAction = (action: string) => {
     if (action === "Home") {
-      setShowTc(false);
-
-      return;
     }
     if (action === "Exit") {
-      setShowTc(false);
       postMessage("ComputerScreen_Exit");
-
-      return;
     }
+    if (action === "Settings") {
+      openApp(aiSettings.id);
+    }
+
+    setShowTc(false);
   };
 
   return (
