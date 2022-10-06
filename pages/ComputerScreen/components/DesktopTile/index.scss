@@ -25,7 +25,12 @@
   transition: all 0.2s ease;
   @include multisize();
 
+  &.clickable:hover {
+    cursor: pointer;
+  }
+
   &:hover {
+    cursor: not-allowed;
     transform: scale(0.98);
   }
 

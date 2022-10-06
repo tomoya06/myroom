@@ -114,19 +114,19 @@ export const installedApps: AppApp[] = (() => {
 
   const appCalendar: AppApp = {
     ...aiCalendar,
-    content: <></>,
+    content: null,
   };
   output.push(appCalendar);
 
   const appLiveTest: AppApp = {
     ...aiLiveTest,
-    content: <></>,
+    content: null,
   };
   output.push(appLiveTest);
 
   const appAppStore: AppApp = {
     ...aiAppStore,
-    content: <></>,
+    content: null,
   };
   output.push(appAppStore);
 

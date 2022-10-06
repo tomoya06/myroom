@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { installedAppToMap } from "../../apps/installed";
 import { globalContext } from "../../context";
 import { AppInfo } from "../../interface";
 import { $defaultThemeColor, $tileSize } from "../../variables";
@@ -95,6 +96,10 @@ const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
   const curLiveStore = useRef<TileLiveContent>();
   const curLiveIdx = useRef<number>();
 
+  const clickable = useMemo(() => {
+    return !!installedAppToMap[appInfo.id].content;
+  }, []);
+
   const updateLive = (live: TileLiveContent) => {
     setCurLiveOut(false);
     setLastLive(curLiveStore.current);
@@ -155,6 +160,9 @@ const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
   };
 
   const handleClick = () => {
+    if (!clickable) {
+      return;
+    }
     openApp?.(appInfo.id);
   };
 
@@ -167,7 +175,8 @@ const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
       className={classNames(
         "DesktopTile",
         size,
-        appInfo.color || $defaultThemeColor
+        appInfo.color || $defaultThemeColor,
+        clickable && "clickable"
       )}
       onClick={handleClick}
       style={style}

@@ -5,7 +5,7 @@ export interface AppInfo {
 }
 
 export interface AppApp extends AppInfo {
-  content: JSX.Element;
+  content: JSX.Element | null;
 }
 
 export interface DesktopApp {

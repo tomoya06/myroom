@@ -46,6 +46,9 @@ const App = observer<{ context: GlobalContext }>(({ context }) => {
         <>
           {openedApps.map((openedApp) => {
             const Elem = installedAppToMap[openedApp].content;
+            if (!Elem) {
+              return <></>;
+            }
 
             return React.cloneElement(Elem, {
               key: openedApp,
