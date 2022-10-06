@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import DotsLoading from "../DotsLoading";
+import DotsLoading from "../../partials/DotsLoading";
 import "./index.scss";
 
 interface Props {
@@ -12,7 +12,11 @@ const LockScreen: React.FC<Props> = (props) => {
 
   return (
     <div className={classNames("LockScreen", unlocked && "unlocked")}>
-      {loading && <DotsLoading />}
+      {loading && (
+        <>
+          <DotsLoading />
+        </>
+      )}
     </div>
   );
 };

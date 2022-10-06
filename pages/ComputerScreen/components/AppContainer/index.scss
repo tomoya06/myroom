@@ -91,7 +91,14 @@
   bottom: 0;
   left: 0;
 
-  animation: 0.2s app-cover-out 0.8s ease both;
+  &.out {
+    animation: 0.2s app-cover-out ease both;
+    animation-delay: 0.4s;
+
+    &.now {
+      animation-delay: 0.8s;
+    }
+  }
 }
 
 .AppContaienerCoverIcon {

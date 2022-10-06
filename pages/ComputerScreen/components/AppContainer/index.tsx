@@ -4,14 +4,15 @@ import "./index.scss";
 import { globalContext } from "../../context";
 import classNames from "classnames";
 import { $defaultThemeColor } from "../../variables";
-import DotsLoading from "../DotsLoading";
+import DotsLoading from "../../partials/DotsLoading";
 
 export interface AppContainerProps extends AppProps {
   children?: JSX.Element;
+  loaded?: boolean;
 }
 
 const AppContainer: React.FC<AppContainerProps> = (props) => {
-  const { appInfo, children, isActive } = props;
+  const { appInfo, children, isActive, loaded } = props;
 
   const { toggleActive, closeApp } = globalContext;
 
@@ -46,7 +47,9 @@ const AppContainer: React.FC<AppContainerProps> = (props) => {
       <div
         className={classNames(
           "AppContaienerCover",
-          appInfo.color || $defaultThemeColor
+          appInfo.color || $defaultThemeColor,
+          typeof loaded === "undefined" && "out now",
+          loaded === true && "out"
         )}
       >
         <img className="AppContaienerCoverIcon" src={appInfo.icon} />
