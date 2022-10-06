@@ -15,7 +15,7 @@ export default class Computer extends ModelSection {
   public mouseMesh: THREE.Object3D;
 
   private browserContainer: HTMLElement;
-  private browserIframe: HTMLIFrameElement;
+  public browserIframe: HTMLIFrameElement;
 
   constructor(mod: GLTF) {
     super(mod);
@@ -35,14 +35,6 @@ export default class Computer extends ModelSection {
     this.browserIframe = document.getElementById(
       "BrowserIframe"
     ) as HTMLIFrameElement;
-
-    window.addEventListener("message", (evt) => {
-      if (evt.data === MessageName.PowerOFF) {
-        this.browserIframe.contentWindow?.postMessage(MessageName.PowerOFF);
-        this.stopBrowser();
-        this.turnon();
-      }
-    });
   }
 
   public turnon() {

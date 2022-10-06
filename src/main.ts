@@ -9,6 +9,7 @@ import Switch from "./components/Switch";
 import Computer from "./components/Computer";
 import { InteractionManager } from "three.interactive";
 import StateMachine, { EnumStatus } from "./StateMachine";
+import { MessageName } from "./utils/window";
 
 const defCamPos = new THREE.Vector3(5, 5, 5);
 const defCamLook = new THREE.Vector3(0, 0, 0);
@@ -153,11 +154,14 @@ class App {
       ref.stateMachine.status = EnumStatus.Lobby;
     });
 
-    document
-      .getElementById("ActionBarClose")
-      ?.addEventListener("click", function () {
+    window.addEventListener("message", function (evt) {
+      if (evt.data === MessageName.PowerOFF) {
+        ref.computer.browserIframe.contentWindow?.postMessage(
+          MessageName.PowerOFF
+        );
         ref.stateMachine.status = EnumStatus.AtComputer;
-      });
+      }
+    });
   }
 
   private handleStateChange(s: EnumStatus) {
