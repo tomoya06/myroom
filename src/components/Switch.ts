@@ -1,6 +1,6 @@
 import { InteractionManager } from "three.interactive";
 import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
-import { findChildByName } from "../utils/three";
+import { bindHoverCursor, findChildByName } from "../utils/three";
 import ModelSection from "./ModelSection";
 
 const AnimateKey = {
@@ -60,5 +60,7 @@ export default class Switch extends ModelSection {
         ref.pickup();
       }
     });
+
+    bindHoverCursor([this.switchMesh]);
   }
 }

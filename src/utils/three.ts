@@ -18,3 +18,14 @@ export function findChildByName(
 
   return undefined;
 }
+
+export const bindHoverCursor = (objs: THREE.Object3D[]) => {
+  objs.map((obj) => {
+    obj.addEventListener("mouseover", () => {
+      document.body.style.cursor = "pointer";
+    });
+    obj.addEventListener("mouseout", () => {
+      document.body.style.cursor = "default";
+    });
+  });
+};

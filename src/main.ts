@@ -11,7 +11,7 @@ import { InteractionManager } from "three.interactive";
 import StateMachine, { EnumStatus } from "./StateMachine";
 import { MessageName } from "./utils/window";
 
-const defCamPos = new THREE.Vector3(4, 3, 4);
+const defCamPos = new THREE.Vector3(4, 4, 4);
 const defCamLook = new THREE.Vector3(0, 0, 0);
 
 class App {
@@ -139,66 +139,47 @@ class App {
   }
 
   private bindInteraction() {
-    const ref = this;
-    this.interaction.add(this.computer.keyboardMesh);
-    this.computer.keyboardMesh.addEventListener("click", function () {
-      ref.stateMachine.status = EnumStatus.AtComputer;
-    });
-
-    this.interaction.add(this.computer.screenMesh);
-    this.computer.screenMesh.addEventListener("click", function () {
-      ref.stateMachine.status = EnumStatus.ComputerBrowser;
-    });
-
-    this.interaction.add(this.computer.mouseMesh);
-    this.computer.mouseMesh.addEventListener("click", function () {
-      ref.stateMachine.status = EnumStatus.Lobby;
-    });
-    // FIXME: mouse hover highlight & cursor
-    const hoverables = [
-      [this.computer.keyboardMesh, [EnumStatus.Lobby, EnumStatus.AtComputer]],
-      [this.computer.screenMesh, [EnumStatus.AtComputer]],
-      [this.computer.mouseMesh, [EnumStatus.Lobby, EnumStatus.AtComputer]],
+    const hoverables: [THREE.Object3D, EnumStatus, EnumStatus[]][] = [
+      [
+        this.computer.keyboardMesh,
+        EnumStatus.AtComputer,
+        [EnumStatus.Lobby, EnumStatus.AtComputer],
+      ],
+      [
+        this.computer.screenMesh,
+        EnumStatus.ComputerBrowser,
+        [EnumStatus.AtComputer],
+      ],
+      [
+        this.computer.mouseMesh,
+        EnumStatus.Lobby,
+        [EnumStatus.Lobby, EnumStatus.AtComputer],
+      ],
     ];
 
-    this.computer.keyboardMesh.traverse((child) => {
-      console.log("traverse", child);
-      if (child.children.length !== 0) {
-        return;
-      }
-
-      this.interaction.add(child);
-      child.addEventListener("mouseover", (evt) => {
-        console.log("mouseover", evt);
-        const anychild = child as any;
-
-        if (!anychild.material) {
-          return;
-        }
-        anychild.userData.materialEmissiveHex =
-          anychild.material.emissive.getHex();
-        anychild.material.emissive.setHex(0xff0000);
-        anychild.material.emissiveIntensity = 0.5;
+    hoverables.map((hoverable) => {
+      this.interaction.add(hoverable[0]);
+      hoverable[0].addEventListener("click", () => {
+        this.stateMachine.status = hoverable[1];
       });
-      child.addEventListener("mouseout", (evt) => {
-        console.log("mouseover", evt);
-        const anychild = child as any;
-
-        if (!anychild.material) {
+      hoverable[0].addEventListener("mouseover", () => {
+        if (!hoverable[2].includes(this.stateMachine.status)) {
+          document.body.style.cursor = "default";
           return;
         }
-        anychild.material.emissive.setHex(
-          anychild.userData.materialEmissiveHex
-        );
+        document.body.style.cursor = "pointer";
+      });
+      hoverable[0].addEventListener("mouseout", () => {
+        document.body.style.cursor = "default";
       });
     });
 
-    window.addEventListener("message", function (evt) {
+    window.addEventListener("message", (evt) => {
       if (evt.data === MessageName.PowerOFF) {
-        ref.computer.browserIframe.contentWindow?.postMessage(
+        this.computer.browserIframe.contentWindow?.postMessage(
           MessageName.PowerOFF
         );
-        ref.stateMachine.status = EnumStatus.AtComputer;
+        this.stateMachine.status = EnumStatus.AtComputer;
       }
     });
   }
