@@ -11,7 +11,7 @@ import { InteractionManager } from "three.interactive";
 import StateMachine, { EnumStatus } from "./StateMachine";
 import { MessageName } from "./utils/window";
 
-const defCamPos = new THREE.Vector3(5, 5, 5);
+const defCamPos = new THREE.Vector3(4, 3, 4);
 const defCamLook = new THREE.Vector3(0, 0, 0);
 
 class App {
@@ -121,6 +121,7 @@ class App {
   private loop() {
     this.renderer.render(this.scene, this.camera);
     this.control.update();
+    this.interaction.update();
 
     TWEEN.update();
     requestAnimationFrame(this.loop.bind(this));
@@ -152,6 +153,44 @@ class App {
     this.interaction.add(this.computer.mouseMesh);
     this.computer.mouseMesh.addEventListener("click", function () {
       ref.stateMachine.status = EnumStatus.Lobby;
+    });
+    // FIXME: mouse hover highlight & cursor
+    const hoverables = [
+      [this.computer.keyboardMesh, [EnumStatus.Lobby, EnumStatus.AtComputer]],
+      [this.computer.screenMesh, [EnumStatus.AtComputer]],
+      [this.computer.mouseMesh, [EnumStatus.Lobby, EnumStatus.AtComputer]],
+    ];
+
+    this.computer.keyboardMesh.traverse((child) => {
+      console.log("traverse", child);
+      if (child.children.length !== 0) {
+        return;
+      }
+
+      this.interaction.add(child);
+      child.addEventListener("mouseover", (evt) => {
+        console.log("mouseover", evt);
+        const anychild = child as any;
+
+        if (!anychild.material) {
+          return;
+        }
+        anychild.userData.materialEmissiveHex =
+          anychild.material.emissive.getHex();
+        anychild.material.emissive.setHex(0xff0000);
+        anychild.material.emissiveIntensity = 0.5;
+      });
+      child.addEventListener("mouseout", (evt) => {
+        console.log("mouseover", evt);
+        const anychild = child as any;
+
+        if (!anychild.material) {
+          return;
+        }
+        anychild.material.emissive.setHex(
+          anychild.userData.materialEmissiveHex
+        );
+      });
     });
 
     window.addEventListener("message", function (evt) {

@@ -33,8 +33,6 @@ export const TaskCenterDockerIcons = [
   "https://img.icons8.com/metro/26/FFFFFF/high-battery.png",
 ];
 
-// FIXME: system preload procedure
-
 export const aiGithub: AppInfo = {
   id: "GitHub",
   icon: "https://img.icons8.com/material/100/FFFFFF/github-2.png",
