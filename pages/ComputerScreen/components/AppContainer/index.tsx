@@ -25,7 +25,6 @@ const AppContainer: React.FC<AppContainerProps> = (props) => {
       closeApp(appInfo.id);
     }, 200);
   };
-  // FIXME: allow outside to control cover display
 
   return (
     <div className={clsn("AppContainer", isActive ? "in" : "out")}>

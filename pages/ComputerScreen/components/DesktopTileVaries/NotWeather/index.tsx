@@ -104,6 +104,7 @@ const NotWeatherTile: React.FC<TileBasicProps> = (props) => {
     ...props,
     lives,
     liveInt: 11500,
+    delay: 2000,
     onLoopEnd: loadWeatherData,
   };
 

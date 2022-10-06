@@ -6,6 +6,7 @@ import { AppInfo } from "../../interface";
 import { $defaultThemeColor, $tileSize } from "../../variables";
 import "./index.scss";
 import { TileLiveContent } from "./interface";
+import delayfunc from "delay";
 
 const $AnimateInDuration = 1800;
 const $AnimateOutDuration = 1000;
@@ -95,6 +96,7 @@ const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
   const interval = useRef<number>();
   const curLiveStore = useRef<TileLiveContent>();
   const curLiveIdx = useRef<number>();
+  const liveIteHash = useRef<number>(0);
 
   const clickable = useMemo(() => {
     return !!installedAppToMap[appInfo.id].content;
@@ -112,45 +114,50 @@ const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
     curLiveStore.current = undefined;
     setLastLive(undefined);
     setCurLiveOut(true);
+    clearInterval(interval.current);
   };
 
   const iterateLive = () => {
-    clearTimeout(interval.current);
-
     if (curLiveIdx.current! >= lives.length - 1) {
       resetLive();
       props.onLoopEnd?.();
 
-      setTimeout(() => {
-        iterateLive();
-      }, (props.delay || liveInt) + $AnimateOutDuration);
+      // 重新开始一轮interval
+      startIterateLive(liveIteHash.current);
 
       return;
     }
     curLiveIdx.current = curLiveIdx.current! + 1;
     updateLive(lives[curLiveIdx.current]);
+  };
 
-    setTimeout(() => {
+  const startIterateLive = async (hash: number) => {
+    await delayfunc(delay || liveInt);
+
+    if (hash !== liveIteHash.current) {
+      return;
+    }
+    iterateLive();
+
+    interval.current = setInterval(() => {
       iterateLive();
-    }, liveInt + $AnimateInDuration);
+    }, liveInt + $AnimateOutDuration);
   };
 
   useEffect(() => {
-    clearTimeout(interval.current);
+    liveIteHash.current += 1;
     resetLive();
 
     if (lives.length === 0) {
       return () => {
-        clearTimeout(interval.current);
+        clearInterval(interval.current);
       };
     }
 
-    interval.current = setTimeout(() => {
-      iterateLive();
-    }, delay || liveInt);
+    startIterateLive(liveIteHash.current);
 
     return () => {
-      clearTimeout(interval.current);
+      clearInterval(interval.current);
     };
   }, [lives]);
 
