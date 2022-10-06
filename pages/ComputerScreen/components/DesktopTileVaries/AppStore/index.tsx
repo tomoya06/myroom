@@ -38,7 +38,7 @@ const livesImages = [
     "https://s2.loli.net/2022/10/04/nDBkKxOiG1tlTIE.png",
     "https://tomoya06.github.io/easonbot/img/waiting.jpg",
   ],
-  ["https://s2.loli.net/2022/10/04/CZ9Jo6LSzUKXn4c.png"],
+  ["https://s2.loli.net/2022/10/06/QAHjcyb2kMfr78G.jpg"],
 ];
 
 const AppStore: React.FC<TileBasicProps> = (props) => {
