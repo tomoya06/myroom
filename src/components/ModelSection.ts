@@ -1,7 +1,6 @@
 import * as THREE from "three";
 import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
 import * as TWEEN from "@tweenjs/tween.js";
-import { param } from "jquery";
 
 /**
  * Base Class for Registering Model Section
