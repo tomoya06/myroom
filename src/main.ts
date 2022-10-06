@@ -129,7 +129,9 @@ class App {
 
   private async loadModels() {
     const loader = new GLTFLoader();
-    this.roomGltf = await loader.loadAsync("src/assets/lowgameroom.glb");
+    this.roomGltf = await loader.loadAsync(
+      "https://tomoya06.github.io/myroom/assets/lowgameroom.glb"
+    );
 
     // // this helps you look at your model
     // debugger;
