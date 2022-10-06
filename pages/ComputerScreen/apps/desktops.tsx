@@ -9,6 +9,9 @@ import {
   aiCalendar,
   aiTrashbin,
   aiXiaoXiaoLe,
+  aiThisRepo,
+  aiEngineerRepo,
+  aiDoubanEventRepo,
 } from "./installed";
 import DesktopTile from "../components/DesktopTile";
 import AppStore from "../components/DesktopTileVaries/AppStore";
@@ -83,6 +86,31 @@ export const desktopApps: {
       },
       {
         content: <DesktopTile appInfo={ai3jsGame} size="middle" pos={[2, 1]} />,
+      },
+    ],
+  },
+  {
+    width: 3,
+    tiles: [
+      {
+        content: (
+          <DesktopTile
+            appInfo={aiThisRepo}
+            size="wide"
+            pos={[0, 0]}
+            titleSize="middle"
+          />
+        ),
+      },
+      {
+        content: (
+          <DesktopTile appInfo={aiEngineerRepo} size="middle" pos={[2, 0]} />
+        ),
+      },
+      {
+        content: (
+          <DesktopTile appInfo={aiDoubanEventRepo} size="middle" pos={[0, 1]} />
+        ),
       },
     ],
   },

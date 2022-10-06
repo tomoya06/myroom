@@ -14,6 +14,7 @@ const $AnimateOutDuration = 1000;
 export interface TileBasicProps {
   appInfo: AppInfo;
   size: "middle" | "wide" | "large";
+  titleSize?: "middle";
   pos: [number, number];
   color?: string;
 }
@@ -87,7 +88,15 @@ const LiveTile = (
 };
 
 const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
-  const { size, lives = [], pos, liveInt = 5000, delay, appInfo } = props;
+  const {
+    size,
+    titleSize,
+    lives = [],
+    pos,
+    liveInt = 5000,
+    delay,
+    appInfo,
+  } = props;
   const { openApp } = globalContext;
 
   const [lastLive, setLastLive] = useState<TileLiveContent>();
@@ -177,6 +186,13 @@ const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
     return <></>;
   }
 
+  const useMiddleTitle = (() => {
+    if (size === "middle" || titleSize === "middle") {
+      return true;
+    }
+    return false;
+  })();
+
   return (
     <div
       className={classNames(
@@ -188,8 +204,8 @@ const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
       onClick={handleClick}
       style={style}
     >
-      {size !== "middle" && WideTileTitle(appInfo)}
-      {size === "middle" && MiddleTileTitle(appInfo)}
+      {useMiddleTitle ? MiddleTileTitle(appInfo) : WideTileTitle(appInfo)}
+
       {lastLive && LiveTile(appInfo, lastLive, props, {})}
       {curLive &&
         LiveTile(appInfo, curLive, props, {

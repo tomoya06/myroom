@@ -21,11 +21,6 @@ export const TaskCenterActions: TaskCenterActionInfo[] = [
     id: "Settings",
     icon: "https://img.icons8.com/metro/100/FFFFFF/settings.png",
   },
-  // {
-  //   id: "Recent",
-  //   icon: "",
-  //   action: EnumTaskCenterAction.Recent,
-  // },
 ];
 
 export const TaskCenterDockerIcons = [
@@ -92,6 +87,24 @@ export const aiSettings: AppInfo = {
   id: "Settings",
   icon: "https://img.icons8.com/metro/100/FFFFFF/settings.png",
   color: "w3-win8-steel",
+};
+
+export const aiThisRepo: AppInfo = {
+  id: "System Insight",
+  icon: "https://img.icons8.com/ios/100/FFFFFF/registry-editor.png",
+  color: "w3-win8-brown",
+};
+
+export const aiEngineerRepo: AppInfo = {
+  id: "Develop Guidance",
+  icon: "https://img.icons8.com/external-vitaliy-gorbachev-fill-vitaly-gorbachev/100/FFFFFF/external-engineer-female-profession-vitaliy-gorbachev-fill-vitaly-gorbachev.png",
+  color: "w3-win8-brown",
+};
+
+export const aiDoubanEventRepo: AppInfo = {
+  id: "RN豆瓣同城 REPO",
+  icon: "https://img.icons8.com/ios-filled/100/FFFFFF/repository.png",
+  color: "w3-win8-emerald",
 };
 
 export const installedApps: AppApp[] = (() => {
@@ -185,6 +198,41 @@ export const installedApps: AppApp[] = (() => {
     content: <AppSettings appInfo={aiSettings} />,
   };
   output.push(appSettings);
+
+  const appThisRepo: AppApp = {
+    ...aiThisRepo,
+    content: (
+      <AppOutside
+        url="https://github.com/tomoya06/myroom"
+        appInfo={aiThisRepo}
+      />
+    ),
+  };
+  output.push(appThisRepo);
+
+  const appEngineerRepo: AppApp = {
+    ...aiEngineerRepo,
+    content: (
+      <AppOutside
+        hint="You should be aware that this is never a real guidance. It's just a notebook to keep some notes for myself, and it's no longer maintained. &#10;(at least not on GitHub any more)&#10;But still it's where all the dream began, so it is my pleasure to share it with you guys. "
+        url="https://github.com/tomoya06/web-developer-guidance"
+        appInfo={aiEngineerRepo}
+      />
+    ),
+  };
+  output.push(appEngineerRepo);
+
+  const appDoubanEventRepo: AppApp = {
+    ...aiDoubanEventRepo,
+    content: (
+      <AppOutside
+        hint="This project is no longer maintained but it's my first mobile app project. Hope it helps."
+        url="https://github.com/tomoya06/web-developer-guidance"
+        appInfo={aiDoubanEventRepo}
+      />
+    ),
+  };
+  output.push(appDoubanEventRepo);
 
   return output;
 })();
