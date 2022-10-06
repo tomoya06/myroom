@@ -4,6 +4,7 @@ import "./index.scss";
 import { globalContext } from "../../context";
 import classNames from "classnames";
 import { $defaultThemeColor } from "../../variables";
+import DotsLoading from "../DotsLoading";
 
 export interface AppContainerProps extends AppProps {
   children?: JSX.Element;
@@ -49,6 +50,10 @@ const AppContainer: React.FC<AppContainerProps> = (props) => {
         )}
       >
         <img className="AppContaienerCoverIcon" src={appInfo.icon} />
+        <div className="AppContaienerCoverTitle">{appInfo.id}</div>
+        <div className="AppContaienerCoverLoading">
+          <DotsLoading />
+        </div>
       </div>
       <div className="AppContainerContent">{children}</div>
     </div>

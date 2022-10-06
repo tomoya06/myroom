@@ -82,6 +82,7 @@
 
 .AppContaienerCover {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   position: absolute;
@@ -94,8 +95,22 @@
 }
 
 .AppContaienerCoverIcon {
-  width: 8rem;
-  height: 8rem;
+  width: 9rem;
+  height: 9rem;
+}
+
+.AppContaienerCoverTitle {
+  font-size: 3rem;
+  margin: 1rem 0;
+  animation: 0.4s app-cover-elem-in 1s ease both;
+}
+
+.AppContaienerCoverLoading {
+  animation: 0.4s app-cover-elem-in 2s ease both;
+
+  .lds-default {
+    transform: scale(0.6);
+  }
 }
 
 .AppContainerContent {
@@ -129,5 +144,16 @@
   100% {
     opacity: 0;
     z-index: -1;
+  }
+}
+
+@keyframes app-cover-elem-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-2rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
