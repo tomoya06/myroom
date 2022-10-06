@@ -20,8 +20,6 @@ export default class Chair extends ModelSection {
   private clicked: Set<number>;
   private clickTimeout: ReturnType<typeof setTimeout>;
 
-  private isMoving: boolean;
-
   constructor(mod: GLTF) {
     super(mod);
 
@@ -34,7 +32,6 @@ export default class Chair extends ModelSection {
 
     this.clicked = new Set();
     this.clickTimeout = 0;
-    this.isMoving = false;
   }
 
   private handleClick() {

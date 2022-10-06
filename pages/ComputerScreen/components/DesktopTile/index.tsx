@@ -8,7 +8,7 @@ import "./index.scss";
 import { TileLiveContent } from "./interface";
 import delayfunc from "delay";
 
-const $AnimateInDuration = 1800;
+// const $AnimateInDuration = 1800;
 const $AnimateOutDuration = 1000;
 
 export interface TileBasicProps {
