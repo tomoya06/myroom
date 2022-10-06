@@ -131,8 +131,10 @@ const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
       resetLive();
       props.onLoopEnd?.();
 
-      // 重新开始一轮interval
-      startIterateLive(liveIteHash.current);
+      delayfunc($AnimateOutDuration).then(() => {
+        // 重新开始一轮interval
+        startIterateLive(liveIteHash.current);
+      });
 
       return;
     }
@@ -141,6 +143,9 @@ const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
   };
 
   const startIterateLive = async (hash: number) => {
+    if (hash !== liveIteHash.current) {
+      return;
+    }
     await delayfunc(delay || liveInt);
 
     if (hash !== liveIteHash.current) {
