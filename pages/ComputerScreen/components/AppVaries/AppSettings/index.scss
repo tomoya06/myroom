@@ -13,4 +13,10 @@
   div {
     font-size: 1.4rem;
   }
+
+  h1 {
+    &:not(:first-of-type) {
+      margin-top: 4rem;
+    }
+  }
 }
