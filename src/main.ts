@@ -9,7 +9,7 @@ import Switch from "./components/Switch";
 import Computer from "./components/Computer";
 import { InteractionManager } from "three.interactive";
 import StateMachine, { EnumStatus } from "./StateMachine";
-import { isDev, MessageName } from "./utils/window";
+import { isDev, isPortrait, MessageName } from "./utils/window";
 import Cabinets from "./components/Cabinets";
 
 const defCamPos = new THREE.Vector3(4, 4, 4);
@@ -77,6 +77,8 @@ class App {
     window.addEventListener("resize", this.handleWindowResize.bind(this));
 
     this.loadModels().then(() => {
+      this.updateForPortrait();
+
       requestAnimationFrame(this.loop.bind(this));
 
       this.chair = new Chair(this.roomGltf);
@@ -121,6 +123,15 @@ class App {
     this.camera.updateProjectionMatrix();
 
     this.renderer.setSize(innerWidth, innerHeight);
+
+    this.updateForPortrait();
+  }
+
+  private updateForPortrait() {
+    if (!isPortrait()) {
+      return;
+    }
+    this.roomGltf.scene.scale.set(0.6, 0.6, 0.6);
   }
 
   private loadLights() {
@@ -237,6 +248,10 @@ class App {
       ?.addEventListener("click", () => {
         this.stateMachine.status = EnumStatus.AtComputer;
       });
+
+    (window as any).printCamera = () => {
+      console.log(this.camera.position, this.control.target);
+    };
   }
 
   private handleStateChange(s: EnumStatus) {
@@ -253,8 +268,15 @@ class App {
     if (s === EnumStatus.AtComputer) {
       const newCamPos = new THREE.Vector3();
       const newTarget = new THREE.Vector3();
-      this.computer.monitorCamera.getWorldPosition(newCamPos);
+      if (isPortrait()) {
+        this.computer.monitorCameraMobile.getWorldPosition(newCamPos);
+      } else {
+        this.computer.monitorCamera.getWorldPosition(newCamPos);
+      }
       this.computer.screenMesh.getWorldPosition(newTarget);
+
+      console.log(newCamPos, newTarget);
+
       this.computer.turnon();
       this.moveCamera(newTarget, newCamPos);
     }

@@ -2,7 +2,8 @@ import * as THREE from "three";
 
 export function findChildByName(
   obj: THREE.Object3D,
-  name: string
+  name: string,
+  isRec?: boolean
 ): THREE.Object3D | undefined {
   const found = obj.children.find((child) => child.name === name);
   if (found) {
@@ -10,10 +11,14 @@ export function findChildByName(
   }
 
   for (const child of obj.children) {
-    const subRes = findChildByName(child, name);
+    const subRes = findChildByName(child, name, true);
     if (subRes) {
       return subRes;
     }
+  }
+
+  if (!isRec) {
+    alert(`cant find key ${name} child`);
   }
 
   return undefined;

@@ -9,6 +9,7 @@ const AnimateKey = {
 
 export default class Computer extends ModelSection {
   public monitorCamera: THREE.Camera;
+  public monitorCameraMobile: THREE.Camera;
   public screenMesh: THREE.Object3D;
   public keyboardMesh: THREE.Object3D;
   public deckMesh: THREE.Object3D;
@@ -22,6 +23,7 @@ export default class Computer extends ModelSection {
 
     this.regAnimate(AnimateKey.Text);
     this.monitorCamera = this.findCamera("MonitorCamera");
+    this.monitorCameraMobile = this.findCamera("MonitorCameraMobile");
 
     const monitorMesh = this.findMesh("Monitor")!;
     this.screenMesh = findChildByName(monitorMesh, "MonitorScreen")!;
