@@ -1,0 +1,38 @@
+$AvatarBgColor: rgba(0, 0, 0, 0.2);
+$AvatarHighlightColor: rgba(0, 0, 0, 0.2);
+
+.mTaskCenter {
+  padding: 1rem 0.5rem;
+  background-color: #000000;
+}
+
+.mDesktopAvatar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &.active {
+    background-color: $AvatarHighlightColor;
+  }
+}
+
+.DesktopAvatarContent {
+  display: flex;
+
+  div {
+    font-size: 3rem;
+    color: #ffffff;
+    margin: 0 0 0 1rem;
+  }
+}
+
+.mDesktopAvatarImg {
+  width: 4rem;
+  height: 4rem;
+}
+
+.mDesktopAvatarMenu {
+  width: 2rem;
+  height: 2rem;
+  margin: 0 1rem 0;
+}

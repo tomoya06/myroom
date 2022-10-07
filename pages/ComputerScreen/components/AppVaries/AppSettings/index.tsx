@@ -4,7 +4,7 @@ import "./index.scss";
 
 const AppSettings: React.FC<AppContainerProps> = (props) => {
   return (
-    <AppContainer {...props}>
+    <AppContainer {...props} useColor={true}>
       <div className="AppSettings">
         <h1>System Settings</h1>
         <div>

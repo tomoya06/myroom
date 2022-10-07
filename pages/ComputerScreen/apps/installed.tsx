@@ -8,6 +8,9 @@ export const AdminAvatar =
 export const DesktopWallpaper =
   "https://s2.loli.net/2022/10/06/q9bTulcUsD2eKoz.jpg";
 
+export const MDesktopAvatarMenu =
+  "https://img.icons8.com/metro/52/FFFFFF/menu.png";
+
 export const TaskCenterActions: TaskCenterActionInfo[] = [
   {
     id: "Exit",

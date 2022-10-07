@@ -10,10 +10,11 @@ import { useState } from "react";
 export interface AppContainerProps extends AppProps {
   children?: JSX.Element;
   loaded?: boolean;
+  useColor?: boolean;
 }
 
 const AppContainer: React.FC<AppContainerProps> = (props) => {
-  const { appInfo, children, isActive, loaded } = props;
+  const { appInfo, children, isActive, loaded, useColor } = props;
   const [isExiting, setExiting] = useState(false);
 
   const { toggleActive, closeApp } = globalContext;
@@ -33,6 +34,7 @@ const AppContainer: React.FC<AppContainerProps> = (props) => {
     <div
       className={clsn(
         "AppContainer",
+        useColor && (appInfo.color || $defaultThemeColor),
         isActive ? "in" : isExiting ? "exit" : "out"
       )}
     >

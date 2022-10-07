@@ -16,6 +16,11 @@
 }
 
 .MDesktop {
+  height: 100vh;
+  overflow-y: auto;
+
+  .MDesktopContent {
+  }
 }
 
 .MDesktopTiles {

@@ -19,20 +19,24 @@ const Desktop: React.FC<Props> = () => {
     <>
       {isMobile ? (
         <div className="MDesktop">
-          <div className="MDesktopHeader"></div>
-          <div className="MDesktopTiles">
-            {desktop.map((desktopGroup) => {
-              return (
-                <>
-                  {desktopGroup.tiles.map((desktopApp) => {
-                    const { content } = desktopApp;
-                    return React.cloneElement(content, {
-                      key: content.props.appInfo.id,
-                    });
-                  })}
-                </>
-              );
-            })}
+          <div className="MDesktopContent">
+            <div className="MDesktopHeader">
+              <TaskCenter />
+            </div>
+            <div className="MDesktopTiles">
+              {desktop.map((desktopGroup) => {
+                return (
+                  <>
+                    {desktopGroup.tiles.map((desktopApp) => {
+                      const { content } = desktopApp;
+                      return React.cloneElement(content, {
+                        key: content.props.appInfo.id,
+                      });
+                    })}
+                  </>
+                );
+              })}
+            </div>
           </div>
         </div>
       ) : (
