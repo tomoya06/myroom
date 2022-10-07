@@ -1,3 +1,5 @@
+import { useMediaQuery } from "react-responsive";
+
 export const inIframe = () => {
   try {
     return window.self !== window.top;
@@ -18,4 +20,8 @@ export const isDev =
 
 export const isPortrait = () => {
   return window.innerHeight >= window.innerWidth;
+};
+
+export const useMobile = () => {
+  return useMediaQuery({ query: "(orientation: portrait)" });
 };

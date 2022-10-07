@@ -7,6 +7,7 @@ import { $defaultThemeColor, $tileSize } from "../../variables";
 import "./index.scss";
 import { TileLiveContent } from "./interface";
 import delayfunc from "delay";
+import { useMobile } from "../../../../src/utils/window";
 
 // const $AnimateInDuration = 1800;
 const $AnimateOutDuration = 1000;
@@ -107,6 +108,8 @@ const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
   const curLiveIdx = useRef<number>();
   const liveIteHash = useRef<number>(0);
 
+  const isMobile = useMobile();
+
   const clickable = useMemo(() => {
     return !!installedAppToMap[appInfo.id].content;
   }, []);
@@ -175,10 +178,12 @@ const DesktopTile: React.FC<DesktopTileProps> = (props: DesktopTileProps) => {
     };
   }, [lives]);
 
-  const style: React.CSSProperties = {
-    left: `calc(${pos[0]} * ${$tileSize})`,
-    top: `calc(${pos[1]} * ${$tileSize})`,
-  };
+  const style: React.CSSProperties = isMobile
+    ? {}
+    : {
+        left: `calc(${pos[0]} * ${$tileSize})`,
+        top: `calc(${pos[1]} * ${$tileSize})`,
+      };
 
   const handleClick = () => {
     if (!clickable) {

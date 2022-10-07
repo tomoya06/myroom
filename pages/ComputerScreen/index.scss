@@ -42,6 +42,10 @@ html {
 
   user-select: none;
   -webkit-user-select: none;
+
+  &.mApp {
+    overflow-y: auto;
+  }
 }
 
 .button {

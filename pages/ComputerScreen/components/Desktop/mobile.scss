@@ -1,0 +1,42 @@
+@import "../../variables.scss";
+
+@mixin mMultisize {
+  &.middle {
+    width: $mTileSize;
+  }
+
+  &.wide {
+    width: $mDoubleTileSize;
+  }
+
+  &.large {
+    width: $mDoubleTileSize;
+    height: $mDoubleTileSize;
+  }
+}
+
+.MDesktop {
+}
+
+.MDesktopTiles {
+  width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+  position: static;
+  padding: 1rem 0 1rem 0.5rem;
+
+  .DesktopTile {
+    width: $mTileSize;
+    height: $mTileSize;
+    position: relative;
+    margin: 0 $tileMargin $tileMargin 0;
+
+    @include mMultisize();
+  }
+
+  .LiveTile {
+    width: $mTileSize;
+    height: $mTileSize;
+    @include mMultisize();
+  }
+}
