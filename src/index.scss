@@ -7,6 +7,22 @@ body {
 body {
   position: relative;
   font-size: 14px;
+  background-color: #f7f0e0;
+}
+
+#SceneLoader {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .lds-default div {
+    background: #000;
+  }
 }
 
 #BrowserContainer {

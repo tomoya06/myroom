@@ -1,23 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Room Tour</title>
-    <script type="module" src="/src/main.ts"></script>
-    <link rel="stylesheet" lang="scss" href="/src/index.scss" />
-  </head>
 
-  <body>
-    <div id="BrowserContainer">
-      <main>
-        <iframe
-          id="BrowserIframe"
-          src="/myroom/pages/ComputerScreen/index.html"
-          frameborder="0"
-        ></iframe>
-      </main>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Room Tour</title>
+  <script type="module" src="/src/main.ts"></script>
+  <link rel="stylesheet" lang="scss" href="/src/index.scss" />
+  <link rel="stylesheet" lang="scss" href="/src/styles/dotsloading.scss" />
+</head>
+
+<body>
+  <div id="SceneLoader">
+    <div class="lds-default">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
-  </body>
+  </div>
+  <div id="BrowserContainer">
+    <main>
+      <iframe id="BrowserIframe" src="/myroom/pages/ComputerScreen/index.html" frameborder="0"></iframe>
+    </main>
+  </div>
+</body>
+
 </html>

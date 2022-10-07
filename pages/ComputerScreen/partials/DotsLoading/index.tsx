@@ -1,4 +1,4 @@
-import "./index.scss";
+import "../../../../src/styles/dotsloading.scss";
 
 const DotsLoading: React.FC = () => {
   return (

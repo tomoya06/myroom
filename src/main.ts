@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { PMREMGenerator, sRGBEncoding } from "three";
+import { LoadingManager, PMREMGenerator, sRGBEncoding } from "three";
 import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import * as TWEEN from "@tweenjs/tween.js";
@@ -36,6 +36,8 @@ class App {
   interaction!: InteractionManager;
   stateMachine!: StateMachine;
 
+  loadingManager: LoadingManager;
+
   get bundle(): ThreeBundle {
     return {
       camera: this.camera,
@@ -47,6 +49,8 @@ class App {
 
   constructor() {
     this.state = genCtrlState();
+    this.loadingManager = new THREE.LoadingManager();
+    this.bindLoadManager();
 
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -91,6 +95,12 @@ class App {
       this.bindActions();
       this.bindInteraction();
     });
+  }
+
+  private bindLoadManager() {
+    this.loadingManager.onLoad = () => {
+      document.body.removeChild(document.getElementById("SceneLoader")!);
+    };
   }
 
   private loadCamera() {
@@ -152,7 +162,7 @@ class App {
   }
 
   private async loadModels() {
-    const loader = new GLTFLoader();
+    const loader = new GLTFLoader(this.loadingManager);
     this.roomGltf = await loader.loadAsync(
       isDev
         ? "src/assets/lowgameroom.glb"
