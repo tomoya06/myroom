@@ -231,6 +231,12 @@ class App {
         this.stateMachine.status = EnumStatus.AtComputer;
       }
     });
+
+    document
+      .getElementById("BrowserContainer")
+      ?.addEventListener("click", () => {
+        this.stateMachine.status = EnumStatus.AtComputer;
+      });
   }
 
   private handleStateChange(s: EnumStatus) {
