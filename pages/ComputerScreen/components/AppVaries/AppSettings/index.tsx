@@ -34,10 +34,11 @@ const AppSettings: React.FC<AppContainerProps> = (props) => {
 
         <h1>Also thanks to</h1>
         <div>
-          <a href="https://animista.net/play/basic">QWeather</a>
+          <a href="https://animista.net/play/basic">QWeather</a> entered from
+          'NotWeder'
         </div>
         <div>
-          <a href="https://time.is/">time.is</a>
+          <a href="https://time.is/">time.is</a> entered from '北京时间'
         </div>
         <h3>
           that provided more reality to this project, although they may never

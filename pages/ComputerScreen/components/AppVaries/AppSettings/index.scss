@@ -1,4 +1,16 @@
 .AppSettings {
   width: 100%;
+  height: 100%;
   padding: 1rem 2rem;
+  background-color: #2a2f33;
+  color: #ffffff;
+  font-weight: 300;
+
+  a {
+    color: #d5dbff;
+  }
+
+  div {
+    font-size: 1.4rem;
+  }
 }
