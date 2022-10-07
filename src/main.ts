@@ -51,7 +51,6 @@ class App {
     });
 
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    this.renderer.toneMappingExposure = 0.8;
     this.renderer.outputEncoding = sRGBEncoding;
 
     this.renderer.shadowMap.enabled = true;
@@ -125,15 +124,18 @@ class App {
   }
 
   private async loadEnvironment() {
-    const texture = await new RGBELoader().loadAsync(
-      isDev
-        ? "src/assets/studio_small_09_2k.hdr"
-        : "https://tomoya06.github.io/myroom/assets/studio_small_09_2k.hdr"
-    );
-    texture.mapping = THREE.EquirectangularReflectionMapping;
-    texture.minFilter = THREE.LinearFilter;
-    this.scene.background = texture;
-    this.scene.environment = texture;
+    this.scene.background = new THREE.Color(0xf7f0e0);
+    this.renderer.toneMappingExposure = 2;
+
+    // const texture = await new RGBELoader().loadAsync(
+    //   isDev
+    //     ? "src/assets/studio_small_09_2k.hdr"
+    //     : "https://tomoya06.github.io/myroom/assets/studio_small_09_2k.hdr"
+    // );
+    // texture.mapping = THREE.EquirectangularReflectionMapping;
+    // texture.minFilter = THREE.LinearFilter;
+    // // this.scene.background = texture;
+    // this.scene.environment = texture;
   }
 
   private loop() {
