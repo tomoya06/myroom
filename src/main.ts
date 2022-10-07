@@ -11,10 +11,13 @@ import { InteractionManager } from "three.interactive";
 import StateMachine, { EnumStatus } from "./StateMachine";
 import { isDev, isPortrait, MessageName } from "./utils/window";
 import Cabinets from "./components/Cabinets";
+import vhCheck from "vh-check";
 
 const defCamPos = new THREE.Vector3(4, 4, 4);
 const defCamLook = new THREE.Vector3(0, 0, 0);
 const bottomCamPos = new THREE.Vector3(0.1, -4, 0.1);
+
+vhCheck();
 
 class App {
   state: CtrlState;

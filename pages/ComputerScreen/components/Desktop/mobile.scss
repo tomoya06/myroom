@@ -17,6 +17,7 @@
 
 .MDesktop {
   height: 100vh;
+  height: calc(100vh - var(--vh-offset, 0px));
   overflow-y: auto;
 
   .MDesktopContent {
@@ -24,7 +25,6 @@
 }
 
 .MDesktopTiles {
-  width: 100vw;
   display: flex;
   flex-wrap: wrap;
   position: static;

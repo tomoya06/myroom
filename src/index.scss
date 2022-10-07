@@ -41,6 +41,7 @@ body {
   &.on {
     width: 100vw;
     height: 100vh;
+    height: calc(100vh - var(--vh-offset, 0px));
     left: 0;
     top: 0;
   }
