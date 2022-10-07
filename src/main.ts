@@ -2,7 +2,6 @@ import * as THREE from "three";
 import { PMREMGenerator, sRGBEncoding } from "three";
 import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
 import * as TWEEN from "@tweenjs/tween.js";
 import { CtrlState, genCtrlState, ThreeBundle } from "./interface.d";
 import Chair from "./components/Chair";
@@ -11,9 +10,11 @@ import Computer from "./components/Computer";
 import { InteractionManager } from "three.interactive";
 import StateMachine, { EnumStatus } from "./StateMachine";
 import { isDev, MessageName } from "./utils/window";
+import Cabinets from "./components/Cabinets";
 
 const defCamPos = new THREE.Vector3(4, 4, 4);
 const defCamLook = new THREE.Vector3(0, 0, 0);
+const bottomCamPos = new THREE.Vector3(0.1, -4, 0.1);
 
 class App {
   state: CtrlState;
@@ -30,6 +31,7 @@ class App {
   chair!: Chair;
   switch!: Switch;
   computer!: Computer;
+  cabinets!: Cabinets;
 
   interaction!: InteractionManager;
   stateMachine!: StateMachine;
@@ -66,6 +68,7 @@ class App {
 
     this.loadCamera();
     this.control = new OrbitControls(this.camera, this.renderer.domElement);
+    // this.control.enabled = false;
 
     window.addEventListener("resize", this.handleWindowResize.bind(this));
 
@@ -75,6 +78,7 @@ class App {
       this.chair = new Chair(this.roomGltf);
       this.switch = new Switch(this.roomGltf);
       this.computer = new Computer(this.roomGltf);
+      this.cabinets = new Cabinets(this.roomGltf);
 
       this.stateMachine = new StateMachine(this.handleStateChange.bind(this));
       this.interaction = new InteractionManager(
@@ -110,7 +114,7 @@ class App {
   }
 
   private loadLights() {
-    const light = new THREE.AmbientLight(0xffffff, 0.3);
+    const light = new THREE.AmbientLight(0xffffff, 0.4);
     const dlight = new THREE.DirectionalLight(0xffffff, 1);
     dlight.position.set(0.5, 1, 0.866);
     this.scene.add(light);
@@ -163,28 +167,39 @@ class App {
   }
 
   private bindInteraction() {
-    const hoverables: [THREE.Object3D, EnumStatus, EnumStatus[]][] = [
+    // object, next status choice (max 2), clickable status
+    const hoverables: [THREE.Object3D, EnumStatus[], EnumStatus[]][] = [
       [
         this.computer.keyboardMesh,
-        EnumStatus.AtComputer,
+        [EnumStatus.AtComputer],
         [EnumStatus.Lobby, EnumStatus.AtComputer],
       ],
       [
         this.computer.screenMesh,
-        EnumStatus.ComputerBrowser,
+        [EnumStatus.ComputerBrowser],
         [EnumStatus.AtComputer],
       ],
       [
         this.computer.mouseMesh,
-        EnumStatus.Lobby,
+        [EnumStatus.Lobby],
         [EnumStatus.Lobby, EnumStatus.AtComputer],
+      ],
+      [
+        this.cabinets.whiteCabinetMesh,
+        [EnumStatus.EASTEREGG, EnumStatus.Lobby],
+        [EnumStatus.Lobby, EnumStatus.EASTEREGG, EnumStatus.AtComputer],
       ],
     ];
 
     hoverables.map((hoverable) => {
       this.interaction.add(hoverable[0]);
       hoverable[0].addEventListener("click", () => {
-        this.stateMachine.status = hoverable[1];
+        const nxtState = hoverable[1];
+        if (!nxtState[1] || this.stateMachine.status === nxtState[1]) {
+          this.stateMachine.status = nxtState[0];
+        } else {
+          this.stateMachine.status = nxtState[1];
+        }
       });
       hoverable[0].addEventListener("mouseover", () => {
         if (!hoverable[2].includes(this.stateMachine.status)) {
@@ -213,6 +228,11 @@ class App {
       this.moveCamera(defCamLook, defCamPos);
     }
     if (s !== EnumStatus.Lobby) {
+    }
+    if (s === EnumStatus.EASTEREGG) {
+      this.moveCamera(defCamLook, bottomCamPos);
+    }
+    if (s !== EnumStatus.EASTEREGG) {
     }
     if (s === EnumStatus.AtComputer) {
       const newCamPos = new THREE.Vector3();

@@ -21,7 +21,16 @@ export default class ModelSection {
   protected findMesh(key: string) {
     const found = this.model.scene.children.find((child) => child.name === key);
     if (!found) {
-      alert("cant find {key} in your model");
+      alert(`cant find mesh ${key} in your model`);
+      throw new Error(key);
+    }
+    return found;
+  }
+
+  protected findCamera(key: string) {
+    const found = this.model.cameras.find((cam) => cam.name === key);
+    if (!found) {
+      alert(`cant find camera ${key} in your model`);
       throw new Error(key);
     }
     return found;

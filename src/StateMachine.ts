@@ -1,17 +1,23 @@
 export enum EnumStatus {
-  Lobby,
+  Lobby = 1,
   AtComputer,
   ComputerBrowser,
   AtSwtich,
   SwitchBrowser,
+  EASTEREGG,
 }
 
 const NextStatus: Record<EnumStatus, EnumStatus[]> = {
-  [EnumStatus.Lobby]: [EnumStatus.AtComputer, EnumStatus.AtSwtich],
+  [EnumStatus.Lobby]: [
+    EnumStatus.AtComputer,
+    EnumStatus.AtSwtich,
+    EnumStatus.EASTEREGG,
+  ],
   [EnumStatus.AtComputer]: [EnumStatus.Lobby, EnumStatus.ComputerBrowser],
   [EnumStatus.ComputerBrowser]: [EnumStatus.AtComputer],
   [EnumStatus.AtSwtich]: [EnumStatus.SwitchBrowser, EnumStatus.Lobby],
   [EnumStatus.SwitchBrowser]: [EnumStatus.AtSwtich],
+  [EnumStatus.EASTEREGG]: [EnumStatus.Lobby],
 };
 
 export default class StateMachine {

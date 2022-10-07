@@ -21,9 +21,7 @@ export default class Computer extends ModelSection {
     super(mod);
 
     this.regAnimate(AnimateKey.Text);
-    this.monitorCamera = mod.cameras.find(
-      (cam) => cam.name === "MonitorCamera"
-    )!;
+    this.monitorCamera = this.findCamera("MonitorCamera");
 
     const monitorMesh = this.findMesh("Monitor")!;
     this.screenMesh = findChildByName(monitorMesh, "MonitorScreen")!;
