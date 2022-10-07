@@ -12,12 +12,16 @@ import StateMachine, { EnumStatus } from "./StateMachine";
 import { isDev, isPortrait, MessageName } from "./utils/window";
 import Cabinets from "./components/Cabinets";
 import vhCheck from "vh-check";
+import ToastManager from "./utils/toast";
+import delay from "delay";
 
 const defCamPos = new THREE.Vector3(4, 4, 4);
 const defCamLook = new THREE.Vector3(0, 0, 0);
 const bottomCamPos = new THREE.Vector3(0.1, -4, 0.1);
 
 vhCheck();
+
+const toastManager = new ToastManager("SceneHint", "SceneHintText");
 
 class App {
   state: CtrlState;
@@ -78,6 +82,12 @@ class App {
     // this.control.enabled = false;
 
     window.addEventListener("resize", this.handleWindowResize.bind(this));
+
+    if (isPortrait()) {
+      delay(1000).then(() => {
+        toastManager.showToast("推荐使用电脑端（<ゝω・）☆");
+      });
+    }
 
     this.loadModels().then(() => {
       this.updateForPortrait();

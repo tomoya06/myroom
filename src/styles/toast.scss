@@ -1,0 +1,43 @@
+#SceneHint {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #3e65ff;
+  color: #ffffff;
+
+  &.in,
+  &.out {
+    padding: 0.4rem 0.6rem;
+  }
+
+  &.in {
+    animation: hint-in 0.4s cubic-bezier(0.1, 0.78, 0.14, 0.97) both;
+  }
+
+  &.out {
+    animation: hint-out 0.2s cubic-bezier(0.03, 0.45, 0, 0.82) both;
+  }
+
+  #SceneHintText {
+    font-size: 1.2rem;
+  }
+}
+
+@keyframes hint-in {
+  0% {
+    transform: translateY(-3rem);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes hint-out {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-3rem);
+  }
+}

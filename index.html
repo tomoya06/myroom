@@ -9,10 +9,11 @@
   <script type="module" src="/src/main.ts"></script>
   <link rel="stylesheet" lang="scss" href="/src/index.scss" />
   <link rel="stylesheet" lang="scss" href="/src/styles/dotsloading.scss" />
+  <link rel="stylesheet" lang="scss" href="/src/styles/toast.scss" />
 </head>
 
 <body>
-  <div id="SceneLoader">
+  <div id="SceneLoader" class="out">
     <div class="lds-default">
       <div></div>
       <div></div>
@@ -27,6 +28,9 @@
       <div></div>
       <div></div>
     </div>
+  </div>
+  <div id="SceneHint">
+    <div id="SceneHintText"></div>
   </div>
   <div id="BrowserContainer">
     <main>
