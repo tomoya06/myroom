@@ -21,7 +21,7 @@ const bottomCamPos = new THREE.Vector3(0.1, -4, 0.1);
 
 vhCheck();
 
-const toastManager = new ToastManager("SceneHint", "SceneHintText");
+const toastManager = new ToastManager();
 
 class App {
   state: CtrlState;

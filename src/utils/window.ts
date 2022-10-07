@@ -19,9 +19,9 @@ export const isDev =
   location.host.startsWith("192.168.");
 
 export const isPortrait = () => {
-  return window.innerHeight >= window.innerWidth;
+  return window.innerWidth < 480;
 };
 
 export const useMobile = () => {
-  return useMediaQuery({ query: "(orientation: portrait)" });
+  return useMediaQuery({ query: "(max-width: 480px)" });
 };
