@@ -5,6 +5,7 @@ import { globalContext } from "../../context";
 import classNames from "classnames";
 import { $defaultThemeColor } from "../../variables";
 import DotsLoading from "../../partials/DotsLoading";
+import { useState } from "react";
 
 export interface AppContainerProps extends AppProps {
   children?: JSX.Element;
@@ -13,6 +14,7 @@ export interface AppContainerProps extends AppProps {
 
 const AppContainer: React.FC<AppContainerProps> = (props) => {
   const { appInfo, children, isActive, loaded } = props;
+  const [isExiting, setExiting] = useState(false);
 
   const { toggleActive, closeApp } = globalContext;
 
@@ -21,13 +23,19 @@ const AppContainer: React.FC<AppContainerProps> = (props) => {
   };
   const handleClose = () => {
     toggleActive(appInfo.id);
+    setExiting(true);
     setTimeout(() => {
       closeApp(appInfo.id);
     }, 200);
   };
 
   return (
-    <div className={clsn("AppContainer", isActive ? "in" : "out")}>
+    <div
+      className={clsn(
+        "AppContainer",
+        isActive ? "in" : isExiting ? "exit" : "out"
+      )}
+    >
       <div className="AppContainerNavBar">
         <img src={appInfo.icon} alt={appInfo.id} />
         <div className="appTitle">{appInfo.id}</div>
