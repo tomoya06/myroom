@@ -129,6 +129,7 @@ class App {
 
   private updateForPortrait() {
     if (!isPortrait()) {
+      this.roomGltf.scene.scale.set(1, 1, 1);
       return;
     }
     this.roomGltf.scene.scale.set(0.6, 0.6, 0.6);
