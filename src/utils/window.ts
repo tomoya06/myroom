@@ -10,3 +10,8 @@ export const MessageName = {
   PowerON: "ComputerScreen_Start",
   PowerOFF: "ComputerScreen_Exit",
 };
+
+export const isDev =
+  location.host.startsWith("localhost") ||
+  location.host.startsWith("127.0.0.1") ||
+  location.host.startsWith("192.168.");

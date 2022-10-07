@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { PMREMGenerator, sRGBEncoding } from "three";
 import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
 import * as TWEEN from "@tweenjs/tween.js";
 import { CtrlState, genCtrlState, ThreeBundle } from "./interface.d";
 import Chair from "./components/Chair";
@@ -9,7 +10,7 @@ import Switch from "./components/Switch";
 import Computer from "./components/Computer";
 import { InteractionManager } from "three.interactive";
 import StateMachine, { EnumStatus } from "./StateMachine";
-import { MessageName } from "./utils/window";
+import { isDev, MessageName } from "./utils/window";
 
 const defCamPos = new THREE.Vector3(4, 4, 4);
 const defCamLook = new THREE.Vector3(0, 0, 0);
@@ -48,7 +49,11 @@ class App {
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
     });
-    this.renderer.toneMappingExposure = 1;
+
+    this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    this.renderer.toneMappingExposure = 0.8;
+    this.renderer.outputEncoding = sRGBEncoding;
+
     this.renderer.shadowMap.enabled = true;
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -58,6 +63,8 @@ class App {
 
     this.loadLights();
     this.beautify();
+    this.loadEnvironment();
+
     this.loadCamera();
     this.control = new OrbitControls(this.camera, this.renderer.domElement);
 
@@ -115,7 +122,18 @@ class App {
   private beautify() {
     const pmremGenerator = new PMREMGenerator(this.renderer);
     pmremGenerator.compileEquirectangularShader();
-    this.renderer.outputEncoding = sRGBEncoding;
+  }
+
+  private async loadEnvironment() {
+    const texture = await new RGBELoader().loadAsync(
+      isDev
+        ? "src/assets/studio_small_09_2k.hdr"
+        : "https://tomoya06.github.io/myroom/assets/studio_small_09_2k.hdr"
+    );
+    texture.mapping = THREE.EquirectangularReflectionMapping;
+    texture.minFilter = THREE.LinearFilter;
+    this.scene.background = texture;
+    this.scene.environment = texture;
   }
 
   private loop() {
@@ -130,7 +148,9 @@ class App {
   private async loadModels() {
     const loader = new GLTFLoader();
     this.roomGltf = await loader.loadAsync(
-      "https://tomoya06.github.io/myroom/assets/lowgameroom.glb"
+      isDev
+        ? "src/assets/lowgameroom.glb"
+        : "https://tomoya06.github.io/myroom/assets/lowgameroom.glb"
     );
 
     // // this helps you look at your model

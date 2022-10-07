@@ -18,7 +18,7 @@ const TextLoop: React.FC<Props> = (props) => {
 
   const updateText = async (nxtIdx: number) => {
     const len = texts.length;
-    console.log(nxtIdx);
+    // console.log(nxtIdx);
     setCurText(texts[nxtIdx]);
     setIn(true);
 
@@ -29,7 +29,7 @@ const TextLoop: React.FC<Props> = (props) => {
   };
 
   useEffect(() => {
-    console.log("useEffect");
+    // console.log("useEffect");
     curIdx.current = 0;
     updateText(curIdx.current);
 
