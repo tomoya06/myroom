@@ -1,10 +1,12 @@
+@import "./colors.scss";
+
 #SceneHint {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  background-color: #3e65ff;
-  color: #ffffff;
+
+  @extend .w3-win8-cobalt;
 
   &.in,
   &.out {
