@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "buildgh": "tsc && vite build --mode=github",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "deploy": "pnpm run build && gh-pages -d dist"
+    "ghpages": "pnpm run buildgh && gh-pages -d dist"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.186",
