@@ -15,7 +15,12 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "skipLibCheck": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "@pages/*": ["pages/*"]
+    }
   },
   "include": ["src", "pages"]
 }

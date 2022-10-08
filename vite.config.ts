@@ -10,6 +10,12 @@ export default defineConfig({
   server: {
     host: true,
   },
+  resolve: {
+    alias: {
+      "@": resolve(__dirname, "./src"),
+      "@pages": resolve(__dirname, "./pages"),
+    },
+  },
   build: {
     rollupOptions: {
       input: {

@@ -2,111 +2,126 @@ import IframeApp from "../components/AppVaries/AppIframe";
 import AppOutside from "../components/AppVaries/AppOutside";
 import AppSettings from "../components/AppVaries/AppSettings";
 import { AppApp, AppInfo, TaskCenterActionInfo } from "../interface";
+import iconApstore from "@pages/ComputerScreen/assets/app-store-ios.png";
+import iconTime from "@pages/ComputerScreen/assets/around-the-globe.png";
+import iconCalendar from "@pages/ComputerScreen/assets/calendar-1.png";
+import iconTrasnBlog from "@pages/ComputerScreen/assets/external-creative-writing-ui-ux-user-interface-smashingstocks-detailed-outline-smashing-stocks.png";
+import iconEngineer from "@pages/ComputerScreen/assets/external-engineer-female-profession-vitaliy-gorbachev-fill-vitaly-gorbachev.png";
+import iconGameFlight from "@pages/ComputerScreen/assets/external-flight-ui-ux-user-interface-smashingstocks-detailed-outline-smashing-stocks.png";
+import iconGameGoal from "@pages/ComputerScreen/assets/external-Goal-football-glyph-glyph-andi-nur-abdillah.png";
+import iconGameEasonbot from "@pages/ComputerScreen/assets/external-sing-birthday-party-tulpahn-basic-outline-tulpahn.png";
+import iconGithub from "@pages/ComputerScreen/assets/github-2.png";
+import iconLivetile from "@pages/ComputerScreen/assets/movie-theater.png";
+import iconNotWeder from "@pages/ComputerScreen/assets/partly-cloudy-day--v1.png";
+import iconThisRepo from "@pages/ComputerScreen/assets/registry-editor.png";
+import iconDouban from "@pages/ComputerScreen/assets/repository.png";
+import iconSettings from "@pages/ComputerScreen/assets/settings.png";
+import iconShutdown from "@pages/ComputerScreen/assets/shutdown.png";
+import iconWindows from "@pages/ComputerScreen/assets/windows-10.png";
+import iBattery from "@pages/ComputerScreen/assets/high-battery.png";
+import iMenu from "@pages/ComputerScreen/assets/menu.png";
+import iWifi from "@pages/ComputerScreen/assets/wifi.png";
 
 export const AdminAvatar =
   "https://avatars.githubusercontent.com/u/35499042?v=4";
 export const DesktopWallpaper =
   "https://s2.loli.net/2022/10/06/q9bTulcUsD2eKoz.jpg";
 
-export const MDesktopAvatarMenu =
-  "https://img.icons8.com/metro/26/FFFFFF/menu.png";
+export const MDesktopAvatarMenu = iMenu;
 
 export const TaskCenterActions: TaskCenterActionInfo[] = [
   {
     id: "Exit",
-    icon: "https://img.icons8.com/metro/100/FFFFFF/shutdown.png",
+    icon: iconShutdown,
   },
   {
     id: "Home",
-    icon: "https://img.icons8.com/ios-filled/100/FFFFFF/windows-10.png",
+    icon: iconWindows,
   },
   {
     id: "Settings",
-    icon: "https://img.icons8.com/metro/100/FFFFFF/settings.png",
+    icon: iconSettings,
   },
 ];
 
-export const TaskCenterDockerIcons = [
-  "https://img.icons8.com/metro/26/FFFFFF/wifi.png",
-  "https://img.icons8.com/metro/26/FFFFFF/high-battery.png",
-];
+export const TaskCenterDockerIcons = [iWifi, iBattery];
 
 export const aiGithub: AppInfo = {
   id: "GitHub",
-  icon: "https://img.icons8.com/material/100/FFFFFF/github-2.png",
+  icon: iconGithub,
   color: "w3-win8-steel",
 };
 
 export const aiTime: AppInfo = {
   id: "北京时间",
-  icon: "https://img.icons8.com/material/100/FFFFFF/around-the-globe.png",
+  icon: iconTime,
 };
 
 export const aiCalendar: AppInfo = {
   id: "日历",
-  icon: "https://img.icons8.com/metro/100/FFFFFF/calendar-1.png",
+  icon: iconCalendar,
 };
 export const aiLiveTest: AppInfo = {
   id: "LiveTile",
-  icon: "https://img.icons8.com/ios-filled/100/FFFFFF/movie-theater.png",
+  icon: iconLivetile,
 };
 
 export const aiAppStore: AppInfo = {
   id: "Ap'Store",
-  icon: "https://img.icons8.com/sf-ultralight-filled/100/FFFFFF/app-store-ios.png",
+  icon: iconApstore,
   color: "w3-win8-magenta",
 };
 export const aiNotWeder: AppInfo = {
   id: "NotWeder",
-  icon: "https://img.icons8.com/ios-filled/100/FFFFFF/partly-cloudy-day--v1.png",
+  icon: iconNotWeder,
   color: "w3-win8-cobalt",
 };
 
 export const aiXiaoXiaoLe: AppInfo = {
   id: "Game - GoGoal",
-  icon: "https://img.icons8.com/external-glyph-andi-nur-abdillah/100/FFFFFF/external-Goal-football-(glyph)-glyph-andi-nur-abdillah.png",
+  icon: iconGameGoal,
   color: "w3-win8-emerald",
 };
 
 export const aiEasonBot: AppInfo = {
   id: "EasonBot",
-  icon: "https://img.icons8.com/external-tulpahn-basic-outline-tulpahn/100/FFFFFF/external-sing-birthday-party-tulpahn-basic-outline-tulpahn.png",
+  icon: iconGameEasonbot,
   color: "w3-win8-orange",
 };
 
 export const aiTrashbin: AppInfo = {
   id: "TrashBlog",
-  icon: "https://img.icons8.com/external-smashingstocks-detailed-outline-smashing-stocks/100/FFFFFF/external-creative-writing-ui-ux-user-interface-smashingstocks-detailed-outline-smashing-stocks.png",
+  icon: iconTrasnBlog,
   color: "w3-win8-olive",
 };
 
 export const ai3jsGame: AppInfo = {
   id: "Game - FlyCruise",
-  icon: "https://img.icons8.com/external-smashingstocks-detailed-outline-smashing-stocks/100/FFFFFF/external-flight-ui-ux-user-interface-smashingstocks-detailed-outline-smashing-stocks.png",
+  icon: iconGameFlight,
   color: "w3-win8-emerald",
 };
 
 export const aiSettings: AppInfo = {
   id: "Settings",
-  icon: "https://img.icons8.com/metro/100/FFFFFF/settings.png",
+  icon: iconSettings,
   color: "w3-win8-steel",
 };
 
 export const aiThisRepo: AppInfo = {
   id: "System Insight",
-  icon: "https://img.icons8.com/ios/100/FFFFFF/registry-editor.png",
+  icon: iconThisRepo,
   color: "w3-win8-brown",
 };
 
 export const aiEngineerRepo: AppInfo = {
   id: "Develop Guidance",
-  icon: "https://img.icons8.com/external-vitaliy-gorbachev-fill-vitaly-gorbachev/100/FFFFFF/external-engineer-female-profession-vitaliy-gorbachev-fill-vitaly-gorbachev.png",
+  icon: iconEngineer,
   color: "w3-win8-brown",
 };
 
 export const aiDoubanEventRepo: AppInfo = {
   id: "RN豆瓣同城 REPO",
-  icon: "https://img.icons8.com/ios-filled/100/FFFFFF/repository.png",
+  icon: iconDouban,
   color: "w3-win8-emerald",
 };
 
