@@ -25,7 +25,7 @@
   }
   100% {
     transform: translateY(-100vh);
-    transform: translateY(calc(100vh - var(--vh-offset, 0px)));
+    transform: translateY(calc(-100vh + var(--vh-offset, 0px)));
 
     display: none;
   }
