@@ -19,7 +19,9 @@ const AppOutside: React.FC<Props> = (props) => {
 
   return (
     <AppContainer {...props}>
-      <div className={classNames("AppOutside", appInfo.color || "")}>
+      <div
+        className={classNames("AppOutside", "AppContent", appInfo.color || "")}
+      >
         <div className="AppOutsideTitle">
           This App Must be Opened in Sperated Tab
         </div>

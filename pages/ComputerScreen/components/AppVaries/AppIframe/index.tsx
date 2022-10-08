@@ -15,7 +15,7 @@ const IframeApp: React.FC<Props> = (props: Props) => {
 
   return (
     <AppContainer {...props} loaded={loaded}>
-      <div className="iframeApp">
+      <div className="iframeApp AppContent">
         <iframe src={props.url} frameBorder="0" onLoad={handleLoaded}></iframe>
       </div>
     </AppContainer>
