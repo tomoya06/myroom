@@ -1,9 +1,7 @@
 @font-face {
   font-family: "Segoe UI";
-  src: url("https://static2.sharepointonline.com/files/fabric/assets/fonts/segoeui-westeuropean/segoeui-light.woff2")
-      format("woff2"),
-    url("https://static2.sharepointonline.com/files/fabric/assets/fonts/segoeui-westeuropean/segoeui-light.woff")
-      format("woff");
+  src: url("@/assets/segoeui-light.woff2") format("woff2"),
+    url("@/assets/segoeui-light.woff") format("woff");
   font-weight: 100;
   font-style: normal;
 }

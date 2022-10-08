@@ -24,16 +24,16 @@ const Desktop: React.FC<Props> = () => {
               <TaskCenter />
             </div>
             <div className="MDesktopTiles">
-              {desktop.map((desktopGroup) => {
+              {desktop.map((desktopGroup, idx) => {
                 return (
-                  <>
+                  <React.Fragment key={`mDesktopGroup_${idx}`}>
                     {desktopGroup.tiles.map((desktopApp) => {
                       const { content } = desktopApp;
                       return React.cloneElement(content, {
                         key: content.props.appInfo.id,
                       });
                     })}
-                  </>
+                  </React.Fragment>
                 );
               })}
             </div>

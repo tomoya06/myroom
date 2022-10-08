@@ -9,11 +9,12 @@ import Switch from "./components/Switch";
 import Computer from "./components/Computer";
 import { InteractionManager } from "three.interactive";
 import StateMachine, { EnumStatus } from "./StateMachine";
-import { isDev, isPortrait, MessageName } from "./utils/window";
+import { isPortrait, MessageName } from "./utils/window";
 import Cabinets from "./components/Cabinets";
 import vhCheck from "vh-check";
 import ToastManager from "./utils/toast";
 import delay from "delay";
+import roomGltfFile from "@/assets/lowgameroom.glb?url";
 
 const defCamPos = new THREE.Vector3(4, 4, 4);
 const defCamLook = new THREE.Vector3(0, 0, 0);
@@ -188,11 +189,7 @@ class App {
 
   private async loadModels() {
     const loader = new GLTFLoader(this.loadingManager);
-    this.roomGltf = await loader.loadAsync(
-      isDev
-        ? "src/assets/lowgameroom.glb"
-        : "https://tomoya06.github.io/myroom/assets/lowgameroom.glb"
-    );
+    this.roomGltf = await loader.loadAsync(roomGltfFile);
 
     // // this helps you look at your model
     // debugger;
