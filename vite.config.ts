@@ -23,7 +23,7 @@ export default ({ mode }) => {
       rollupOptions: {
         input: {
           main: resolve(__dirname, "index.html"),
-          nested: resolve(__dirname, "pages/ComputerScreen/index.html"),
+          win9: resolve(__dirname, "pages/win9/index.html"),
         },
         plugins: [visualizer()],
       },

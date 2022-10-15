@@ -9,8 +9,8 @@ export const inIframe = () => {
 };
 
 export const MessageName = {
-  PowerON: "ComputerScreen_Start",
-  PowerOFF: "ComputerScreen_Exit",
+  PowerON: "win9_Start",
+  PowerOFF: "win9_Exit",
 };
 
 export const isDev =

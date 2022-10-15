@@ -56,7 +56,7 @@ const AppSettings: React.FC<AppContainerProps> = (props) => {
             Project MyRoom
           </a>
           . You can experience it{" "}
-          <a href="/myroom/pages/ComputerScreen/index.html" target="_blank">
+          <a href="/myroom/pages/win9/index.html" target="_blank">
             here indenpendently
           </a>
         </div>
