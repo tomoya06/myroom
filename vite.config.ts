@@ -5,7 +5,7 @@ import { visualizer } from "rollup-plugin-visualizer";
 
 // https://vitejs.dev/config/
 export default ({ mode }) => {
-  const base = mode === "github" ? "/myroom/" : "";
+  const base = "/myroom/";
 
   return defineConfig({
     plugins: [react()],
