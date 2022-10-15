@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { ai3jsGame, aiEasonBot, aiXiaoXiaoLe } from "../../../apps/installed";
+import {
+  ai3jsGame,
+  aiEasonBot,
+  aiNonstopSnake,
+  aiXiaoXiaoLe,
+} from "../../../apps/installed";
 import { AppInfo } from "../../../interface";
 import DesktopTile, {
   DesktopTileProps,
@@ -66,6 +71,12 @@ const AppStore: React.FC<TileBasicProps> = (props) => {
         title: <AppStoreShowcaseTitle appInfo={ai3jsGame} />,
         content: "指尖一点 遨游星空",
         bg: livesImages[2][0],
+      },
+      {
+        id: "wallpaper4",
+        title: <AppStoreShowcaseTitle appInfo={aiNonstopSnake} />,
+        content: "I never stop eating😎",
+        color: "w3-win8-violet",
       },
     ]);
   };

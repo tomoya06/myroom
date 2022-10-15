@@ -10,6 +10,7 @@ import iconEngineer from "@pages/win9/assets/external-engineer-female-profession
 import iconGameFlight from "@pages/win9/assets/external-flight-ui-ux-user-interface-smashingstocks-detailed-outline-smashing-stocks.png";
 import iconGameGoal from "@pages/win9/assets/external-Goal-football-glyph-glyph-andi-nur-abdillah.png";
 import iconGameEasonbot from "@pages/win9/assets/external-sing-birthday-party-tulpahn-basic-outline-tulpahn.png";
+import iconNonstopSnake from "@pages/win9/assets/icons8-snake-100.png";
 import iconGithub from "@pages/win9/assets/github-2.png";
 import iconLivetile from "@pages/win9/assets/movie-theater.png";
 import iconNotWeder from "@pages/win9/assets/partly-cloudy-day--v1.png";
@@ -21,6 +22,8 @@ import iconWindows from "@pages/win9/assets/windows-10.png";
 import iBattery from "@pages/win9/assets/high-battery.png";
 import iMenu from "@pages/win9/assets/menu.png";
 import iWifi from "@pages/win9/assets/wifi.png";
+import iWindowMin from "@pages/win9/assets/minus.png";
+import iWindowClose from "@pages/win9/assets/delete-sign.png";
 
 export const AdminAvatar =
   "https://avatars.githubusercontent.com/u/35499042?v=4";
@@ -28,6 +31,7 @@ export const DesktopWallpaper =
   "https://s2.loli.net/2022/10/06/q9bTulcUsD2eKoz.jpg";
 
 export const MDesktopAvatarMenu = iMenu;
+export const AppContainerIcons = [iWindowMin, iWindowClose];
 
 export const TaskCenterActions: TaskCenterActionInfo[] = [
   {
@@ -89,6 +93,12 @@ export const aiEasonBot: AppInfo = {
   color: "w3-win8-orange",
 };
 
+export const aiNonstopSnake: AppInfo = {
+  id: "NonstopSnake",
+  icon: iconNonstopSnake,
+  color: "w3-win8-violet",
+};
+
 export const aiTrashbin: AppInfo = {
   id: "TrashBlog",
   icon: iconTrasnBlog,
@@ -114,13 +124,13 @@ export const aiThisRepo: AppInfo = {
 };
 
 export const aiEngineerRepo: AppInfo = {
-  id: "Develop Guidance",
+  id: "GH-Develop Guidance",
   icon: iconEngineer,
   color: "w3-win8-brown",
 };
 
 export const aiDoubanEventRepo: AppInfo = {
-  id: "RN豆瓣同城 REPO",
+  id: "GH-RN Douban Event",
   icon: iconDouban,
   color: "w3-win8-emerald",
 };
@@ -188,6 +198,17 @@ export const installedApps: AppApp[] = (() => {
     ),
   };
   output.push(appEasonBot);
+
+  const appNonstopSnake: AppApp = {
+    ...aiNonstopSnake,
+    content: (
+      <IframeApp
+        url="https://tomoya06.github.io/js13k-snake/"
+        appInfo={aiNonstopSnake}
+      />
+    ),
+  };
+  output.push(appNonstopSnake);
 
   const appTrashbin: AppApp = {
     ...aiTrashbin,

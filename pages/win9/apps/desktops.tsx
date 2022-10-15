@@ -12,6 +12,7 @@ import {
   aiThisRepo,
   aiEngineerRepo,
   aiDoubanEventRepo,
+  aiNonstopSnake,
 } from "./installed";
 import DesktopTile from "../components/DesktopTile";
 import AppStore from "../components/DesktopTileVaries/AppStore";
@@ -86,6 +87,11 @@ export const desktopApps: {
       },
       {
         content: <DesktopTile appInfo={ai3jsGame} size="middle" pos={[2, 1]} />,
+      },
+      {
+        content: (
+          <DesktopTile appInfo={aiNonstopSnake} size="middle" pos={[2, 2]} />
+        ),
       },
     ],
   },
