@@ -90,27 +90,61 @@ class App {
       });
     }
 
-    this.loadModels().then(() => {
-      this.updateForPortrait();
+    this.loadModels()
+      .then(() => {
+        this.updateForPortrait();
 
-      requestAnimationFrame(this.loop.bind(this));
+        requestAnimationFrame(this.loop.bind(this));
 
-      this.chair = new Chair(this.roomGltf);
-      this.switch = new Switch(this.roomGltf);
-      this.computer = new Computer(this.roomGltf);
-      this.cabinets = new Cabinets(this.roomGltf);
+        this.chair = new Chair(this.roomGltf);
+        this.switch = new Switch(this.roomGltf);
+        this.computer = new Computer(this.roomGltf);
+        this.cabinets = new Cabinets(this.roomGltf);
 
-      this.stateMachine = new StateMachine(this.handleStateChange.bind(this));
-      this.interaction = new InteractionManager(
-        this.renderer,
-        this.camera,
-        this.renderer.domElement,
-        true
-      );
+        this.stateMachine = new StateMachine(this.handleStateChange.bind(this));
+        this.interaction = new InteractionManager(
+          this.renderer,
+          this.camera,
+          this.renderer.domElement,
+          true
+        );
 
-      this.bindActions();
-      this.bindInteraction();
-    });
+        this.modelEntry();
+
+        return delay(1500);
+      })
+      .then(() => {
+        this.bindActions();
+        this.bindInteraction();
+      });
+  }
+
+  private async modelEntry() {
+    const targetScale = this.genModelScale();
+    new TWEEN.Tween({
+      scale: 0,
+      x: -10,
+      y: -10,
+      z: -10,
+      rotateY: THREE.MathUtils.degToRad(360 * 3),
+    })
+      .to(
+        {
+          scale: targetScale,
+          x: 0,
+          y: 0,
+          z: 0,
+          rotateY: 0,
+        },
+        1500
+      )
+      .onUpdate(({ scale, x, y, z, rotateY }) => {
+        this.roomGltf.scene.rotation.set(0, rotateY, 0);
+        this.roomGltf.scene.scale.set(scale, scale, scale);
+        this.roomGltf.scene.position.set(x, y, z);
+      })
+      .easing(TWEEN.Easing.Quadratic.Out)
+      .start();
   }
 
   private bindLoadManager() {
@@ -141,12 +175,16 @@ class App {
     this.updateForPortrait();
   }
 
-  private updateForPortrait() {
+  private genModelScale() {
     if (!isPortrait()) {
-      this.roomGltf.scene.scale.set(1, 1, 1);
-      return;
+      return 1;
     }
-    this.roomGltf.scene.scale.set(0.6, 0.6, 0.6);
+    return 0.6;
+  }
+
+  private updateForPortrait() {
+    const s = this.genModelScale();
+    this.roomGltf.scene.scale.set(s, s, s);
   }
 
   private loadLights() {
@@ -195,6 +233,7 @@ class App {
     // debugger;
     console.log(this.roomGltf);
 
+    this.roomGltf.scene.scale.set(0, 0, 0);
     this.scene.add(this.roomGltf.scene);
   }
 
